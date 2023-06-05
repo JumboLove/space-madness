@@ -1,0 +1,9 @@
+# macOS-specific files
+.DS_Store
+
+# Local Netlify folder
+.netlify
+
+# Turbo cache
+.turbo
+node_modules
