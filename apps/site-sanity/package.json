@@ -16,7 +16,9 @@
     "sanity"
   ],
   "dependencies": {
+    "@sanity/document-internationalization": "^2.0.0",
     "@sanity/vision": "^3.11.5",
+    "content-models": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",

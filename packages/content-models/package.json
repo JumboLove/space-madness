@@ -1,0 +1,13 @@
+{
+  "name": "content-models",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "sanity": "^3.11.5",
+    "typescript": "latest",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@sanity/types": "^3.11.5"
+  }
+}
