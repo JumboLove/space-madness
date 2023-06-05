@@ -1,10 +1,14 @@
 import { defineField, defineType } from "sanity";
 import { z } from "zod";
+import * as S from "sanity-zod-types";
 
 export const postSanityDefinition = defineType({
   name: "post",
   title: "Post",
   type: "document",
+  initialValue: {
+    __i18n_lang: "en",
+  },
   fields: [
     defineField({
       name: "title",
@@ -34,11 +38,6 @@ export const postSanityDefinition = defineType({
       },
     }),
     defineField({
-      name: "publishedAt",
-      title: "Published at",
-      type: "datetime",
-    }),
-    defineField({
       name: "body",
       title: "Body",
       type: "blockContent",
@@ -46,16 +45,12 @@ export const postSanityDefinition = defineType({
   ],
 });
 
-export const Post = z.object({
-  title: z.string(),
-  slug: z.object({
-    _type: z.literal("slug"), // TODO Sanity type
-    current: z.string(),
-  }),
-  description: z.string(),
-  mainImage: z.any(), // TODO define image structure
-  publishedAt: z.string().datetime(),
-  body: z.array(z.any()), // TODO
+export const Post = S.Document.extend({
+  title: S.String,
+  slug: S.Slug,
+  description: S.String,
+  mainImage: S.Image,
+  body: z.union([z.any(), z.null()]), // TODO manage this
 });
 
-export type PostType = z.infer<typeof Post>;
+export type Post = z.infer<typeof Post>;
