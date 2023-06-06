@@ -10,10 +10,10 @@ const data = await getAllPostsList();
 		data &&
 			data.map((post) => {
 				return (
-					<div>
+					<a href={`/blog/${post.slug.current}`}>
 						<h2>{post.title}</h2>
 						<p>{post.description}</p>
-					</div>
+					</a>
 				);
 			})
 	}

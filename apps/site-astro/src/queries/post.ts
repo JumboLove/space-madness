@@ -27,3 +27,31 @@ export async function getAllPostsList() {
     throw new Error(`Error parsing getAllPostsList, \n${error.message}`);
   }
 }
+
+export async function getAllPostsFull() {
+  const query = groq`*[_type == "post" && language == $lang] | order(_createdAt asc) {
+    title,
+    slug,
+    description,
+    body
+  }`;
+
+  const PostsResult = z.array(
+    Post.pick({
+      title: true,
+      slug: true,
+      description: true,
+      body: true,
+    })
+  );
+
+  const data = await useSanityClient().fetch(query, {
+    lang: "en",
+  });
+
+  try {
+    return PostsResult.parse(data);
+  } catch (error: any) {
+    throw new Error(`Error parsing getAllPostsFull, \n${error.message}`);
+  }
+}
