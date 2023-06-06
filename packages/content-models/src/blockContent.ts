@@ -1,5 +1,7 @@
 import { defineType, defineArrayMember } from "sanity";
-import type { BlockSchemaType } from "@sanity/types";
+import { calloutSanityDefinition } from "./blockContent/callout";
+import { imageSanityDefinition } from "./blockContent/image";
+import { figureSanityDefinition } from "./blockContent/figure";
 /**
  * This is the schema definition for the rich text fields used for
  * for all document 'body' content. When you import it in schemas.js it can be
@@ -79,100 +81,9 @@ export const blockContentSanityDefinition = defineType({
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
-    defineArrayMember({
-      type: "image",
-      options: { hotspot: true },
-      fields: [
-        {
-          name: "alt",
-          type: "string",
-          title: "Alternative text",
-          validation: (Rule) => Rule.required().error("Alt text is required"),
-        },
-      ],
-    }),
-    defineArrayMember({
-      title: "Figure",
-      name: "figure",
-      type: "object",
-      fields: [
-        {
-          title: "Image",
-          name: "image",
-          type: "image",
-          options: { hotspot: true },
-          fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alternative text",
-              validation: (Rule) =>
-                Rule.required().error("Alt text is required"),
-            },
-          ],
-        },
-        {
-          title: "Caption",
-          name: "caption",
-          type: "blockContent",
-        },
-      ],
-      preview: {
-        select: {
-          title: "caption",
-          media: "image",
-        },
-      },
-    }),
-    defineArrayMember({
-      title: "Callout",
-      name: "callout",
-      type: "object",
-      fields: [
-        {
-          name: "type",
-          type: "string",
-          title: "Type",
-          initialValue: "success",
-          options: {
-            list: [
-              { title: "Sucess", value: "success" },
-              { title: "Info", value: "info" },
-              { title: "Warning", value: "warning" },
-              { title: "Danger", value: "danger" },
-            ],
-            layout: "radio",
-          },
-        },
-        {
-          name: "text",
-          title: "Text",
-          type: "text", // TODO do I want text here or blockContent, something else?
-          validation: (Rule) => Rule.required().error("Text body is required"),
-        },
-      ],
-      preview: {
-        select: {
-          type: "type",
-          text: "text",
-        },
-        prepare(selection) {
-          const { type, text } = selection;
-
-          function capitalizeString(string: string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-          }
-
-          const truncatedSubtitle =
-            text.length > 80 ? `${text.substr(0, 77)}...` : text;
-
-          return {
-            title: `${capitalizeString(type)} callout`,
-            subtitle: truncatedSubtitle,
-          };
-        },
-      },
-    }),
+    imageSanityDefinition,
+    figureSanityDefinition,
+    calloutSanityDefinition,
   ],
 });
 
