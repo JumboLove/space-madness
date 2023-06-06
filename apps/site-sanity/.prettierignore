@@ -1,0 +1,5 @@
+#ignore artifacts
+.sanity
+node_modules
+dist/
+.turbo

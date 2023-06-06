@@ -7,7 +7,6 @@ import {documentInternationalization} from '@sanity/document-internationalizatio
 export default defineConfig({
   name: 'default',
   title: 'space-madness',
-
   projectId: '5k9qefjb',
   dataset: 'production',
 

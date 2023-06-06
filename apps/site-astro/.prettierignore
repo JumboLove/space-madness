@@ -1,0 +1,6 @@
+#ignore artifacts
+dist/
+.output/
+coverage
+node_modules
+.turbo

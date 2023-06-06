@@ -11,6 +11,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "dependencies": {
-    "astro": "^2.5.6"
+    "astro": "^2.5.6",
+    "astro-sanity": "^1.1.7"
   }
 }
