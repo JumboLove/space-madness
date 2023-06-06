@@ -1,5 +1,7 @@
 import { defineArrayMember } from "sanity";
 import type { PortableTextObject } from "@sanity/types";
+import type { BlockContent } from "../blockContent";
+import type { Image } from "sanity-zod-types";
 
 export const figureSanityDefinition = defineArrayMember({
   title: "Figure",
@@ -34,12 +36,8 @@ export const figureSanityDefinition = defineArrayMember({
   },
 });
 
-// TODO caption is a blockText, need to figure out
 export interface FigureBlock extends PortableTextObject {
-  _type: "image";
-  alt: string;
-  asset: {
-    _ref: string;
-    _type: "reference";
-  };
+  _type: "figure";
+  image: Image & { alt: string };
+  caption: BlockContent;
 }

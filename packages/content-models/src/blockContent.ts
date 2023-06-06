@@ -1,7 +1,9 @@
 import { defineType, defineArrayMember } from "sanity";
-import { calloutSanityDefinition } from "./blockContent/callout";
-import { imageSanityDefinition } from "./blockContent/image";
-import { figureSanityDefinition } from "./blockContent/figure";
+import { CalloutBlock, calloutSanityDefinition } from "./blockContent/callout";
+import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
+import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
+import type { PortableTextBlock } from "sanity";
+
 /**
  * This is the schema definition for the rich text fields used for
  * for all document 'body' content. When you import it in schemas.js it can be
@@ -89,3 +91,10 @@ export const blockContentSanityDefinition = defineType({
 
 // @TODO Zod type, probably a lot of work here
 // Zodify block content?
+// export const BlockContent = z.array();
+
+export type BlockContent =
+  | PortableTextBlock
+  | ImageBlock
+  | FigureBlock
+  | CalloutBlock;

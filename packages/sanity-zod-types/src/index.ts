@@ -23,6 +23,9 @@ export const Reference = z.object({
   _type: z.literal("reference"),
   _ref: z.string(),
 });
+
+export type Reference = z.infer<typeof Reference>;
+
 export const Document = z.object({
   _id: z.string(),
   _rev: z.string(),
@@ -31,7 +34,11 @@ export const Document = z.object({
   _updatedAt: Datetime,
 });
 
+export type Document = z.infer<typeof Document>;
+
 export const Slug = z.object({ _type: z.literal("slug"), current: z.string() });
+export type Slug = z.infer<typeof Slug>;
+
 export const Geopoint = z.object({
   _type: z.literal("geopoint"),
   alt: z.number(),
@@ -39,7 +46,11 @@ export const Geopoint = z.object({
   lng: z.number(),
 });
 
+export type GeoPoint = z.infer<typeof Geopoint>;
+
 export const Image = z.object({ _type: z.literal("image"), asset: Reference });
+export type Image = z.infer<typeof Image>;
+
 const ImageAssetMetadataPalette = z.object({
   _type: z.literal("sanity.imagePaletteSwatch"),
   background: z.string(),
@@ -47,6 +58,11 @@ const ImageAssetMetadataPalette = z.object({
   population: z.number(),
   title: z.string(),
 });
+
+export type ImageAssetMetadataPalette = z.infer<
+  typeof ImageAssetMetadataPalette
+>;
+
 export const ImageAsset = Document.extend({
   _type: z.literal("sanity.imageAsset"),
   assetId: z.string(),
@@ -83,7 +99,11 @@ export const ImageAsset = Document.extend({
   }),
 });
 
+export type ImageAsset = z.infer<typeof ImageAsset>;
+
 export const File = z.object({ _type: z.literal("file"), asset: Reference });
+export type File = z.infer<typeof File>;
+
 export const FileAsset = Document.extend({
   _type: z.literal("sanity.fileAsset"),
   assetId: z.string(),
@@ -96,3 +116,4 @@ export const FileAsset = Document.extend({
   uploadId: z.string(),
   url: z.string().url(),
 });
+export type FileAsset = z.infer<typeof FileAsset>;

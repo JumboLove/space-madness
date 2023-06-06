@@ -3,9 +3,10 @@ import type { Props as ComponentProps } from "astro-portabletext/types";
 import { usePortableText } from "astro-portabletext/utils";
 import Callout, { type Props as CalloutProps } from "./custom/Callout.astro";
 import Image, { type Props as ImageProps } from "./custom/Image.astro";
+import Figure, { type Props as FigureProps } from "./custom/Figure.astro";
 
 // Use a Union here to add more components
-export type Props = CalloutProps | ImageProps;
+export type Props = CalloutProps | ImageProps | FigureProps;
 
 const props = Astro.props;
 const typeIs = (type: string) => type === props.node._type;
@@ -16,6 +17,8 @@ const Cmp = typeIs("callout")
   ? Callout
   : typeIs("image")
   ? Image
+  : typeIs("figure")
+  ? Figure
   : getDefaultComponent();
 ---
 
