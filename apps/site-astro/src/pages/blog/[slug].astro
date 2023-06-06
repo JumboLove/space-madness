@@ -1,8 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { getAllPostsFull } from "@/queries/post";
+import PortableText from "@/components/PortableText/PortableText.astro";
 import type { InferGetStaticPropsType } from "astro";
-import { Debug } from "astro/components";
 
 export async function getStaticPaths() {
   const data = await getAllPostsFull();
@@ -25,6 +25,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
 ---
 
-<Layout>
-  <Debug {post} />
+<Layout title={post.title}>
+  <h1>{post.title}</h1>
+  {post.body && <PortableText value={post.body} />}
 </Layout>

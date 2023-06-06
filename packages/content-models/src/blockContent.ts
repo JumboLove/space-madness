@@ -1,5 +1,5 @@
 import { defineType, defineArrayMember } from "sanity";
-
+import type { BlockSchemaType } from "@sanity/types";
 /**
  * This is the schema definition for the rich text fields used for
  * for all document 'body' content. When you import it in schemas.js it can be
@@ -128,7 +128,6 @@ export const blockContentSanityDefinition = defineType({
       title: "Callout",
       name: "callout",
       type: "object",
-
       fields: [
         {
           name: "type",
@@ -178,3 +177,4 @@ export const blockContentSanityDefinition = defineType({
 });
 
 // @TODO Zod type, probably a lot of work here
+// Zodify block content?

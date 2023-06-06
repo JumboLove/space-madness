@@ -1,0 +1,25 @@
+---
+import type { Props as $ } from "astro-portabletext/types";
+import { Debug } from "astro/components";
+export type Props = $<CalloutNode>;
+
+type CalloutNode = {
+  text: string;
+  key: string;
+  type: string;
+  _type: "callout";
+};
+
+const props = Astro.props;
+const { isInline, node } = props;
+
+// TODO copy details from PLL, tailwind, cva, cn, etc
+---
+
+<aside>
+  <h2>{node.type}</h2>
+  <p>{node.text}</p>
+  <Debug {props} />
+</aside>
+
+<style></style>

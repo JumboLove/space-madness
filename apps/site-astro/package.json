@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "astro": "^2.5.6",
+    "astro-portabletext": "^0.9.1",
     "astro-sanity": "^1.1.7"
   }
 }
