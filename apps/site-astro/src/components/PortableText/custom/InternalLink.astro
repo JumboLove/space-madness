@@ -1,0 +1,22 @@
+---
+import type { Mark, Props as $ } from "astro-portabletext/types";
+import type { InternalLinkAnnotation } from "content-models";
+import { getUrlForSanityType } from "@/features/url";
+
+export type Props = $<Mark<InternalLinkAnnotation>>;
+
+const {
+  node,
+  node: { markDef },
+} = Astro.props;
+
+const url = new URL(
+  getUrlForSanityType(
+    markDef.internalLink._type,
+    markDef.internalLink.slug.current
+  ),
+  Astro.url
+);
+---
+
+<a href={url} title={markDef.internalLink.title}><slot /></a>

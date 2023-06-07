@@ -1,8 +1,9 @@
-import { defineType, defineArrayMember } from "sanity";
+import { defineType, defineArrayMember, PortableTextObject } from "sanity";
 import { CalloutBlock, calloutSanityDefinition } from "./blockContent/callout";
 import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
 import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
 import type { PortableTextBlock } from "sanity";
+import { Reference, Slug } from "sanity-zod-types";
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -98,3 +99,16 @@ export type BlockContent =
   | ImageBlock
   | FigureBlock
   | CalloutBlock;
+
+// TODO should I keep this here or move it like with the blocks?
+export type Annotations = Array<InternalLinkAnnotation>;
+
+export type InternalLinkAnnotation = {
+  _type: "internalLink";
+  reference: Reference;
+  internalLink: {
+    slug: Slug;
+    title: string;
+    _type: "post";
+  };
+};

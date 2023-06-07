@@ -1,6 +1,7 @@
 import { groq, useSanityClient } from "astro-sanity";
 import { Post } from "content-models";
 import { z } from "zod";
+import { blockContentQuery } from "./partials/blockContent";
 
 export async function getAllPostsList() {
   const query = groq`*[_type == "post" && language == $lang] | order(_createdAt asc) {
@@ -33,7 +34,7 @@ export async function getAllPostsFull() {
     title,
     slug,
     description,
-    body
+    ${blockContentQuery}
   }`;
 
   const PostsResult = z.array(

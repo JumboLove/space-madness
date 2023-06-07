@@ -5,7 +5,6 @@ import Callout, { type Props as CalloutProps } from "./custom/Callout.astro";
 import Image, { type Props as ImageProps } from "./custom/Image.astro";
 import Figure, { type Props as FigureProps } from "./custom/Figure.astro";
 
-// Use a Union here to add more components
 export type Props = CalloutProps | ImageProps | FigureProps;
 
 const props = Astro.props;
