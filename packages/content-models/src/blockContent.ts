@@ -2,8 +2,13 @@ import { defineType, defineArrayMember, PortableTextObject } from "sanity";
 import { CalloutBlock, calloutSanityDefinition } from "./blockContent/callout";
 import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
 import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
+import {
+  InternalLinkAnnotation,
+  internalLinkSanityDefinition,
+} from "./blockContent/internalLink";
 import type { PortableTextBlock } from "sanity";
-import { Reference, Slug } from "sanity-zod-types";
+import ExternalLinkRenderer from "./components/ExternalLinkRenderer";
+import { LaunchIcon } from "@sanity/icons";
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -61,23 +66,12 @@ export const blockContentSanityDefinition = defineType({
                 type: "url",
               },
             ],
+            icon: LaunchIcon,
+            components: {
+              annotation: ExternalLinkRenderer,
+            },
           },
-          // PopupContentType type should be kept in sync with this config
-          {
-            name: "internalLink",
-            type: "object",
-            title: "Internal link",
-            fields: [
-              {
-                name: "reference",
-                type: "reference",
-                title: "Reference",
-                to: [
-                  { type: "post" }, // TODO can I set this up to automatically register types?
-                ],
-              },
-            ],
-          },
+          internalLinkSanityDefinition,
         ],
       },
     }),
@@ -100,15 +94,4 @@ export type BlockContent =
   | FigureBlock
   | CalloutBlock;
 
-// TODO should I keep this here or move it like with the blocks?
 export type Annotations = Array<InternalLinkAnnotation>;
-
-export type InternalLinkAnnotation = {
-  _type: "internalLink";
-  reference: Reference;
-  internalLink: {
-    slug: Slug;
-    title: string;
-    _type: "post";
-  };
-};
