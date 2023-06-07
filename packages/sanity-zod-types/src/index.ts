@@ -1,5 +1,3 @@
-// import { SanityDocument } from "@sanity/types";
-
 /**
  * Used "Zodity" as a starting point
  * @see https://github.com/OllieJT/zodity

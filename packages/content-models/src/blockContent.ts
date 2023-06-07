@@ -1,14 +1,14 @@
-import { defineType, defineArrayMember, PortableTextObject } from "sanity";
+import { LaunchIcon } from "@sanity/icons";
+import type { PortableTextBlock } from "sanity";
+import { defineArrayMember, defineType } from "sanity";
 import { CalloutBlock, calloutSanityDefinition } from "./blockContent/callout";
-import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
 import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
+import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
 import {
   InternalLinkAnnotation,
   internalLinkSanityDefinition,
 } from "./blockContent/internalLink";
-import type { PortableTextBlock } from "sanity";
 import ExternalLinkRenderer from "./components/ExternalLinkRenderer";
-import { LaunchIcon } from "@sanity/icons";
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -85,8 +85,8 @@ export const blockContentSanityDefinition = defineType({
 });
 
 // @TODO Zod type, probably a lot of work here
-// Zodify block content?
-// export const BlockContent = z.array();
+// Zod doesn't handle recursive types very well, so
+// we may need to accept this limitation
 
 export type BlockContent =
   | PortableTextBlock

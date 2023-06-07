@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { z } from "zod";
 import * as S from "sanity-zod-types";
+import { BlockContent } from "./blockContent";
 
 export const postSanityDefinition = defineType({
   name: "post",
@@ -58,7 +59,7 @@ export const Post = S.Document.extend({
   description: S.String,
   mainImage: S.Image.optional(),
   language: S.String,
-  body: z.union([z.any(), z.null()]), // TODO manage this
+  body: z.union([z.any(), z.null()]), // Zod will not validate Portable Text
 });
 
 export type Post = z.infer<typeof Post>;
