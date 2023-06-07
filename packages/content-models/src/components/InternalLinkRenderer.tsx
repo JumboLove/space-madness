@@ -3,9 +3,6 @@ import { LinkIcon } from "@sanity/icons";
 
 interface InternalLinkRendererProps {
   renderDefault: (props: any) => ReactNode;
-  value: {
-    href: string;
-  };
 }
 
 const ExternalLinkRenderer: React.FC<InternalLinkRendererProps> = (props) => (

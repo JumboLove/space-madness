@@ -1,6 +1,7 @@
 ---
 import type { Props as $ } from "astro-portabletext/types";
 import type { CalloutBlock } from "content-models";
+import PortableText from "../PortableText.astro";
 export type Props = $<CalloutBlock>;
 
 const { node } = Astro.props;
@@ -10,7 +11,7 @@ const { node } = Astro.props;
 
 <aside>
   <h2>{node.type}</h2>
-  <p>{node.text}</p>
+  <PortableText value={node.body} />
 </aside>
 
 <style></style>

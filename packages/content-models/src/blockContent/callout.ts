@@ -1,5 +1,6 @@
 import { defineArrayMember } from "sanity";
 import type { PortableTextObject } from "@sanity/types";
+import type { BlockContent } from "../blockContent";
 
 export const calloutSanityDefinition = defineArrayMember({
   title: "Callout",
@@ -22,30 +23,37 @@ export const calloutSanityDefinition = defineArrayMember({
       },
     },
     {
-      name: "text",
-      title: "Text",
-      type: "text", // TODO do I want text here or blockContent, something else?
-      validation: (Rule) => Rule.required().error("Text body is required"),
+      name: "body",
+      title: "body",
+      type: "blockContent",
+      validation: (Rule) => Rule.required().error("Body is required"),
     },
   ],
   preview: {
     select: {
       type: "type",
-      text: "text",
+      body: "body",
     },
     prepare(selection) {
-      const { type, text } = selection;
+      const { type, body } = selection;
 
       function capitalizeString(string: string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
 
-      const truncatedSubtitle =
-        text.length > 80 ? `${text.substr(0, 77)}...` : text;
+      const block = (body || []).find(
+        (block: PortableTextObject) => block._type === "block"
+      );
+      const subtitle = block
+        ? block.children
+            .filter((child: PortableTextObject) => child._type === "span")
+            .map((span: PortableTextObject) => span.text)
+            .join("")
+        : "No callout content";
 
       return {
         title: `${capitalizeString(type)} callout`,
-        subtitle: truncatedSubtitle,
+        subtitle: subtitle,
       };
     },
   },
@@ -54,5 +62,5 @@ export const calloutSanityDefinition = defineArrayMember({
 export interface CalloutBlock extends PortableTextObject {
   _type: "callout";
   type: "success" | "info" | "warning" | "danger";
-  text: string;
+  body: BlockContent;
 }
