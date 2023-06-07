@@ -1,7 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { z } from "zod";
 import * as S from "sanity-zod-types";
-import { BlockContent } from "./blockContent";
 
 export const postSanityDefinition = defineType({
   name: "post",

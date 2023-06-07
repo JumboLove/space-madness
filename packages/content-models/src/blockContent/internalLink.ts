@@ -1,6 +1,7 @@
 import { Reference, Slug } from "sanity-zod-types";
 import { LinkIcon } from "@sanity/icons";
 import InternalLinkRender from "../components/InternalLinkRenderer";
+import { type Rule } from "sanity";
 
 export const internalLinkSanityDefinition = {
   name: "internalLink",
@@ -18,6 +19,7 @@ export const internalLinkSanityDefinition = {
       to: [
         { type: "post" }, // TODO can I set this up to automatically register types?
       ],
+      validation: (Rule: Rule) => Rule.required().error("Alt text is required"),
     },
   ],
 };
