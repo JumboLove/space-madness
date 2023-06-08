@@ -10,7 +10,7 @@ export type Props = $<CodeBlock>;
 const { node } = Astro.props;
 
 const THEME = "github-dark";
-const preClasses = ["px-7 py-6", "rounded-lg"];
+const preClasses = ["px-7 py-6", "rounded-lg", "overflow-x-auto"];
 
 const highlighter = await getHighlighter({
   theme: THEME,
