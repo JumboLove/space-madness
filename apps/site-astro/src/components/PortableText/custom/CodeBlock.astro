@@ -1,0 +1,15 @@
+---
+import type { Props as $ } from "astro-portabletext/types";
+import { Debug } from "astro/components";
+import type { CodeBlock } from "content-models";
+import { Code } from "@/components/content/Code";
+export type Props = $<CodeBlock>;
+const { node } = Astro.props;
+---
+
+<Code
+  language={node.language}
+  code={node.code}
+  highlightedLines={node.highlightedLines}
+  client:idle
+/>
