@@ -2,29 +2,32 @@
 // TODO clipboard copy button
 import type { Props as $ } from "astro-portabletext/types";
 import type { CodeBlock } from "content-models";
-import Refractor from "react-refractor";
-import js from "refractor/lang/javascript";
-import typescript from "refractor/lang/typescript";
-import markdown from "refractor/lang/markdown.js";
-import css from "refractor/lang/css";
 
 export type Props = $<CodeBlock>;
 const { node } = Astro.props;
 
-// TODO test md - should include md, markup, markdown
-Refractor.registerLanguage(js);
-Refractor.registerLanguage(typescript);
-Refractor.registerLanguage(markdown);
-Refractor.registerLanguage(css);
+import { getHighlighter } from "shiki";
+
+const THEME = "github-dark";
+
+async function highlighter(code: string, lang: string) {
+  const shikiHighlighter = await getHighlighter({
+    theme: THEME,
+  });
+  const html = shikiHighlighter.codeToHtml(code, {
+    lang,
+  });
+  return html;
+}
+
+const codeText = await highlighter(node.code, node.language);
 ---
 
 <section class="not-prose">
   <header class="flex items-center">
     {node.filename && <span class="text-muted">{node.filename}</span>}
   </header>
-  <Refractor
-    language={node.language}
-    value={node.code}
-    markers={node.highlightedLines}
-  />
+  <div>
+    <Fragment set:html={codeText} />
+  </div>
 </section>
