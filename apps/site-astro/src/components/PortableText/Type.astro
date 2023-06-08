@@ -4,8 +4,11 @@ import { usePortableText } from "astro-portabletext/utils";
 import Callout, { type Props as CalloutProps } from "./custom/Callout.astro";
 import Image, { type Props as ImageProps } from "./custom/Image.astro";
 import Figure, { type Props as FigureProps } from "./custom/Figure.astro";
+import CodeBlock, {
+  type Props as CodeBlockProps,
+} from "./custom/CodeBlock.astro";
 
-export type Props = CalloutProps | ImageProps | FigureProps;
+export type Props = CalloutProps | ImageProps | FigureProps | CodeBlockProps;
 
 const props = Astro.props;
 const typeIs = (type: string) => type === props.node._type;
@@ -18,6 +21,8 @@ const Cmp = typeIs("callout")
   ? Image
   : typeIs("figure")
   ? Figure
+  : typeIs("codeBlock")
+  ? CodeBlock
   : getDefaultComponent();
 ---
 

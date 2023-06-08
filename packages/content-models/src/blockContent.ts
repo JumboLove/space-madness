@@ -1,9 +1,11 @@
 import { LaunchIcon } from "@sanity/icons";
 import type { PortableTextBlock } from "sanity";
-import { defineArrayMember, defineType } from "sanity";
+import { defineArrayMember, defineType, defineField } from "sanity";
 import { CalloutBlock, calloutSanityDefinition } from "./blockContent/callout";
 import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
 import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
+import { CodeBlock, codeBlockSanityDefinition } from "./blockContent/codeBlock";
+
 import {
   InternalLinkAnnotation,
   internalLinkSanityDefinition,
@@ -81,6 +83,7 @@ export const blockContentSanityDefinition = defineType({
     imageSanityDefinition,
     figureSanityDefinition,
     calloutSanityDefinition,
+    codeBlockSanityDefinition,
   ],
 });
 
@@ -92,6 +95,7 @@ export type BlockContent =
   | PortableTextBlock
   | ImageBlock
   | FigureBlock
-  | CalloutBlock;
+  | CalloutBlock
+  | CodeBlock;
 
 export type Annotations = Array<InternalLinkAnnotation>;
