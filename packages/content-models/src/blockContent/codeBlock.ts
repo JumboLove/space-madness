@@ -6,14 +6,24 @@ export const codeBlockSanityDefinition = defineArrayMember({
   name: "codeBlock",
   title: "Code Block",
   options: {
+    language: "javascript",
     withFilename: true,
+    languageAlternatives: [
+      { title: "Javascript", value: "javascript" },
+      { title: "Typescript", value: "typescript" },
+      { title: "HTML", value: "html" },
+      { title: "CSS", value: "css" },
+    ],
+  },
+  initialValue: {
+    language: "javascript",
   },
 });
 
 export interface CodeBlock extends PortableTextObject {
   _type: "codeBlock";
   code: string;
-  filename: string;
-  language: string; // TODO should this be a union?
-  highlightedLines: number[];
+  filename?: string;
+  language: "javascript" | "typescript" | "html" | "css";
+  highlightedLines?: number[];
 }
