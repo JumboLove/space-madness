@@ -1,5 +1,5 @@
-import { LaunchIcon } from "@sanity/icons";
-import type { PortableTextBlock } from "sanity";
+import { LaunchIcon, CodeIcon } from "@sanity/icons";
+import type { PortableTextBlock, BlockDecoratorDefinition } from "sanity";
 import { defineArrayMember, defineType, defineField } from "sanity";
 import { CalloutBlock, calloutSanityDefinition } from "./blockContent/callout";
 import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
@@ -11,6 +11,7 @@ import {
   internalLinkSanityDefinition,
 } from "./blockContent/internalLink";
 import ExternalLinkRenderer from "./components/ExternalLinkRenderer";
+import InlineCodeRenderer from "./components/InlineCodeRenderer";
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -54,6 +55,12 @@ export const blockContentSanityDefinition = defineType({
         decorators: [
           { title: "Strong", value: "strong" },
           { title: "Emphasis", value: "em" },
+          {
+            title: "Inline Code",
+            value: "code",
+            icon: CodeIcon,
+            component: InlineCodeRenderer,
+          },
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
