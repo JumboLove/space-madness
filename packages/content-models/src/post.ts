@@ -49,6 +49,14 @@ export const postSanityDefinition = defineType({
       readOnly: true,
       hidden: true,
     }),
+    defineField({
+      name: "isVisible",
+      title: "Is Visible",
+      description:
+        "Hidden posts will not show on the site unless explicitly queried",
+      type: "boolean",
+      initialValue: true,
+    }),
   ],
 });
 
@@ -58,6 +66,7 @@ export const Post = S.Document.extend({
   description: S.String,
   mainImage: S.Image.optional(),
   language: S.String,
+  isVisible: S.Boolean,
   body: z.union([z.any(), z.null()]), // Zod will not validate Portable Text
 });
 

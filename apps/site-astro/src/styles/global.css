@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Shadcn Theme */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -77,5 +78,74 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .prose-custom {
+    @apply prose md:prose-lg prose-slate prose-headings:tracking-tight prose-p:leading-7;
+  }
+
+  .content-container {
+    @apply w-full mx-auto p-4 md:px-0 md:py-4;
+  }
+
+  /* TOFIX Code smell, need to hard code widths for now */
+  .prose-width {
+    @apply max-w-prose md:max-w-[731px];
+  }
+}
+
+/* Shadcn Typography */
+@layer base {
+  h1:not(.prose-custom h1) {
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+  }
+
+  h2:not(.prose-custom h2) {
+    @apply scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0;
+  }
+
+  h3:not(.prose-custom h3) {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+
+  h4:not(.prose-custom h4) {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+  }
+
+  p:not(.prose-custom p) {
+    @apply leading-7 [&:not(:first-child)]:mt-6;
+  }
+
+  blockquote:not(.prose-custom blockquote) {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+
+  ul:not(.prose-custom ul) {
+    @apply my-6 ml-6 list-disc [&>li]:mt-2;
+  }
+
+  code:not(.prose-custom code) {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+  }
+}
+
+/* Shadn UI Typography utils */
+@layer utilities {
+  .text-lead {
+    @apply text-xl text-muted-foreground;
+  }
+
+  .text-large {
+    @apply text-lg font-semibold;
+  }
+
+  .text-small {
+    @apply text-sm font-medium leading-none;
+  }
+
+  .text-muted {
+    @apply text-sm text-muted-foreground;
   }
 }

@@ -29,13 +29,13 @@ switch (node.type) {
     Icon = AlertCircle;
     break;
   default:
-    alertVariant = "default";
+    alertVariant = "info";
     Icon = HelpCircle;
     break;
 }
 ---
 
-<Alert variant={alertVariant}>
+<Alert variant={alertVariant} className="not-prose">
   <Icon className="h-4 w-4" />
   <AlertDescription><PortableText value={node.body} /></AlertDescription>
 </Alert>

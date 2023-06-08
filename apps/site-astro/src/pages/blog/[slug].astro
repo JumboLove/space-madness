@@ -26,6 +26,8 @@ const { post } = Astro.props as Props;
 ---
 
 <Layout title={post.title}>
-  <h1>{post.title}</h1>
-  {post.body && <PortableText value={post.body} />}
+  <article class="prose-custom content-container">
+    <h1>{post.title}</h1>
+    {post.body && <PortableText value={post.body} />}
+  </article>
 </Layout>

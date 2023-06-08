@@ -3,15 +3,15 @@ import type { PortableTextObject } from "@sanity/types";
 import type { BlockContent } from "../blockContent";
 
 export const calloutSanityDefinition = defineArrayMember({
-  title: "Callout",
   name: "callout",
+  title: "Callout",
   type: "object",
   fields: [
     {
       name: "type",
       type: "string",
       title: "Type",
-      initialValue: "success",
+      initialValue: "info",
       options: {
         list: [
           { title: "Sucess", value: "success" },
@@ -24,7 +24,7 @@ export const calloutSanityDefinition = defineArrayMember({
     },
     {
       name: "body",
-      title: "body",
+      title: "Body",
       type: "blockContent",
       validation: (Rule) => Rule.required().error("Body is required"),
     },
