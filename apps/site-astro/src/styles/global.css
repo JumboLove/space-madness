@@ -90,6 +90,11 @@
     @apply w-full mx-auto p-4 md:px-0 md:py-4;
   }
 
+  /* Style fixes for prose content */
+  .prose-custom .callout {
+    @apply my-12;
+  }
+
   /* TOFIX Code smell, need to hard code widths for now */
   .prose-width {
     @apply max-w-prose md:max-w-[731px];
