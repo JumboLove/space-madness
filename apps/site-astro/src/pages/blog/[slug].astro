@@ -1,10 +1,10 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { getAllPostsFull } from "@/queries/post";
-import PortableText from "@/components/PortableText/PortableText.astro";
-import type { InferGetStaticPropsType } from "astro";
-import { titleTemplate } from "@/lib/metadata";
 import MetaTags from "@/components/MetaTags.astro";
+import PortableText from "@/components/PortableText/PortableText.astro";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getAllPostsFull } from "@/queries/post";
+import type { InferGetStaticPropsType } from "astro";
 
 export async function getStaticPaths() {
   const data = await getAllPostsFull();
