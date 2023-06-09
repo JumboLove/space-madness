@@ -2,11 +2,18 @@
 import Layout from "@/layouts/Layout.astro";
 import { getPost } from "@/queries/post";
 import PortableText from "@/components/PortableText/PortableText.astro";
+import { titleTemplate } from "@/lib/metadata";
+import MetaTags from "@/components/MetaTags.astro";
 
 const post = await getPost("kitchen-sink");
 ---
 
-<Layout title="Style Guide">
+<Layout>
+  <MetaTags
+    title={titleTemplate("Styleguide")}
+    description={"Everything you need to create deeply connected content"}
+    slot="metadata"
+  />
   <header class="prose content-container">
     <h1>Style Guide</h1>
     <p>Most of the site styles focus around text content.</p>
