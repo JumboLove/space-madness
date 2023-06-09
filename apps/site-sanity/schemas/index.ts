@@ -1,4 +1,8 @@
-import {postSanityDefinition, blockContentSanityDefinition} from 'content-models'
+import {
+  postSanityDefinition,
+  tagSanityDefinition,
+  blockContentSanityDefinition,
+} from 'content-models'
 
-export const schemaTypes = [postSanityDefinition, blockContentSanityDefinition]
+export const schemaTypes = [postSanityDefinition, tagSanityDefinition, blockContentSanityDefinition]
 export const translatedTypes = [postSanityDefinition.name]
