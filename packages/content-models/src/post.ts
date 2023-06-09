@@ -44,10 +44,12 @@ export const postSanityDefinition = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
+      name: "importance",
+      title: "Importance Score",
+      type: "number",
+      description: "Used to order serach results. Higher is more important",
+      initialValue: 0,
+      validation: (Rule) => Rule.required().min(0).max(100).precision(1),
     }),
     defineField({
       name: "isVisible",
@@ -57,6 +59,12 @@ export const postSanityDefinition = defineType({
       type: "boolean",
       initialValue: true,
     }),
+    defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+    }),
   ],
 });
 
@@ -65,8 +73,9 @@ export const Post = S.Document.extend({
   slug: S.Slug,
   description: S.String,
   mainImage: S.Image.optional(),
-  language: S.String,
   isVisible: S.Boolean,
+  importance: S.Number.min(0).max(100),
+  language: S.String,
   body: z.union([z.any(), z.null()]), // Zod will not validate Portable Text
 });
 

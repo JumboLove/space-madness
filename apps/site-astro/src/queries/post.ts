@@ -3,8 +3,11 @@ import { Post } from "content-models";
 import { z } from "zod";
 import { blockContentQuery } from "./partials/blockContent";
 
+// Posts are sorted by creation date by default
+// To use importance as the sorter:
+// swap out `order(_createdAt desc)` with `order(importance desc)`
 export async function getAllPostsList() {
-  const query = groq`*[_type == "post" && isVisible == true && language == $lang] | order(_createdAt asc) {
+  const query = groq`*[_type == "post" && isVisible == true && language == $lang] | order(_createdAt desc) {
     title,
     slug,
     description,
