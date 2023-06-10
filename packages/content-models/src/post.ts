@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { z } from "zod";
 import * as S from "sanity-zod-types";
+import { Tag } from "./tag";
 
 export const postSanityDefinition = defineType({
   name: "post",
@@ -60,6 +61,13 @@ export const postSanityDefinition = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "tags",
+      title: "Tags",
+      description: "Tags help make resources easier to find by search",
+      type: "array",
+      of: [{ type: "reference", to: { type: "tag" } }],
+    }),
+    defineField({
       name: "language",
       type: "string",
       readOnly: true,
@@ -73,10 +81,11 @@ export const Post = S.Document.extend({
   slug: S.Slug,
   description: S.String,
   mainImage: S.Image.optional(),
-  isVisible: S.Boolean,
-  importance: S.Number.min(0).max(100),
-  language: S.String,
   body: z.union([z.any(), z.null()]), // Zod will not validate Portable Text
+  importance: S.Number.min(0).max(100),
+  isVisible: S.Boolean,
+  tags: z.union([z.array(Tag), z.null()]),
+  language: S.String,
 });
 
 export type Post = z.infer<typeof Post>;

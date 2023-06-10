@@ -2,6 +2,7 @@ import { groq, useSanityClient } from "astro-sanity";
 import { Post } from "content-models";
 import { z } from "zod";
 import { blockContentQuery } from "./partials/blockContent";
+import { tagsQuery, TagsResult } from "./partials/tags";
 
 // Posts are sorted by creation date by default
 // To use importance as the sorter:
@@ -11,13 +12,19 @@ export async function getAllPostsList() {
     title,
     slug,
     description,
+    ${tagsQuery}
   }`;
 
+  const MergedPost = Post.extend({
+    tags: TagsResult,
+  });
+
   const PostsResult = z.array(
-    Post.pick({
+    MergedPost.pick({
       title: true,
       slug: true,
       description: true,
+      tags: true,
     })
   );
 
@@ -37,14 +44,20 @@ export async function getAllPostsFull() {
     title,
     slug,
     description,
+    ${tagsQuery},
     ${blockContentQuery}
   }`;
 
+  const MergedPost = Post.extend({
+    tags: TagsResult,
+  });
+
   const PostsResult = z.array(
-    Post.pick({
+    MergedPost.pick({
       title: true,
       slug: true,
       description: true,
+      tags: true,
       body: true,
     })
   );
@@ -68,13 +81,19 @@ export async function getPost(slug: string) {
     title,
     slug,
     description,
+    ${tagsQuery},
     ${blockContentQuery}
   }`;
 
-  const PostResult = Post.pick({
+  const MergedPost = Post.extend({
+    tags: TagsResult,
+  });
+
+  const PostResult = MergedPost.pick({
     title: true,
     slug: true,
     description: true,
+    tags: true,
     body: true,
   });
 
