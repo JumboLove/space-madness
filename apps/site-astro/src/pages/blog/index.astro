@@ -1,16 +1,24 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { getAllPostsList } from "@/queries/post";
+import { getUrlForSanityType } from "@/lib/url";
+import { titleTemplate } from "@/lib/metadata";
+import MetaTags from "@/components/MetaTags.astro";
 const data = await getAllPostsList();
 ---
 
 <Layout>
+	<MetaTags
+		title={titleTemplate("Blog Posts")}
+		description={"My thoughts and musings"}
+		slot="metadata"
+	/>
 	<h1>Posts</h1>
 	{
 		data &&
 			data.map((post) => {
 				return (
-					<a href={`/blog/${post.slug.current}`}>
+					<a href={getUrlForSanityType("post", post.slug.current)}>
 						<h2>{post.title}</h2>
 						<p>{post.description}</p>
 					</a>

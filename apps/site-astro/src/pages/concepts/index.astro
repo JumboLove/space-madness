@@ -1,0 +1,28 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getAllConceptsList } from "@/queries/concept";
+import { getUrlForSanityType } from "@/lib/url";
+import { titleTemplate } from "@/lib/metadata";
+import MetaTags from "@/components/MetaTags.astro";
+const data = await getAllConceptsList();
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate("Concepts")}
+    description={"Ideas explained to help people learn"}
+    slot="metadata"
+  />
+  <h1>Concepts</h1>
+  {
+    data &&
+      data.map((concept) => {
+        return (
+          <a href={getUrlForSanityType("concept", concept.slug.current)}>
+            <h2>{concept.title}</h2>
+            <p>{concept.description}</p>
+          </a>
+        );
+      })
+  }
+</Layout>

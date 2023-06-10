@@ -1,10 +1,14 @@
 // This funciton should be kept in sync with the
 // Astro/pages directory
 
-export function getUrlForSanityType(type: string, slug: string) {
+type SanityTypes = "post" | "concept" | "tag";
+
+export function getUrlForSanityType(type: SanityTypes, slug: string) {
   switch (type) {
     case "post":
       return `/blog/${slug}`;
+    case "concept":
+      return `/concepts/${slug}`;
     case "tag":
       return `/tags/${slug}`;
     default:
