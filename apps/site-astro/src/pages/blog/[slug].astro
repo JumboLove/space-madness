@@ -1,11 +1,11 @@
 ---
 import MetaTags from "@/components/MetaTags.astro";
 import PortableText from "@/components/PortableText/PortableText.astro";
+import TagsList from "@/components/content/TagsList.astro";
 import Layout from "@/layouts/Layout.astro";
 import { titleTemplate } from "@/lib/metadata";
 import { getAllPostsFull } from "@/queries/post";
 import type { InferGetStaticPropsType } from "astro";
-import TagsList from "@/components/content/TagsList.astro";
 
 export async function getStaticPaths() {
   const data = await getAllPostsFull();
