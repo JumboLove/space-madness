@@ -135,7 +135,7 @@
     @apply my-6 ml-6 list-disc [&>li]:mt-2;
   }
 
-  code:not(.prose-custom code) {
+  code:not(.prose-custom code):not(.astro-code code) {
     @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
   }
 }

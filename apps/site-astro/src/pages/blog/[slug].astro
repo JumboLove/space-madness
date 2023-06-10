@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import { titleTemplate } from "@/lib/metadata";
 import { getAllPostsFull } from "@/queries/post";
 import type { InferGetStaticPropsType } from "astro";
+import TagsList from "@/components/content/TagsList.astro";
 
 export async function getStaticPaths() {
   const data = await getAllPostsFull();
@@ -35,6 +36,8 @@ const { post } = Astro.props as Props;
   />
   <article class="prose-custom content-container">
     <h1>{post.title}</h1>
+
+    {post.tags && <TagsList tags={post.tags} asLinks={true} />}
     {post.body && <PortableText value={post.body} />}
   </article>
 </Layout>
