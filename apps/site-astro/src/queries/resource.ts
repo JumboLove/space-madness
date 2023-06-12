@@ -1,7 +1,7 @@
 import { groq, useSanityClient } from "astro-sanity";
 import { Resource } from "content-models";
 import { z } from "zod";
-import { TagsResult, tagsQuery } from "./partials/tags";
+import { TagsResult, tagsQuery } from "./partials/tag";
 import {
   ResoruceContentResult,
   resourceContentQuery,

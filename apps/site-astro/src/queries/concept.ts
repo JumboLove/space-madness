@@ -2,7 +2,7 @@ import { groq, useSanityClient } from "astro-sanity";
 import { Concept } from "content-models";
 import { z } from "zod";
 import { blockContentQuery } from "./partials/blockContent";
-import { tagsQuery, TagsResult } from "./partials/tags";
+import { tagsQuery, TagsResult } from "./partials/tag";
 
 // Concepts are sorted by importance by default
 // To use creation date as the sorter:

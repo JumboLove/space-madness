@@ -2,7 +2,7 @@ import { groq, useSanityClient } from "astro-sanity";
 import { Post } from "content-models";
 import { z } from "zod";
 import { blockContentQuery } from "./partials/blockContent";
-import { tagsQuery, TagsResult } from "./partials/tags";
+import { tagsQuery, TagsResult } from "./partials/tag";
 
 // Posts are sorted by creation date by default
 // To use importance as the sorter:

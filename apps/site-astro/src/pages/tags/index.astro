@@ -1,26 +1,25 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getPost } from "@/queries/post";
-import PortableText from "@/components/PortableText/PortableText.astro";
+import { getAllTagsList } from "@/queries/tag";
+import TagsList from "@/components/content/TagsList.astro";
 import { titleTemplate } from "@/lib/metadata";
 import MetaTags from "@/components/MetaTags.astro";
 
-const post = await getPost("kitchen-sink");
+const data = await getAllTagsList();
 ---
 
 <Layout>
   <MetaTags
-    title={titleTemplate("Styleguide")}
-    description={"Everything you need to create deeply connected content"}
+    title={titleTemplate("Tags")}
+    description={"Browse all connnected content by tag"}
     slot="metadata"
   />
 
   <header class="prose-width content-container">
-    <h1>Tags Index TODO</h1>
-    <h2>[slug].astro is also TODO</h2>
+    <h1>Browse content by tag</h1>
   </header>
 
   <main class="prose-custom content-container">
-    {post.body && <PortableText value={post.body} />}
+    {data && <TagsList tags={data} asLinks={true} />}
   </main>
 </Layout>
