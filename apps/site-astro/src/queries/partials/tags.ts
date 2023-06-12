@@ -16,6 +16,6 @@ const PartialTag = Tag.pick({
   description: true,
 });
 
-export const TagsResult = z.union([z.array(PartialTag), z.null()]);
+export const TagsResult = z.array(PartialTag);
 
 export type TagsResult = z.infer<typeof TagsResult>;

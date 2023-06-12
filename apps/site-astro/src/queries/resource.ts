@@ -2,6 +2,10 @@ import { groq, useSanityClient } from "astro-sanity";
 import { Resource } from "content-models";
 import { z } from "zod";
 import { TagsResult, tagsQuery } from "./partials/tags";
+import {
+  ResoruceContentResult,
+  resourceContentQuery,
+} from "./partials/resourceContent";
 
 // Resources are sorted by importance by default
 // To use creation date as the sorter:
@@ -43,20 +47,23 @@ export async function getAllResourcesFull() {
     description,
     url,
     affiliateUrl,
+    ${resourceContentQuery},
     ${tagsQuery},
   }`;
 
   const MergedResource = Resource.extend({
+    resourceContent: ResoruceContentResult,
     tags: TagsResult,
   });
 
-  const ResourcessResult = z.array(
+  const ResourcesResult = z.array(
     MergedResource.pick({
       title: true,
       slug: true,
       description: true,
       url: true,
       affiliateUrl: true,
+      resourceContent: true,
       tags: true,
     })
   );
@@ -64,7 +71,7 @@ export async function getAllResourcesFull() {
   const data = await useSanityClient().fetch(query, {});
 
   try {
-    return ResourcessResult.parse(data);
+    return ResourcesResult.parse(data);
   } catch (error: any) {
     throw new Error(`Error parsing getAllResourcesFull, \n${error.message}`);
   }
@@ -80,10 +87,12 @@ export async function getResource(slug: string) {
     description,
     url,
     affiliateUrl,
+    ${resourceContentQuery},
     ${tagsQuery},
   }`;
 
   const MergedResource = Resource.extend({
+    resourceContent: ResoruceContentResult,
     tags: TagsResult,
   });
 
@@ -93,6 +102,7 @@ export async function getResource(slug: string) {
     description: true,
     url: true,
     affiliateUrl: true,
+    resourceContent: true,
     tags: true,
   });
 
