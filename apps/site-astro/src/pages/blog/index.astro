@@ -13,16 +13,22 @@ const data = await getAllPostsList();
 		description={"My thoughts and musings"}
 		slot="metadata"
 	/>
-	<h1>Posts</h1>
-	{
-		data &&
-			data.map((post) => {
-				return (
-					<a href={getUrlForSanityType("post", post.slug.current)}>
-						<h2>{post.title}</h2>
-						<p>{post.description}</p>
-					</a>
-				);
-			})
-	}
+
+	<header class="prose-width content-container">
+		<h1>Posts</h1>
+	</header>
+
+	<main class="content-container prose-width">
+		{
+			data &&
+				data.map((post) => {
+					return (
+						<a href={getUrlForSanityType("post", post.slug.current)}>
+							<h2>{post.title}</h2>
+							<p>{post.description}</p>
+						</a>
+					);
+				})
+		}
+	</main>
 </Layout>

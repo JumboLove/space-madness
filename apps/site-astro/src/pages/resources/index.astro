@@ -1,31 +1,31 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getAllConceptsList } from "@/queries/concept";
+import { getAllResourcesList } from "@/queries/resource";
 import { getUrlForSanityType } from "@/lib/url";
 import { titleTemplate } from "@/lib/metadata";
 import MetaTags from "@/components/MetaTags.astro";
-const data = await getAllConceptsList();
+const data = await getAllResourcesList();
 ---
 
 <Layout>
   <MetaTags
-    title={titleTemplate("Concepts")}
-    description={"Ideas explained to help people learn"}
+    title={titleTemplate("Resources")}
+    description={"References to sites, books, podcasts, and the like"}
     slot="metadata"
   />
 
   <header class="prose-width content-container">
-    <h1>Concepts</h1>
+    <h1>Resources</h1>
   </header>
 
   <main class="content-container prose-width">
     {
       data &&
-        data.map((concept) => {
+        data.map((resource) => {
           return (
-            <a href={getUrlForSanityType("concept", concept.slug.current)}>
-              <h2>{concept.title}</h2>
-              <p>{concept.description}</p>
+            <a href={getUrlForSanityType("resource", resource.slug.current)}>
+              <h2>{resource.title}</h2>
+              <p>{resource.description}</p>
             </a>
           );
         })

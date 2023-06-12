@@ -5,7 +5,7 @@ import { blockContentQuery } from "./partials/blockContent";
 import { tagsQuery, TagsResult } from "./partials/tags";
 
 // Concepts are sorted by importance by default
-// To use importance as the sorter:
+// To use creation date as the sorter:
 // swap out `order(importance desc)` with `order(_createdAt desc)`
 export async function getAllConceptsList() {
   const query = groq`*[_type == "concept" && isVisible == true && language == $lang] | order(importance desc) {

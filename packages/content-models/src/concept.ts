@@ -80,8 +80,8 @@ export const Concept = S.Document.extend({
   title: S.String,
   slug: S.Slug,
   description: S.String,
-  mainImage: S.Image.optional(),
-  body: z.union([z.any(), z.null()]), // Zod will not validate Portable Text
+  mainImage: S.Image.nullable(),
+  body: z.any(), // Zod will not validate Portable Text
   importance: S.Number.min(0).max(100),
   isVisible: S.Boolean,
   tags: z.union([z.array(Tag), z.null()]),

@@ -14,10 +14,12 @@ const post = await getPost("kitchen-sink");
     description={"Everything you need to create deeply connected content"}
     slot="metadata"
   />
+
   <header class="prose-width content-container">
     <h1>Tags Index TODO</h1>
     <h2>[slug].astro is also TODO</h2>
   </header>
+
   <main class="prose-custom content-container">
     {post.body && <PortableText value={post.body} />}
   </main>

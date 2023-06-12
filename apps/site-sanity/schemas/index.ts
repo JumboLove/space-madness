@@ -3,11 +3,13 @@ import {
   postSanityDefinition,
   tagSanityDefinition,
   blockContentSanityDefinition,
+  resourceSanityDefinition,
 } from 'content-models'
 
 export const schemaTypes = [
   conceptSanityDefinition,
   postSanityDefinition,
+  resourceSanityDefinition,
   tagSanityDefinition,
   blockContentSanityDefinition,
 ]

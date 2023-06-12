@@ -1,0 +1,43 @@
+---
+import MetaTags from "@/components/MetaTags.astro";
+import TagsList from "@/components/content/TagsList.astro";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getAllResourcesFull } from "@/queries/resource";
+import type { InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
+  const data = await getAllResourcesFull();
+  const staticProps = data.map((resource) => {
+    return {
+      params: {
+        slug: resource.slug.current,
+      },
+      props: {
+        resource: resource,
+      },
+    };
+  });
+
+  return staticProps;
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { resource } = Astro.props as Props;
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate(resource.title)}
+    description={resource.description}
+    slot="metadata"
+  />
+  <article class="prose-custom content-container">
+    <h1>{resource.title}</h1>
+
+    {resource.tags && <TagsList tags={resource.tags} asLinks={true} />}
+    <h2>TODO Resource content rendering</h2>
+    <p>{resource.url}</p>
+  </article>
+</Layout>
