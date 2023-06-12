@@ -48,7 +48,7 @@ export const postSanityDefinition = defineType({
       name: "importance",
       title: "Importance Score",
       type: "number",
-      description: "Used to order serach results. Higher is more important",
+      description: "Used to order search results. Higher is more important",
       initialValue: 0,
       validation: (Rule) => Rule.required().min(0).max(100).precision(1),
     }),

@@ -3,9 +3,9 @@ import { z } from "zod";
 import * as S from "sanity-zod-types";
 import { Tag } from "./tag";
 
-export const conceptSanityDefinition = defineType({
-  name: "concept",
-  title: "Concept",
+export const resourceContentSanityDefinition = defineType({
+  name: "resourceContent",
+  title: "Resource Content",
   type: "document",
   fields: [
     defineField({
@@ -39,10 +39,24 @@ export const conceptSanityDefinition = defineType({
       },
     }),
     defineField({
-      name: "body",
-      title: "Body",
-      type: "blockContent",
+      name: "resource",
+      title: "Resource",
+      description: "All Resource Content should belong to a parent resource",
+      type: "reference",
+      to: { type: "resource" },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "url",
+      title: "URL",
+      type: "url",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "affiliateUrl",
+      title: "Affiliate URL",
+      description: "Only fill this in if a generated URL cannot be created",
+      type: "url",
     }),
     defineField({
       name: "importance",
@@ -56,7 +70,7 @@ export const conceptSanityDefinition = defineType({
       name: "isVisible",
       title: "Is Visible",
       description:
-        "Hidden concepts will not show on the site unless explicitly queried",
+        "Hidden resources will not show on the site unless explicitly queried",
       type: "boolean",
       initialValue: true,
     }),
@@ -67,25 +81,26 @@ export const conceptSanityDefinition = defineType({
       type: "array",
       of: [{ type: "reference", to: { type: "tag" } }],
     }),
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
-    }),
   ],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "resource.title",
+    },
+  },
 });
 
-export const Concept = S.Document.extend({
+export const ResourceContent = S.Document.extend({
   title: S.String,
   slug: S.Slug,
   description: S.String,
   mainImage: S.Image.nullable(),
-  body: z.any(), // Zod will not validate Portable Text
+  url: S.Url,
+  affiliateUrl: S.Url.nullable(),
   importance: S.Number.min(0).max(100),
   isVisible: S.Boolean,
-  tags: z.union([z.array(Tag), z.null()]),
+  tags: z.array(Tag).nullable(),
   language: S.String,
 });
 
-export type Concept = z.infer<typeof Concept>;
+export type ResourceContentType = z.infer<typeof ResourceContent>;

@@ -1,6 +1,7 @@
 export * from "./concept";
 export * from "./post";
 export * from "./resource";
+export * from "./resourceContent";
 export * from "./tag";
 export * from "./blockContent";
 export * from "./blockContent/callout";
