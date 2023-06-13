@@ -1,10 +1,10 @@
 ---
 import MetaTags from "@/components/MetaTags.astro";
+import BacklinksList from "@/components/content/BacklinksList.astro";
 import Layout from "@/layouts/Layout.astro";
 import { titleTemplate } from "@/lib/metadata";
 import { getAllTagsFull } from "@/queries/tag";
 import type { InferGetStaticPropsType } from "astro";
-import BacklinksList from "@/components/content/BacklinksList.astro";
 
 export async function getStaticPaths() {
   const data = await getAllTagsFull();
@@ -35,6 +35,7 @@ const { tag } = Astro.props as Props;
   />
   <article class="prose-custom content-container">
     <h1>{tag.title}</h1>
+    <p>{tag.description}</p>
     {tag.backlinks && <BacklinksList backlinks={tag.backlinks} />}
   </article>
 </Layout>

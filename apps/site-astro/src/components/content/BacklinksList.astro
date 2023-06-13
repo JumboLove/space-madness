@@ -1,48 +1,82 @@
 ---
-import type { badgeVariants } from "@/components/ui/badge";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
 import { getUrlForSanityType } from "@/lib/url";
 import { cn } from "@/lib/utils";
-import type { BacklinkResult } from "@/queries/partials/backlink";
-import type { Backlink } from "@/queries/partials/backlink";
-import type { VariantProps } from "class-variance-authority";
+import type { Backlink, BacklinkResult } from "@/queries/partials/backlink";
 
 interface Props {
   backlinks: BacklinkResult;
-  variant?: VariantProps<typeof badgeVariants>["variant"];
   className?: string;
 }
 
-const { backlinks, variant = "outline", className } = Astro.props;
+const { backlinks, className } = Astro.props;
 
 // Resource content will not have its own page
 // grab the resource content's parent resource data instead
 function getBacklinkUrl(backlink: Backlink) {
-  const backlinkType =
-    backlink._type === "resourceContent"
-      ? backlink.resource._type
-      : backlink._type;
+  const backlinkObj =
+    backlink._type === "resourceContent" ? backlink.resource : backlink;
 
-  const backlinkUrl =
-    backlink._type === "resourceContent"
-      ? backlink.resource.slug.current
-      : backlink.slug.current;
-
-  return getUrlForSanityType(backlinkType, backlinkUrl);
+  return getUrlForSanityType(backlinkObj._type, backlinkObj.slug.current);
 }
+
+type SanityTypes = "post" | "concept" | "tag" | "resource" | "resourceContent";
+
+type BacklinkBucket = {
+  [K in SanityTypes]: Backlink[];
+};
+
+function bucketBacklinksByType(backlinks: Backlink[]) {
+  // Use this structure to set the display order of buckets
+  // Buckets not listed here will show at the end
+  const backlinkBucket: BacklinkBucket = {
+    post: [],
+    concept: [],
+    resource: [],
+    resourceContent: [],
+    tag: [],
+  };
+
+  for (const backlink of backlinks) {
+    const type = backlink._type;
+
+    if (backlinkBucket[type]) {
+      backlinkBucket[type].push(backlink);
+    } else {
+      backlinkBucket[type] = [backlink];
+    }
+  }
+
+  return backlinkBucket;
+}
+
+const buckets = backlinks ? bucketBacklinksByType(backlinks) : [];
 ---
 
 {
-  backlinks && (
-    <div class={cn("flex flex-col gap-2 not-prose", className)}>
-      {backlinks.map((backlink) => {
-        return (
-          <a href={getBacklinkUrl(backlink)}>
-            <h3>{backlink.title}</h3>
-            <p>{backlink.description}</p>
-            <p>{backlink._type}</p>
-          </a>
-        );
-      })}
-    </div>
-  )
+  Object.entries(buckets)
+    .filter(([type, backlinks]) => backlinks.length > 0)
+    .map(([type, backlinks]) => (
+      <div>
+        <h3>{getSanityTypeDisplayText(type, true)}</h3>
+        <div class={cn("flex flex-col gap-4 not-prose", className)}>
+          {backlinks.map((backlink) => (
+            <a href={getBacklinkUrl(backlink)}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{backlink.title}</CardTitle>
+                  <CardDescription>{backlink.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))
 }
