@@ -1,0 +1,48 @@
+---
+import type { badgeVariants } from "@/components/ui/badge";
+import { getUrlForSanityType } from "@/lib/url";
+import { cn } from "@/lib/utils";
+import type { BacklinkResult } from "@/queries/partials/backlink";
+import type { Backlink } from "@/queries/partials/backlink";
+import type { VariantProps } from "class-variance-authority";
+
+interface Props {
+  backlinks: BacklinkResult;
+  variant?: VariantProps<typeof badgeVariants>["variant"];
+  className?: string;
+}
+
+const { backlinks, variant = "outline", className } = Astro.props;
+
+// Resource content will not have its own page
+// grab the resource content's parent resource data instead
+function getBacklinkUrl(backlink: Backlink) {
+  const backlinkType =
+    backlink._type === "resourceContent"
+      ? backlink.resource._type
+      : backlink._type;
+
+  const backlinkUrl =
+    backlink._type === "resourceContent"
+      ? backlink.resource.slug.current
+      : backlink.slug.current;
+
+  return getUrlForSanityType(backlinkType, backlinkUrl);
+}
+---
+
+{
+  backlinks && (
+    <div class={cn("flex flex-col gap-2 not-prose", className)}>
+      {backlinks.map((backlink) => {
+        return (
+          <a href={getBacklinkUrl(backlink)}>
+            <h3>{backlink.title}</h3>
+            <p>{backlink.description}</p>
+            <p>{backlink._type}</p>
+          </a>
+        );
+      })}
+    </div>
+  )
+}
