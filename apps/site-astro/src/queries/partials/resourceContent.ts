@@ -18,6 +18,6 @@ const PartialResourceContent = ResourceContent.pick({
   url: true,
 });
 
-export const ResoruceContentResult = z.array(PartialResourceContent);
+export const ResoruceContentResult = z.array(PartialResourceContent).nullable();
 
 export type ResoruceContentResult = z.infer<typeof ResoruceContentResult>;

@@ -1,6 +1,7 @@
 ---
 import MetaTags from "@/components/MetaTags.astro";
 import PortableText from "@/components/PortableText/PortableText.astro";
+import BacklinksList from "@/components/content/BacklinksList.astro";
 import TagsList from "@/components/content/TagsList.astro";
 import Layout from "@/layouts/Layout.astro";
 import { titleTemplate } from "@/lib/metadata";
@@ -39,5 +40,14 @@ const { post } = Astro.props as Props;
 
     {post.tags && <TagsList tags={post.tags} asLinks={true} />}
     {post.body && <PortableText value={post.body} />}
+
+    {
+      post.backlinks && post.backlinks.length > 0 && (
+        <>
+          <h3>Backlinks</h3>
+          <BacklinksList backlinks={post.backlinks} />
+        </>
+      )
+    }
   </article>
 </Layout>

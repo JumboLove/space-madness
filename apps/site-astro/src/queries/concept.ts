@@ -2,7 +2,8 @@ import { groq, useSanityClient } from "astro-sanity";
 import { Concept } from "content-models";
 import { z } from "zod";
 import { blockContentQuery } from "./partials/blockContent";
-import { tagsQuery, TagsResult } from "./partials/tags";
+import { tagsQuery, TagsResult } from "./partials/tag";
+import { backlinksQuery, BacklinkResult } from "./partials/backlink";
 
 // Concepts are sorted by importance by default
 // To use creation date as the sorter:
@@ -45,11 +46,13 @@ export async function getAllConceptsFull() {
     slug,
     description,
     ${tagsQuery},
-    ${blockContentQuery}
+    ${blockContentQuery},
+    ${backlinksQuery},
   }`;
 
   const MergedConcept = Concept.extend({
     tags: TagsResult,
+    backlinks: BacklinkResult,
   });
 
   const ConceptsResult = z.array(
@@ -59,6 +62,7 @@ export async function getAllConceptsFull() {
       description: true,
       tags: true,
       body: true,
+      backlinks: true,
     })
   );
 
@@ -82,11 +86,13 @@ export async function getConcept(slug: string) {
     slug,
     description,
     ${tagsQuery},
-    ${blockContentQuery}
+    ${blockContentQuery},
+    ${backlinksQuery}
   }`;
 
   const MergedConcept = Concept.extend({
     tags: TagsResult,
+    backlinks: BacklinkResult,
   });
 
   const ConceptResult = MergedConcept.pick({
@@ -95,6 +101,7 @@ export async function getConcept(slug: string) {
     description: true,
     tags: true,
     body: true,
+    backlinks: true,
   });
 
   const data = await useSanityClient().fetch(query, {

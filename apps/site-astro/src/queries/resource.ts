@@ -1,7 +1,8 @@
 import { groq, useSanityClient } from "astro-sanity";
 import { Resource } from "content-models";
 import { z } from "zod";
-import { TagsResult, tagsQuery } from "./partials/tags";
+import { TagsResult, tagsQuery } from "./partials/tag";
+import { backlinksQuery, BacklinkResult } from "./partials/backlink";
 import {
   ResoruceContentResult,
   resourceContentQuery,
@@ -49,11 +50,13 @@ export async function getAllResourcesFull() {
     affiliateUrl,
     ${resourceContentQuery},
     ${tagsQuery},
+    ${backlinksQuery},
   }`;
 
   const MergedResource = Resource.extend({
     resourceContent: ResoruceContentResult,
     tags: TagsResult,
+    backlinks: BacklinkResult,
   });
 
   const ResourcesResult = z.array(
@@ -65,6 +68,7 @@ export async function getAllResourcesFull() {
       affiliateUrl: true,
       resourceContent: true,
       tags: true,
+      backlinks: true,
     })
   );
 
@@ -89,11 +93,13 @@ export async function getResource(slug: string) {
     affiliateUrl,
     ${resourceContentQuery},
     ${tagsQuery},
+    ${backlinksQuery},
   }`;
 
   const MergedResource = Resource.extend({
     resourceContent: ResoruceContentResult,
     tags: TagsResult,
+    backlinks: BacklinkResult,
   });
 
   const ResourceResult = MergedResource.pick({
@@ -104,6 +110,7 @@ export async function getResource(slug: string) {
     affiliateUrl: true,
     resourceContent: true,
     tags: true,
+    backlinks: true,
   });
 
   const data = await useSanityClient().fetch(query, {

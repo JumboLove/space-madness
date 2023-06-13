@@ -6,17 +6,24 @@ import { getUrlForSanityType } from "@/lib/url";
 export type Props = $<Mark<InternalLinkAnnotation>>;
 
 const {
-  node,
   node: { markDef },
 } = Astro.props;
 
-const url = new URL(
-  getUrlForSanityType(
-    markDef.internalLink._type,
-    markDef.internalLink.slug.current
-  ),
-  Astro.url
-);
+// Resource content will not have its own page
+// grab the resource content's parent resource data instead
+function getInternalLinkUrl(mark: InternalLinkAnnotation) {
+  const internalLinkObj =
+    mark.internalLink._type === "resourceContent"
+      ? mark.internalLink.resource
+      : mark.internalLink;
+
+  return getUrlForSanityType(
+    internalLinkObj._type,
+    internalLinkObj.slug.current
+  );
+}
+
+const url = new URL(getInternalLinkUrl(markDef), Astro.url);
 ---
 
 <a href={url} title={markDef.internalLink.title}><slot /></a>

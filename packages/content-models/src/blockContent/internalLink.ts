@@ -17,19 +17,36 @@ export const internalLinkSanityDefinition = {
       type: "reference",
       title: "Reference",
       to: [
-        { type: "post" }, // TODO can I set this up to automatically register types?
+        { type: "post" },
+        { type: "concept" },
+        { type: "resource" },
+        { type: "resourceContent" },
       ],
       validation: (Rule: Rule) => Rule.required().error("Alt text is required"),
     },
   ],
 };
 
+type referenceTypes = "post" | "concept" | "resource";
+
+interface StandardInternalLink {
+  slug: Slug;
+  title: string;
+  _type: referenceTypes;
+}
+
+interface ResourceContentInternalLink {
+  slug: Slug;
+  title: string;
+  _type: "resourceContent";
+  resource: {
+    _type: "resource";
+    slug: Slug;
+  };
+}
+
 export type InternalLinkAnnotation = {
   _type: "internalLink";
   reference: Reference;
-  internalLink: {
-    slug: Slug;
-    title: string;
-    _type: "post";
-  };
+  internalLink: StandardInternalLink | ResourceContentInternalLink;
 };

@@ -9,7 +9,13 @@ body[]{
       "internalLink": @.reference-> {
         slug,
         title,
-        _type
+        _type,
+        _type == 'resourceContent' => {
+          "resource": @.resource -> {
+            _type,
+            slug
+          }
+        }
       }
     }
   }
