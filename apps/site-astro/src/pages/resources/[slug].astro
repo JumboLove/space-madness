@@ -33,6 +33,10 @@ const { resource } = Astro.props as Props;
 function deduplicateBacklinks(backlinks: Backlink[]) {
   return backlinks.filter((backlink) => backlink._type !== "resourceContent");
 }
+
+const renderedBacklinks = resource.backlinks
+  ? deduplicateBacklinks(resource.backlinks)
+  : [];
 ---
 
 <Layout>
@@ -62,10 +66,10 @@ function deduplicateBacklinks(backlinks: Backlink[]) {
     }
 
     {
-      resource.backlinks && resource.backlinks.length > 0 && (
+      renderedBacklinks && renderedBacklinks.length > 0 && (
         <>
           <h3>Backlinks</h3>
-          <BacklinksList backlinks={deduplicateBacklinks(resource.backlinks)} />
+          <BacklinksList backlinks={renderedBacklinks} />
         </>
       )
     }
