@@ -17,7 +17,10 @@ export const internalLinkSanityDefinition = {
       type: "reference",
       title: "Reference",
       to: [
-        { type: "post" }, // TODO can I set this up to automatically register types?
+        { type: "post" },
+        { type: "concept" },
+        { type: "resource" },
+        { type: "resourceContent" },
       ],
       validation: (Rule: Rule) => Rule.required().error("Alt text is required"),
     },
