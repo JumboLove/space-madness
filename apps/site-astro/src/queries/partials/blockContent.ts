@@ -10,6 +10,7 @@ body[]{
         slug,
         title,
         _type,
+        showPopover,
         _type == 'resourceContent' => {
           "resource": @.resource -> {
             _type,

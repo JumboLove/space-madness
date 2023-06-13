@@ -26,4 +26,11 @@ function getInternalLinkUrl(mark: InternalLinkAnnotation) {
 const url = new URL(getInternalLinkUrl(markDef), Astro.url);
 ---
 
-<a href={url} title={markDef.internalLink.title}><slot /></a>
+{markDef.showPopover && <button>Popover TODO</button>}
+{
+  !markDef.showPopover && (
+    <a href={url} title={markDef.internalLink.title}>
+      <slot />
+    </a>
+  )
+}

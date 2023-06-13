@@ -24,6 +24,13 @@ export const internalLinkSanityDefinition = {
       ],
       validation: (Rule: Rule) => Rule.required().error("Alt text is required"),
     },
+    {
+      name: "showPopover",
+      title: "Show Popover",
+      description: "Popover will show a preview of the linked content",
+      type: "boolean",
+      initialValue: true,
+    },
   ],
 };
 
@@ -48,5 +55,6 @@ interface ResourceContentInternalLink {
 export type InternalLinkAnnotation = {
   _type: "internalLink";
   reference: Reference;
+  showPopover: Boolean;
   internalLink: StandardInternalLink | ResourceContentInternalLink;
 };
