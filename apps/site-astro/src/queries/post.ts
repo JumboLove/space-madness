@@ -3,6 +3,7 @@ import { Post } from "content-models";
 import { z } from "zod";
 import { blockContentQuery } from "./partials/blockContent";
 import { tagsQuery, TagsResult } from "./partials/tag";
+import { backlinksQuery, BacklinkResult } from "./partials/backlink";
 
 // Posts are sorted by creation date by default
 // To use importance as the sorter:
@@ -45,11 +46,13 @@ export async function getAllPostsFull() {
     slug,
     description,
     ${tagsQuery},
-    ${blockContentQuery}
+    ${blockContentQuery},
+    ${backlinksQuery},
   }`;
 
   const MergedPost = Post.extend({
     tags: TagsResult,
+    backlinks: BacklinkResult,
   });
 
   const PostsResult = z.array(
@@ -59,6 +62,7 @@ export async function getAllPostsFull() {
       description: true,
       tags: true,
       body: true,
+      backlinks: true,
     })
   );
 

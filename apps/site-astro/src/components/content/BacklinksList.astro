@@ -18,6 +18,8 @@ interface Props {
 
 const { backlinks, className, grouped = false } = Astro.props;
 
+const defaultClasses = "grid md:grid-cols-2 gap-4 not-prose ";
+
 // Resource content will not have its own page
 // grab the resource content's parent resource data instead
 function getBacklinkUrl(backlink: Backlink) {
@@ -62,7 +64,7 @@ const buckets = backlinks ? bucketBacklinksByType(backlinks) : [];
 
 {
   !grouped && (
-    <div class={cn("flex flex-col gap-4 not-prose", className)}>
+    <div class={cn(defaultClasses, className)}>
       {backlinks &&
         backlinks.map((backlink) => (
           <a href={getBacklinkUrl(backlink)}>
@@ -85,7 +87,7 @@ const buckets = backlinks ? bucketBacklinksByType(backlinks) : [];
       .map(([type, backlinks]) => (
         <div>
           <h3>{getSanityTypeDisplayText(type, true)}</h3>
-          <div class={cn("flex flex-col gap-4 not-prose", className)}>
+          <div class={cn(defaultClasses, className)}>
             {backlinks.map((backlink) => (
               <a href={getBacklinkUrl(backlink)}>
                 <Card>

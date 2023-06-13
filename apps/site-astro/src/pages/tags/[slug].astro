@@ -37,7 +37,7 @@ const { tag } = Astro.props as Props;
     <h1>{tag.title}</h1>
     <p>{tag.description}</p>
     {
-      tag.backlinks && (
+      tag.backlinks && tag.backlinks.length > 0 && (
         <BacklinksList backlinks={tag.backlinks} grouped={true} />
       )
     }
