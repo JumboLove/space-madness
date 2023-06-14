@@ -37,26 +37,27 @@ export const internalLinkSanityDefinition = {
 type referenceTypes = "post" | "concept" | "resource";
 
 interface StandardInternalLink {
-  slug: Slug;
-  title: string;
-  description: string;
   _type: referenceTypes;
+  title: string;
+  slug: Slug;
+  description: string;
 }
 
 interface ResourceContentInternalLink {
-  slug: Slug;
-  title: string;
-  description: string;
   _type: "resourceContent";
+  title: string;
+  slug: Slug;
+  description: string;
+  url?: string;
   resource: {
     _type: "resource";
+    title: string;
     slug: Slug;
   };
 }
 
 export type InternalLinkAnnotation = {
   _type: "internalLink";
-  reference: Reference;
   showPopover: Boolean;
   internalLink: StandardInternalLink | ResourceContentInternalLink;
 };

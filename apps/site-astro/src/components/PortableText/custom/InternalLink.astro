@@ -9,21 +9,46 @@ const {
   node: { markDef },
 } = Astro.props;
 
-// Resource content will not have its own page
-// grab the resource content's parent resource data instead
-function getInternalLinkUrl(mark: InternalLinkAnnotation) {
-  const internalLinkObj =
-    mark.internalLink._type === "resourceContent"
-      ? mark.internalLink.resource
-      : mark.internalLink;
+function buildLinks(mark: InternalLinkAnnotation) {
+  const links: { url: string; text: string }[] = [];
 
-  return getUrlForSanityType(
-    internalLinkObj._type,
-    internalLinkObj.slug.current
-  );
+  // Resource content will not have its own internal page
+  // It may have an external URL
+  // Provide a link to the parent resource page and the external URL
+  if (mark.internalLink._type === "resourceContent" && mark.internalLink.url) {
+    links.push({ url: mark.internalLink.url, text: mark.internalLink.title });
+  }
+
+  if (mark.internalLink._type === "resourceContent") {
+    links.push({
+      url: new URL(
+        getUrlForSanityType(
+          mark.internalLink.resource._type,
+          mark.internalLink.resource.slug.current
+        ),
+        Astro.url
+      ).toString(),
+      text: mark.internalLink.resource.title,
+    });
+  }
+
+  if (mark.internalLink._type !== "resourceContent") {
+    links.push({
+      url: new URL(
+        getUrlForSanityType(
+          mark.internalLink._type,
+          mark.internalLink.slug.current
+        ),
+        Astro.url
+      ).toString(),
+      text: mark.internalLink.title,
+    });
+  }
+
+  return links;
 }
 
-const url = new URL(getInternalLinkUrl(markDef), Astro.url);
+const [mainLink, resourceLink] = buildLinks(markDef);
 const uniqueId = `popover-${generateUniqueId()}`;
 const lines = splitIntoLines(markDef.internalLink.description);
 ---
@@ -47,16 +72,26 @@ const lines = splitIntoLines(markDef.internalLink.description);
         style="display: none;"
       >
         <div class="flex flex-col gap-2 justify-between leading-snug">
-          <a
-            href="/concepts/polyamory"
-            class="pt-popover-content-link inline-block"
-          >
-            {markDef.internalLink.title}
-          </a>
-
           {lines.map((line, i) => (
             <p class="text-md" set:html={line} />
           ))}
+          <a
+            href={mainLink.url}
+            class="pt-popover-content-link inline-block underline"
+          >
+            {mainLink.text}
+          </a>
+          {resourceLink && (
+            <div>
+              Resource:{" "}
+              <a
+                class="pt-popover-content-link inline-block underline"
+                href={resourceLink.url}
+              >
+                {resourceLink.text}
+              </a>
+            </div>
+          )}
         </div>
         <div class="pt-popover-arrow" />
       </div>
@@ -65,7 +100,7 @@ const lines = splitIntoLines(markDef.internalLink.description);
 }
 {
   !markDef.showPopover && (
-    <a href={url} title={markDef.internalLink.title}>
+    <a href={mainLink.url} title={mainLink.text}>
       <slot />
     </a>
   )

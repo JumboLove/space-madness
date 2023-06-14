@@ -123,10 +123,6 @@
     @apply scroll-m-20 text-xl font-semibold tracking-tight;
   }
 
-  p:not(.prose-custom p) {
-    @apply leading-7 [&:not(:first-child)]:mt-6;
-  }
-
   blockquote:not(.prose-custom blockquote) {
     @apply mt-6 border-l-2 pl-6 italic;
   }
