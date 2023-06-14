@@ -167,6 +167,9 @@
     pointer-events: none;
     width: max-content;
     max-width: 40ch;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .pt-popover[data-show] {
@@ -174,41 +177,11 @@
     pointer-events: all;
   }
 
-  .pt-popover-arrow,
-  .pt-popover-arrow::before {
+  .pt-popover-arrow {
     position: absolute;
+    background: inherit;
     width: 8px;
     height: 8px;
-    background: inherit;
-  }
-
-  .pt-popover-arrow {
-    visibility: hidden;
-  }
-
-  .pt-popover[data-show] .pt-popover-arrow::before {
-    visibility: visible;
-  }
-
-  .pt-popover-arrow::before {
-    visibility: hidden;
-    content: "";
     transform: rotate(45deg);
-  }
-
-  .pt-popover[data-popper-placement^="top"] > .pt-popover-arrow {
-    bottom: -4px;
-  }
-
-  .pt-popover[data-popper-placement^="bottom"] > .pt-popover-arrow {
-    top: -4px;
-  }
-
-  .pt-popover[data-popper-placement^="left"] > .pt-popover-arrow {
-    right: -4px;
-  }
-
-  .pt-popover[data-popper-placement^="right"] > .pt-popover-arrow {
-    left: -4px;
   }
 }

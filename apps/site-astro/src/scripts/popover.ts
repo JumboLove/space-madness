@@ -1,5 +1,12 @@
-import type { Instance } from "@popperjs/core/lib/types";
-import { createPopper } from "@popperjs/core";
+import {
+  computePosition,
+  autoUpdate,
+  flip,
+  shift,
+  limitShift,
+  offset,
+  arrow,
+} from "@floating-ui/dom";
 
 export {};
 
@@ -13,8 +20,8 @@ const popoverButtons: NodeListOf<PopoverButton> =
   document.querySelectorAll("[data-popover-id]");
 popoverButtons.forEach((btn) => {
   const popover = setupButtonPopover(btn);
-  const popperInstance = initPopper(btn, popover);
-  btn.addEventListener("click", () => togglePopover(popover, popperInstance));
+  initPopper(btn, popover);
+  btn.addEventListener("click", () => togglePopover(popover));
 });
 
 function setupButtonPopover(btn: PopoverButton) {
@@ -25,42 +32,59 @@ function setupButtonPopover(btn: PopoverButton) {
 }
 
 function initPopper(btn: PopoverButton, popover: HTMLDivElement) {
-  return createPopper(btn, popover, {
-    placement: "top",
-    modifiers: [
-      {
-        name: "offset",
-        options: {
-          offset: [0, 8],
-        },
-      },
-      {
-        name: "preventOverflow",
-        options: {
-          altAxis: true,
-          padding: 10,
-        },
-      },
-    ],
-  });
+  const arrowEl: HTMLDivElement = popover.querySelector(".pt-popover-arrow")!;
+  const cleanup = autoUpdate(
+    btn,
+    popover,
+    () => {
+      computePosition(btn, popover, {
+        placement: "top",
+        middleware: [
+          offset(10),
+          flip(),
+          shift({ padding: 10, limiter: limitShift() }),
+          arrow({ element: arrowEl }),
+        ],
+      }).then(({ x, y, placement, middlewareData }) => {
+        Object.assign(popover.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+        });
+
+        const side = placement.split("-")[0];
+
+        const staticSide = {
+          top: "bottom",
+          right: "left",
+          bottom: "top",
+          left: "right",
+        }[side]!;
+
+        if (middlewareData.arrow) {
+          const { x, y } = middlewareData.arrow;
+          Object.assign(arrowEl.style, {
+            left: x != null ? `${x}px` : "",
+            top: y != null ? `${y}px` : "",
+            [staticSide]: `${-arrowEl.offsetWidth / 2}px`,
+            transform: "rotate(45deg)",
+          });
+        }
+      });
+    },
+    { animationFrame: true }
+  );
 }
 
-function togglePopover(popover: HTMLDivElement, popperInstance: Instance) {
-  popover.hasAttribute("data-show")
-    ? hide(popover)
-    : show(popover, popperInstance);
+function togglePopover(popover: HTMLDivElement) {
+  popover.hasAttribute("data-show") ? hide(popover) : show(popover);
 }
 
-function show(popover: HTMLDivElement, popperInstance: Instance) {
+function show(popover: HTMLDivElement) {
   popover.setAttribute("data-show", "");
   hideOnClickOutsideOrEscape(popover);
 
   setOpenAttributes(popover);
   moveFocusToDialog(popover);
-
-  // We need to tell Popper to update the tooltip position
-  // after we show the tooltip, otherwise it will be incorrect
-  popperInstance.update();
 }
 
 function hide(popover: HTMLDivElement) {
