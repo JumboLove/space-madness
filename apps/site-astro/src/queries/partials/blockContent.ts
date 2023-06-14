@@ -6,14 +6,19 @@ body[]{
   markDefs[]{
     ...,
     _type == "internalLink" => {
+      _type,
+      showPopover,
       "internalLink": @.reference-> {
-        slug,
-        title,
         _type,
+        title,
+        slug,
+        description,
+        url,
         _type == 'resourceContent' => {
           "resource": @.resource -> {
             _type,
-            slug
+            title,
+            slug,
           }
         }
       }

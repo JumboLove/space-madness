@@ -123,10 +123,6 @@
     @apply scroll-m-20 text-xl font-semibold tracking-tight;
   }
 
-  p:not(.prose-custom p) {
-    @apply leading-7 [&:not(:first-child)]:mt-6;
-  }
-
   blockquote:not(.prose-custom blockquote) {
     @apply mt-6 border-l-2 pl-6 italic;
   }
@@ -156,5 +152,31 @@
 
   .text-muted {
     @apply text-sm text-muted-foreground;
+  }
+}
+
+/* Popover */
+@layer components {
+  .pt-popover {
+    visibility: hidden;
+    pointer-events: none;
+    width: max-content;
+    max-width: 40ch;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .pt-popover[data-show] {
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .pt-popover-arrow {
+    position: absolute;
+    background: inherit;
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
   }
 }

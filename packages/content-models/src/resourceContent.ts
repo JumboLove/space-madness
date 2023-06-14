@@ -50,7 +50,6 @@ export const resourceContentSanityDefinition = defineType({
       name: "url",
       title: "URL",
       type: "url",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "affiliateUrl",
