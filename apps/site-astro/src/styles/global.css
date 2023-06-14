@@ -161,7 +161,6 @@
 
 /* Popover */
 @layer components {
-  /* Popover styles */
   .pt-popover {
     visibility: hidden;
     pointer-events: none;

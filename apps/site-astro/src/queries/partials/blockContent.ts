@@ -9,6 +9,7 @@ body[]{
       "internalLink": @.reference-> {
         slug,
         title,
+        description,
         _type,
         showPopover,
         _type == 'resourceContent' => {

@@ -1,8 +1,8 @@
 ---
-import type { Mark, Props as $ } from "astro-portabletext/types";
-import type { InternalLinkAnnotation } from "content-models";
+import { generateUniqueId, splitIntoLines } from "@/lib/stringUtils";
 import { getUrlForSanityType } from "@/lib/url";
-
+import type { Props as $, Mark } from "astro-portabletext/types";
+import type { InternalLinkAnnotation } from "content-models";
 export type Props = $<Mark<InternalLinkAnnotation>>;
 
 const {
@@ -24,33 +24,41 @@ function getInternalLinkUrl(mark: InternalLinkAnnotation) {
 }
 
 const url = new URL(getInternalLinkUrl(markDef), Astro.url);
+const uniqueId = `popover-${generateUniqueId()}`;
+const lines = splitIntoLines(markDef.internalLink.description);
 ---
 
 {
   markDef.showPopover && (
-    <button data-popover-id="lieuu44uxonkamz">
-      <span>Popover TODO</span>
+    <button
+      class="underline"
+      data-popover-id={uniqueId}
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      aria-describedby={uniqueId}
+    >
+      <span>
+        <slot />
+      </span>
 
       <div
-        id="lieuu44uxonkamz"
-        class="pt-popover bg-gray-50 border-2 border-gray-200 rounded-md drop-shadow-lg p-4"
-        style="display: none"
+        id={uniqueId}
+        class="pt-popover not-prose bg-gray-50 border-2 border-gray-200 rounded-md drop-shadow-lg p-4"
+        style="display: none;"
       >
-        <div class="flex flex-col gap-2 justify-between mt-6 leading-snug">
+        <div class="flex flex-col gap-2 justify-between leading-snug">
           <a
             href="/concepts/polyamory"
-            class="pt-popover-content-link inline-block internal-link decoration-t-magenta-500"
+            class="pt-popover-content-link inline-block"
           >
-            Polyamory
+            {markDef.internalLink.title}
           </a>
+
+          {lines.map((line, i) => (
+            <p class="text-md" set:html={line} />
+          ))}
         </div>
-        <>
-          <p class="text-md">
-            The expansion of romantic relationships beyond two people with the
-            consent and knowledge of all parties involved.
-          </p>
-          <div class="pt-popover-arrow" />
-        </>
+        <div class="pt-popover-arrow" />
       </div>
     </button>
   )

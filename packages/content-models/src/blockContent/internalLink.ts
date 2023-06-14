@@ -39,12 +39,14 @@ type referenceTypes = "post" | "concept" | "resource";
 interface StandardInternalLink {
   slug: Slug;
   title: string;
+  description: string;
   _type: referenceTypes;
 }
 
 interface ResourceContentInternalLink {
   slug: Slug;
   title: string;
+  description: string;
   _type: "resourceContent";
   resource: {
     _type: "resource";
