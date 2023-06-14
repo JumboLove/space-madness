@@ -26,7 +26,41 @@ function getInternalLinkUrl(mark: InternalLinkAnnotation) {
 const url = new URL(getInternalLinkUrl(markDef), Astro.url);
 ---
 
-{markDef.showPopover && <button>Popover TODO</button>}
+{
+  markDef.showPopover && (
+    <button data-popover-id="lieuu44uxonkamz">
+      <span>Popover TODO</span>
+
+      <div
+        id="lieuu44uxonkamz"
+        style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(335px, -540.5px, 0px);"
+        class="pt-popover bg-gray-50 border-2 border-gray-200 rounded-md drop-shadow-lg p-4"
+        data-popper-placement="top"
+        style={{ display: "none" }}
+      >
+        <div class="flex flex-col gap-2 justify-between mt-6 leading-snug">
+          <a
+            href="/concepts/polyamory"
+            class="pt-popover-content-link inline-block internal-link decoration-t-magenta-500"
+          >
+            Polyamory
+          </a>
+        </div>
+        <>
+          <p class="text-md">
+            The expansion of romantic relationships beyond two people with the
+            consent and knowledge of all parties involved.
+          </p>
+          <div
+            class="pt-popover-arrow"
+            data-popper-arrow="true"
+            style="position: absolute; left: 0px; transform: translate3d(195.5px, 0px, 0px);"
+          />
+        </>
+      </div>
+    </button>
+  )
+}
 {
   !markDef.showPopover && (
     <a href={url} title={markDef.internalLink.title}>
