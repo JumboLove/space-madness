@@ -34,8 +34,8 @@ const { tag } = Astro.props as Props;
     slot="metadata"
   />
   <article class="prose-custom content-container">
-    <h1>{tag.title}</h1>
-    <p>{tag.description}</p>
+    <h1 class="h2">{tag.title}</h1>
+    <p class="text-lead">{tag.description}</p>
     {
       tag.backlinks && tag.backlinks.length > 0 && (
         <BacklinksList backlinks={tag.backlinks} grouped={true} />
