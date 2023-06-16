@@ -180,3 +180,31 @@
     transform: rotate(45deg);
   }
 }
+
+/* Base Links */
+@layer base {
+  a[href^="http://"],
+  a[href^="https://"]
+  {
+    @apply underline decoration-2 decoration-fuchsia-600;
+    position: relative;
+    padding-right: 1.5rem;
+    transition: text-underline-offset 0.1s ease-in;
+  }
+
+  a[href^="http://"]:hover,
+  a[href^="http://"]:focus,
+  a[href^="https://"]:hover,
+  a[href^="https://"]:focus
+  {
+    @apply underline-offset-2;
+  }
+}
+
+/* Popover Links */
+@layer components {
+  .popover-link {
+    @apply underline decoration-2 decoration-sky-500 underline-offset-1 hover:underline-offset-2;
+    transition: text-underline-offset 0.1s ease-in;
+  }
+}
