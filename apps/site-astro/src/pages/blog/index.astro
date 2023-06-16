@@ -2,25 +2,27 @@
 import MetaTags from "@/components/MetaTags.astro";
 import Layout from "@/layouts/Layout.astro";
 import { titleTemplate } from "@/lib/metadata";
+import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
 import { splitIntoLines } from "@/lib/stringUtils";
 import { getUrlForSanityType } from "@/lib/url";
 import { getAllPostsList } from "@/queries/post";
-import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
+
 const data = await getAllPostsList();
+const title = getSanityTypeDisplayText("post", true);
 ---
 
 <Layout>
 	<MetaTags
-		title={titleTemplate("Blog Posts")}
+		title={titleTemplate(title)}
 		description={"My thoughts and musings"}
 		slot="metadata"
 	/>
 
 	<header class="prose-width content-container">
-		<h1>{getSanityTypeDisplayText("post", true)}</h1>
+		<h1 class="h2">{title}</h1>
 	</header>
 
-	<main class="content-container prose-width flex flex-col gap-10">
+	<main class="content-container prose-width flex flex-col gap-12">
 		{
 			data &&
 				data.map((post) => {
@@ -30,9 +32,9 @@ const data = await getAllPostsList();
 							href={getUrlForSanityType("post", post.slug.current)}
 							class="group"
 						>
-							<h2 class="group-hover:text-sky-500">{post.title}</h2>
+							<h2 class="h3 group-hover:text-sky-500">{post.title}</h2>
 							{lines.map((line, i) => (
-								<p class="text-md" set:html={line} />
+								<p class="p text-md" set:html={line} />
 							))}
 						</a>
 					);
