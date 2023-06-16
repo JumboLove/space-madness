@@ -1,6 +1,7 @@
 ---
 import "src/styles/global.css";
 import MetaTags from "@/components/MetaTags.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
 ---
 
 <!DOCTYPE html>
@@ -21,6 +22,7 @@ import MetaTags from "@/components/MetaTags.astro";
 		</slot>
 	</head>
 	<body>
+		<SiteHeader />
 		<slot />
 
 		<!-- Global scripts -->

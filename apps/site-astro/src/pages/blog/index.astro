@@ -1,9 +1,11 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { getAllPostsList } from "@/queries/post";
-import { getUrlForSanityType } from "@/lib/url";
-import { titleTemplate } from "@/lib/metadata";
 import MetaTags from "@/components/MetaTags.astro";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { splitIntoLines } from "@/lib/stringUtils";
+import { getUrlForSanityType } from "@/lib/url";
+import { getAllPostsList } from "@/queries/post";
+import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
 const data = await getAllPostsList();
 ---
 
@@ -15,17 +17,23 @@ const data = await getAllPostsList();
 	/>
 
 	<header class="prose-width content-container">
-		<h1>Posts</h1>
+		<h1>{getSanityTypeDisplayText("post", true)}</h1>
 	</header>
 
-	<main class="content-container prose-width">
+	<main class="content-container prose-width flex flex-col gap-10">
 		{
 			data &&
 				data.map((post) => {
+					const lines = splitIntoLines(post.description);
 					return (
-						<a href={getUrlForSanityType("post", post.slug.current)}>
-							<h2>{post.title}</h2>
-							<p>{post.description}</p>
+						<a
+							href={getUrlForSanityType("post", post.slug.current)}
+							class="group"
+						>
+							<h2 class="group-hover:text-sky-500">{post.title}</h2>
+							{lines.map((line, i) => (
+								<p class="text-md" set:html={line} />
+							))}
 						</a>
 					);
 				})
