@@ -1,0 +1,28 @@
+---
+import { SiteSearchDialog } from "@/components/SiteSearchDialog";
+---
+
+<SiteSearchDialog client:idle />
+
+<script is:inline>
+window.addEventListener("DOMContentLoaded", async (event) => {
+  window.pagefind = await import("/_pagefind/pagefind.js");
+});
+</script>
+
+{
+  /* Use "/" as the search keyboard shortcut 
+  CMD + K is also popular, which can be done with: 
+  if (e.key === "k" && e.metaKey) {  */
+}
+<script>
+  const searchKeyListener = (event: KeyboardEvent) => {
+    const { key } = event;
+    if (key === "/") {
+      const event = new Event("openSearch");
+      document.dispatchEvent(event);
+    }
+  };
+
+  document.addEventListener("keydown", searchKeyListener);
+</script>
