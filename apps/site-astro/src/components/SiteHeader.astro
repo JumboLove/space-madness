@@ -1,10 +1,12 @@
 ---
 import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
 import { getUrlForSanityType } from "@/lib/url";
+import { Search } from "lucide-react";
 ---
 
 <header
   class="site-header flex flex-col place-content-between items-center gap-4 p-4 sm:flex-row sm:items-end sm:p-6"
+  data-pagefind-ignore
 >
   <a href="/"><h2 class="h2 pb-0">Site Name</h2></a>
 
@@ -18,5 +20,26 @@ import { getUrlForSanityType } from "@/lib/url";
     <a href={getUrlForSanityType("resource", "")} class="link"
       >{getSanityTypeDisplayText("resource", true)}</a
     >
+
+    <button
+      class="inline-flex items-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4 relative h-9 justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+      id="site-search"
+      ><span class="sr-only">Open Site Search</span><Search
+        className="w-4 h-4"
+      /><kbd
+        class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex"
+        >/</kbd
+      ></button
+    >
   </nav>
 </header>
+
+<script>
+  function openSearch() {
+    const event = new Event("openSearch");
+    document.dispatchEvent(event);
+  }
+
+  const search = document.getElementById("site-search");
+  search?.addEventListener("click", openSearch);
+</script>
