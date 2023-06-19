@@ -212,3 +212,34 @@
     transition: text-underline-offset 0.1s ease-in;
   }
 }
+
+/* Zoom Vanilla JS */
+@layer base {
+  img[data-action="zoom"] {
+    cursor: zoom-in;
+  }
+  .zoom-img,
+  .zoom-img-wrap {
+    position: relative;
+    z-index: 200;
+    transition: all 200ms;
+  }
+  img.zoom-img {
+    cursor: zoom-out;
+  }
+  .zoom-overlay {
+    cursor: zoom-out;
+    z-index: 190;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  .zoom-overlay-open .zoom-overlay {
+    opacity: 1;
+  }
+}
