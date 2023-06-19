@@ -1,34 +1,50 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { getAllResourcesList } from "@/queries/resource";
-import { getUrlForSanityType } from "@/lib/url";
-import { titleTemplate } from "@/lib/metadata";
 import MetaTags from "@/components/MetaTags.astro";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
+import { getUrlForSanityType } from "@/lib/url";
+import { getAllResourcesList } from "@/queries/resource";
+
 const data = await getAllResourcesList();
+const title = getSanityTypeDisplayText("resource", true);
 ---
 
 <Layout>
   <MetaTags
-    title={titleTemplate("Resources")}
+    title={titleTemplate(title)}
     description={"References to sites, books, podcasts, and the like"}
     slot="metadata"
   />
 
   <header class="prose-width content-container">
-    <h1>Resources</h1>
+    <h1 class="h2">{title}</h1>
   </header>
 
   <main class="content-container prose-width">
     {
-      data &&
-        data.map((resource) => {
-          return (
-            <a href={getUrlForSanityType("resource", resource.slug.current)}>
-              <h2>{resource.title}</h2>
-              <p>{resource.description}</p>
-            </a>
-          );
-        })
+      data && (
+        <div class="grid md:grid-cols-2 gap-4 not-prose">
+          {data.map((resource) => {
+            return (
+              <a href={getUrlForSanityType("resource", resource.slug.current)}>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{resource.title}</CardTitle>
+                    <CardDescription>{resource.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </a>
+            );
+          })}
+        </div>
+      )
     }
   </main>
 </Layout>

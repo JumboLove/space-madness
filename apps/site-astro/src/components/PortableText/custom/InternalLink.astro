@@ -1,4 +1,5 @@
 ---
+import PopoverBubble from "@/components/svg/PopoverBubble";
 import { generateUniqueId, splitIntoLines } from "@/lib/stringUtils";
 import { getUrlForSanityType } from "@/lib/url";
 import type { Props as $, Mark } from "astro-portabletext/types";
@@ -10,13 +11,17 @@ const {
 } = Astro.props;
 
 function buildLinks(mark: InternalLinkAnnotation) {
-  const links: { url: string; text: string }[] = [];
+  const links: { url: string; text: string; internal: boolean }[] = [];
 
   // Resource content will not have its own internal page
   // It may have an external URL
   // Provide a link to the parent resource page and the external URL
   if (mark.internalLink._type === "resourceContent" && mark.internalLink.url) {
-    links.push({ url: mark.internalLink.url, text: mark.internalLink.title });
+    links.push({
+      url: mark.internalLink.url,
+      text: mark.internalLink.title,
+      internal: false,
+    });
   }
 
   if (mark.internalLink._type === "resourceContent") {
@@ -29,6 +34,7 @@ function buildLinks(mark: InternalLinkAnnotation) {
         Astro.url
       ).toString(),
       text: mark.internalLink.resource.title,
+      internal: true,
     });
   }
 
@@ -42,6 +48,7 @@ function buildLinks(mark: InternalLinkAnnotation) {
         Astro.url
       ).toString(),
       text: mark.internalLink.title,
+      internal: true,
     });
   }
 
@@ -56,7 +63,7 @@ const lines = splitIntoLines(markDef.internalLink.description);
 {
   markDef.showPopover && (
     <button
-      class="underline"
+      class="popover-link"
       data-popover-id={uniqueId}
       aria-expanded="false"
       aria-haspopup="dialog"
@@ -64,6 +71,7 @@ const lines = splitIntoLines(markDef.internalLink.description);
     >
       <span>
         <slot />
+        <PopoverBubble className="w=4 h-4 inline text-sky-500" />
       </span>
 
       <div
@@ -73,19 +81,16 @@ const lines = splitIntoLines(markDef.internalLink.description);
       >
         <div class="flex flex-col gap-2 justify-between leading-snug">
           {lines.map((line, i) => (
-            <p class="text-md" set:html={line} />
+            <p class="p" set:html={line} />
           ))}
-          <a
-            href={mainLink.url}
-            class="pt-popover-content-link inline-block underline"
-          >
+          <a href={mainLink.url} class="pt-popover-content-link inline-block">
             {mainLink.text}
           </a>
           {resourceLink && (
             <div>
               Resource:{" "}
               <a
-                class="pt-popover-content-link inline-block underline"
+                class="pt-popover-content-link inline-block"
                 href={resourceLink.url}
               >
                 {resourceLink.text}

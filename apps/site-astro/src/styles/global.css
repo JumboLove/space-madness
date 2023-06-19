@@ -83,11 +83,11 @@
 
 @layer utilities {
   .prose-custom {
-    @apply prose md:prose-lg prose-slate prose-headings:tracking-tight prose-p:leading-7 prose-code:before:hidden prose-code:after:hidden;
+    @apply prose prose-slate md:prose-lg prose-headings:tracking-tight prose-p:leading-7 prose-code:before:hidden prose-code:after:hidden;
   }
 
   .content-container {
-    @apply w-full mx-auto p-4 md:px-0 md:py-4;
+    @apply mx-auto w-full p-4 md:px-0 md:py-4;
   }
 
   /* Style fixes for prose content */
@@ -96,7 +96,7 @@
   }
 
   .prose-custom code:not(pre code) {
-    @apply bg-slate-200 rounded-sm px-2 py-1;
+    @apply rounded-sm bg-slate-200 px-2 py-1;
   }
 
   /* TOFIX Code smell, need to hard code widths for now */
@@ -107,31 +107,35 @@
 
 /* Shadcn Typography */
 @layer base {
-  h1:not(.prose-custom h1) {
+  .h1 {
     @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
   }
 
-  h2:not(.prose-custom h2) {
+  .h2 {
     @apply scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0;
   }
 
-  h3:not(.prose-custom h3) {
+  .h3 {
     @apply scroll-m-20 text-2xl font-semibold tracking-tight;
   }
 
-  h4:not(.prose-custom h4) {
+  .h4 {
     @apply scroll-m-20 text-xl font-semibold tracking-tight;
   }
 
-  blockquote:not(.prose-custom blockquote) {
+  .p {
+    @apply leading-7 [&:not(:first-child)]:mt-4;
+  }
+
+  .blockquote {
     @apply mt-6 border-l-2 pl-6 italic;
   }
 
-  ul:not(.prose-custom ul) {
+  .ul {
     @apply my-6 ml-6 list-disc [&>li]:mt-2;
   }
 
-  code:not(.prose-custom code):not(.astro-code code) {
+  .code {
     @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
   }
 }
@@ -178,5 +182,33 @@
     width: 8px;
     height: 8px;
     transform: rotate(45deg);
+  }
+}
+
+/* Base Links */
+@layer base {
+  a[href^="http://"],
+  a[href^="https://"],
+  .link {
+    @apply underline decoration-fuchsia-600 decoration-2 underline-offset-2;
+    position: relative;
+    transition: text-underline-offset 0.1s ease-in;
+  }
+
+  a[href^="http://"]:hover,
+  a[href^="http://"]:focus,
+  a[href^="https://"]:hover,
+  a[href^="https://"]:focus,
+  .link:hover,
+  .link:focus {
+    @apply underline-offset-4;
+  }
+}
+
+/* Popover Links */
+@layer components {
+  .popover-link {
+    @apply underline decoration-sky-500 decoration-2 underline-offset-2 hover:underline-offset-4;
+    transition: text-underline-offset 0.1s ease-in;
   }
 }
