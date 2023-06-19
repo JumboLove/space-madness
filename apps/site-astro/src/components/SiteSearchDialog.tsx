@@ -1,23 +1,13 @@
-import { useState, useEffect } from "react";
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react";
+import { useEffect, useState } from "react";
 
 import {
   Command,
   CommandDialog,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 
 // pagefind will be added to the window object from SiteSearch.astro
@@ -50,28 +40,26 @@ type PagefindData = {
 };
 
 export function SiteSearchDialog() {
-  const [open, setOpen] = useState(false);
+  const maxSearchResults = 5;
   const [search, setSearch] = useState("");
+  const [open, setOpen] = useState(false);
   const [results, setResults] = useState<PagefindData[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function runSearch(searchVal) {
-    // setSearch(searcVal);
-    console.log(searchVal);
-
+  async function runSearch(searchVal: string) {
+    setSearch(searchVal);
     try {
       const pagefindResults = await window.pagefind.search(searchVal);
       if (pagefindResults.results) {
         const dataArray: PagefindData[] = await Promise.all(
           pagefindResults.results
-            .slice(0, 5)
+            .slice(0, maxSearchResults)
             .map(async (result: PagefindResult) => {
               const data = await result.data();
               return { id: result.id, ...data };
             })
         );
         setResults(dataArray);
-        console.log(results);
       } else {
         setErrorMsg("Search results could not be loaded");
       }
@@ -80,6 +68,15 @@ export function SiteSearchDialog() {
     }
   }
 
+  function navigateToResult(value: PagefindData) {
+    const location = new URL(value.url, window.location.toString());
+    window.location.href = location.href;
+  }
+
+  // Global keyboard event handler is setup in SieSearch.astro
+  // You can also trigger search from any component with:
+  // const event = new Event("openSearch");
+  // document.dispatchEvent(event);
   useEffect(() => {
     document.addEventListener("openSearch", () => setOpen((open) => !open));
   }, []);
@@ -89,25 +86,27 @@ export function SiteSearchDialog() {
       <Command shouldFilter={false}>
         <CommandInput
           placeholder="Search anything..."
+          value={search}
           onValueChange={runSearch}
         />
 
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandItem>{results.length}</CommandItem>
+          {!errorMsg && <CommandEmpty>No results found.</CommandEmpty>}
+          {errorMsg && <CommandEmpty>{errorMsg}</CommandEmpty>}
 
           <CommandSeparator />
-          <CommandGroup heading="Results">
-            {results.length > 0 &&
-              results.map((result) => {
-                return (
-                  <CommandItem key={result.id}>
-                    <div>{result.meta.title}</div>
-                    <div dangerouslySetInnerHTML={{ __html: result.excerpt }} />
-                  </CommandItem>
-                );
-              })}
-          </CommandGroup>
+          {results.length > 0 &&
+            results.map((result) => {
+              return (
+                <CommandItem
+                  key={result.id}
+                  onSelect={() => navigateToResult(result)}
+                >
+                  <div className="pb-2 font-semibold">{result.meta.title}</div>
+                  <div dangerouslySetInnerHTML={{ __html: result.excerpt }} />
+                </CommandItem>
+              );
+            })}
         </CommandList>
       </Command>
     </CommandDialog>

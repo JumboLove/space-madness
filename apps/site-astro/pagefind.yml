@@ -1,5 +1,4 @@
 source: dist
-root_selector: main
 exclude_selectors:
   - ".site-header"
   - "[data-pagefind-ignore]"
