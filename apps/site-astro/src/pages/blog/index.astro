@@ -22,7 +22,10 @@ const title = getSanityTypeDisplayText("post", true);
 		<h1 class="h2">{title}</h1>
 	</header>
 
-	<main class="content-container prose-width flex flex-col gap-12">
+	<main
+		class="content-container prose-width flex flex-col gap-12"
+		data-pagefind-ignore
+	>
 		{
 			data &&
 				data.map((post) => {

@@ -81,7 +81,7 @@ const lines = splitIntoLines(markDef.internalLink.description);
       >
         <div class="flex flex-col gap-2 justify-between leading-snug">
           {lines.map((line, i) => (
-            <p class="p" set:html={line} />
+            <p class="text-md" set:html={line} />
           ))}
           <a href={mainLink.url} class="pt-popover-content-link inline-block">
             {mainLink.text}

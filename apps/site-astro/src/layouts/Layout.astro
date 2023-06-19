@@ -2,6 +2,7 @@
 import "src/styles/global.css";
 import MetaTags from "@/components/MetaTags.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
+import SiteSearch from "@/components/SiteSearch.astro";
 ---
 
 <!DOCTYPE html>
@@ -24,6 +25,8 @@ import SiteHeader from "@/components/SiteHeader.astro";
 	<body>
 		<SiteHeader />
 		<slot />
+
+		<SiteSearch />
 
 		<!-- Global scripts -->
 		<script src="src/scripts/popover.ts"></script>

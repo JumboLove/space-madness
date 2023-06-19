@@ -64,7 +64,7 @@ const buckets = backlinks ? bucketBacklinksByType(backlinks) : [];
 
 {
   !grouped && (
-    <div class={cn(defaultClasses, className)}>
+    <div class={cn(defaultClasses, className)} data-pagefind-ignore>
       {backlinks &&
         backlinks.map((backlink) => (
           <a href={getBacklinkUrl(backlink)}>
@@ -85,7 +85,7 @@ const buckets = backlinks ? bucketBacklinksByType(backlinks) : [];
     Object.entries(buckets)
       .filter(([type, backlinks]) => backlinks.length > 0)
       .map(([type, backlinks]) => (
-        <div>
+        <div data-pagefind-ignore>
           <h3>{getSanityTypeDisplayText(type, true)}</h3>
           <div class={cn(defaultClasses, className)}>
             {backlinks.map((backlink) => (

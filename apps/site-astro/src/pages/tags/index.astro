@@ -21,7 +21,7 @@ const title = getSanityTypeDisplayText("tag", true);
     <h1 class="h2">Browse content by tag</h1>
   </header>
 
-  <main class="prose-custom content-container">
+  <main class="prose-custom content-container" data-pagefind-ignore>
     {data && <TagsList tags={data} asLinks={true} />}
   </main>
 </Layout>
