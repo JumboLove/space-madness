@@ -1,0 +1,50 @@
+---
+import MetaTags from "@/components/MetaTags.astro";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
+import { getUrlForSanityType } from "@/lib/url";
+import { getAllConceptsList } from "@/queries/concept";
+
+const data = await getAllConceptsList();
+const title = getSanityTypeDisplayText("concept", true);
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate(title)}
+    description={"Ideas explained to help people learn"}
+    slot="metadata"
+  />
+
+  <header class="prose-width content-container">
+    <h1 class="h2">{title}</h1>
+  </header>
+
+  <main class="content-container prose-width" data-pagefind-ignore>
+    {
+      data && (
+        <div class="grid md:grid-cols-2 gap-4 not-prose">
+          {data.map((concept) => {
+            return (
+              <a href={getUrlForSanityType("concept", concept.slug.current)}>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{concept.title}</CardTitle>
+                    <CardDescription>{concept.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </a>
+            );
+          })}
+        </div>
+      )
+    }
+  </main>
+</Layout>

@@ -1,0 +1,53 @@
+---
+import MetaTags from "@/components/MetaTags.astro";
+import PortableText from "@/components/PortableText/PortableText.astro";
+import BacklinksList from "@/components/content/BacklinksList.astro";
+import TagsList from "@/components/content/TagsList.astro";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getAllPostsFull } from "@/queries/post";
+import type { InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
+  const data = await getAllPostsFull();
+  const staticProps = data.map((post) => {
+    return {
+      params: {
+        slug: post.slug.current,
+      },
+      props: {
+        post: post,
+      },
+    };
+  });
+
+  return staticProps;
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props as Props;
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate(post.title)}
+    description={post.description}
+    slot="metadata"
+  />
+  <article class="prose-custom content-container">
+    <h1>{post.title}</h1>
+
+    {post.tags && <TagsList tags={post.tags} asLinks={true} />}
+    {post.body && <PortableText value={post.body} />}
+
+    {
+      post.backlinks && post.backlinks.length > 0 && (
+        <>
+          <h3>Backlinks</h3>
+          <BacklinksList backlinks={post.backlinks} />
+        </>
+      )
+    }
+  </article>
+</Layout>

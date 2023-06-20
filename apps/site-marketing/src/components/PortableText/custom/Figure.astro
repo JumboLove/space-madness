@@ -1,0 +1,36 @@
+---
+import type { Props as $ } from "astro-portabletext/types";
+import type { FigureBlock } from "content-models";
+import { urlForImage } from "@/lib/sanityImageUrl";
+import PortableText from "../PortableText.astro";
+export type Props = $<FigureBlock>;
+
+const { node } = Astro.props;
+
+// height will be used to reserve space before image loads,
+// it will naturally take the true size of the image on load
+const width = 1300;
+const height = 500;
+const image = urlForImage(node.image.asset._ref).width(width).auto("format");
+---
+
+<figure>
+  <img
+    src={image.url()}
+    alt={node.image.alt}
+    data-action="zoom"
+    width={width}
+    height={height}
+  />
+  <figcaption>
+    <PortableText value={node.caption} />
+  </figcaption>
+</figure>
+
+<style>
+  /* TODO move to global state */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

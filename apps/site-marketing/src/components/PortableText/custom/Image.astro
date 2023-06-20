@@ -1,0 +1,32 @@
+---
+import type { Props as $ } from "astro-portabletext/types";
+import type { ImageBlock } from "content-models";
+import { urlForImage } from "@/lib/sanityImageUrl";
+
+export type Props = $<ImageBlock>;
+
+const { node } = Astro.props;
+
+// height will be used to reserve space before image loads,
+// it will naturally take the true size of the image on load
+const width = 1300;
+const height = 500;
+const image = urlForImage(node.asset._ref).width(width).auto("format");
+---
+
+<!-- TODO handle data-action zoom -->
+<img
+  src={image.url()}
+  alt={node.alt}
+  data-action="zoom"
+  width={width}
+  height={height}
+/>
+
+<style>
+  /* TODO move this to a global style */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

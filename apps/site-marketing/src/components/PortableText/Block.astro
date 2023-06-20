@@ -1,0 +1,14 @@
+---
+import { Block as PortableTextBlock } from "astro-portabletext/components";
+
+export type Props = Parameters<typeof PortableTextBlock>[0];
+
+const props = Astro.props;
+const styleIs = (style: string) => style === props.node.style;
+
+// Use `styleIs` to setup chained ternary operators to define custom blocks
+// const Cmp = styleIs("fancyBorder") ? FancyBorder : Block;
+const Cmp = PortableTextBlock;
+---
+
+<Cmp {...props}><slot /></Cmp>

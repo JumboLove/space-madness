@@ -1,0 +1,53 @@
+---
+import MetaTags from "@/components/MetaTags.astro";
+import PortableText from "@/components/PortableText/PortableText.astro";
+import BacklinksList from "@/components/content/BacklinksList.astro";
+import TagsList from "@/components/content/TagsList.astro";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getAllConceptsFull } from "@/queries/concept";
+import type { InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
+  const data = await getAllConceptsFull();
+  const staticProps = data.map((concept) => {
+    return {
+      params: {
+        slug: concept.slug.current,
+      },
+      props: {
+        concept: concept,
+      },
+    };
+  });
+
+  return staticProps;
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { concept } = Astro.props as Props;
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate(concept.title)}
+    description={concept.description}
+    slot="metadata"
+  />
+  <article class="prose-custom content-container">
+    <h1>{concept.title}</h1>
+
+    {concept.tags && <TagsList tags={concept.tags} asLinks={true} />}
+    {concept.body && <PortableText value={concept.body} />}
+
+    {
+      concept.backlinks && concept.backlinks.length > 0 && (
+        <>
+          <h3>Backlinks</h3>
+          <BacklinksList backlinks={concept.backlinks} />
+        </>
+      )
+    }
+  </article>
+</Layout>
