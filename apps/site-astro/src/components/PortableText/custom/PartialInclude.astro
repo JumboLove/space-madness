@@ -1,0 +1,12 @@
+---
+import { getPartial } from "@/queries/partialInclude";
+import type { Props as $ } from "astro-portabletext/types";
+import type { PartialInclude } from "content-models";
+import PortableText from "../PortableText.astro";
+export type Props = $<PartialInclude>;
+
+const { node } = Astro.props;
+const partial = await getPartial(node.content._ref);
+---
+
+{partial.body && <PortableText value={partial.body} />}

@@ -5,6 +5,7 @@ import {
   blockContentSanityDefinition,
   resourceSanityDefinition,
   resourceContentSanityDefinition,
+  partialSanityDefinition,
 } from 'content-models'
 
 export const schemaTypes = [
@@ -14,5 +15,6 @@ export const schemaTypes = [
   resourceContentSanityDefinition,
   tagSanityDefinition,
   blockContentSanityDefinition,
+  partialSanityDefinition,
 ]
 export const translatedTypes = [conceptSanityDefinition.name, postSanityDefinition.name]
