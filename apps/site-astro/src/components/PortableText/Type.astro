@@ -7,8 +7,10 @@ import Figure, { type Props as FigureProps } from "./custom/Figure.astro";
 import CodeBlock, {
   type Props as CodeBlockProps,
 } from "./custom/CodeBlock.astro";
+import Embed, { type Props as EmbedProps } from "./custom/Embed.astro";
 
-export type Props = CalloutProps | ImageProps | FigureProps | CodeBlockProps;
+// prettier-ignore
+export type Props = CalloutProps | ImageProps | FigureProps | CodeBlockProps | EmbedProps;
 
 const props = Astro.props;
 const typeIs = (type: string) => type === props.node._type;
@@ -23,6 +25,8 @@ const Cmp = typeIs("callout")
   ? Figure
   : typeIs("codeBlock")
   ? CodeBlock
+  : typeIs("embed")
+  ? Embed
   : getDefaultComponent();
 ---
 

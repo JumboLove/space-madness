@@ -5,6 +5,7 @@ import { CalloutBlock, calloutSanityDefinition } from "./blockContent/callout";
 import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
 import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
 import { CodeBlock, codeBlockSanityDefinition } from "./blockContent/codeBlock";
+import { EmbedBlock, embedSanityDefinition } from "./blockContent/embed";
 
 import {
   InternalLinkAnnotation,
@@ -91,6 +92,7 @@ export const blockContentSanityDefinition = defineType({
     figureSanityDefinition,
     calloutSanityDefinition,
     codeBlockSanityDefinition,
+    embedSanityDefinition,
   ],
 });
 
@@ -103,6 +105,7 @@ export type BlockContent =
   | ImageBlock
   | FigureBlock
   | CalloutBlock
-  | CodeBlock;
+  | CodeBlock
+  | EmbedBlock;
 
 export type Annotations = Array<InternalLinkAnnotation>;

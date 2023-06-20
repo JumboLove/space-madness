@@ -9,3 +9,4 @@ export * from "./blockContent/image";
 export * from "./blockContent/figure";
 export * from "./blockContent/internalLink";
 export * from "./blockContent/codeBlock";
+export * from "./blockContent/embed";
