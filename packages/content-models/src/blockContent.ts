@@ -6,6 +6,10 @@ import { FigureBlock, figureSanityDefinition } from "./blockContent/figure";
 import { ImageBlock, imageSanityDefinition } from "./blockContent/image";
 import { CodeBlock, codeBlockSanityDefinition } from "./blockContent/codeBlock";
 import { EmbedBlock, embedSanityDefinition } from "./blockContent/embed";
+import {
+  PartialInclude,
+  partialIncludeSanityDefinition,
+} from "./blockContent/partialInclude";
 
 import {
   InternalLinkAnnotation,
@@ -93,6 +97,7 @@ export const blockContentSanityDefinition = defineType({
     calloutSanityDefinition,
     codeBlockSanityDefinition,
     embedSanityDefinition,
+    partialIncludeSanityDefinition,
   ],
 });
 
@@ -106,6 +111,7 @@ export type BlockContent =
   | FigureBlock
   | CalloutBlock
   | CodeBlock
-  | EmbedBlock;
+  | EmbedBlock
+  | PartialInclude;
 
 export type Annotations = Array<InternalLinkAnnotation>;

@@ -22,7 +22,8 @@ export const internalLinkSanityDefinition = {
         { type: "resource" },
         { type: "resourceContent" },
       ],
-      validation: (Rule: Rule) => Rule.required().error("Alt text is required"),
+      validation: (Rule: Rule) =>
+        Rule.required().error("Reference is required"),
     },
     {
       name: "showPopover",
