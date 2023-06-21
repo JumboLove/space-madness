@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Color theme */
+@layer base {
+  :root {
+    --moonstone: #2cb1c8ff;
+    --fandango: #b1409fff;
+    --space-cadet: #182443ff;
+    --glaucous: #798cc3ff;
+    --plum: #933c85ff;
+  }
+}
+
 /* Shadcn Theme */
 @layer base {
   :root {
@@ -241,5 +252,11 @@
   }
   .zoom-overlay-open .zoom-overlay {
     opacity: 1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

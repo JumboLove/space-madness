@@ -3,36 +3,93 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<!-- Temp prose -->
-	<main class="prose-custom">
-		<header>
-			<h1>Space Madness</h1>
-			<h2>
+	<main>
+		<header class="relative flex items-center">
+			<img
+				src="images/space-madness-astronaut.jpg"
+				alt="Astronaut sitting in lotus position"
+			/>
+			<div
+				class="absolute inset-0 backdrop-brightness-75 flex flex-col items-center justify-center"
+			>
+				<h1
+					class="text-center gradient-text font-extrabold tracking-tight uppercase leading-none drop-shadow-md px-2"
+				>
+					Space Madness
+				</h1>
+			</div>
+		</header>
+		<div class="py-14 px-6">
+			<h2 class="text-3xl text-center max-w-prose text-balance">
 				A content framework that connects ideas so you can build your digital
 				garden
 			</h2>
-		</header>
-		<section>
-			<h2>Sanity + Astro</h2>
-			<p>Fast as a default 🚀</p>
-			<p>Connect your content with links: backlinks are automagic 🪄</p>
-			<p>Shared types for peace of mind 🧘</p>
-		</section>
-		<section>
-			<h2>High quality, highly opinionated</h2>
-			<ul>
-				<li>Tailwind</li>
-				<li>Zod</li>
-				<li>Radix</li>
-				<li>ShadCN UI</li>
-			</ul>
-		</section>
-		<section>
-			<h2>Built for discovery</h2>
-			<p>Backlinks connect content together with 0 effort</p>
-			<p>Search everything with Pagefind + cmdk</p>
-		</section>
+		</div>
 	</main>
+	<section>
+		<h2>Sanity + Astro</h2>
+		<p>Fast as a default 🚀</p>
+		<p>Connect your content with links: backlinks are automagic 🪄</p>
+		<p>Shared types for peace of mind 🧘</p>
+	</section>
+	<section>
+		<h2>High quality, highly opinionated</h2>
+		<ul>
+			<li>Tailwind</li>
+			<li>Zod</li>
+			<li>Radix</li>
+			<li>ShadCN UI</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Built for discovery</h2>
+		<p>Backlinks connect content together with 0 effort</p>
+		<p>Search everything with Pagefind + cmdk</p>
+	</section>
 </Layout>
 
-<style></style>
+<style is:global>
+	/* Hide header's site name on homepage */
+	.site-title {
+		visibility: hidden;
+	}
+</style>
+
+<style>
+	.gradient-text {
+		font-size: clamp(2rem, 25vmin, 6rem);
+	}
+
+	@media (max-width: 500px) {
+		.gradient-text {
+			font-size: 2.5rem;
+		}
+	}
+
+	.gradient-text {
+		--bg-size: 400%;
+		--color-one: var(--moonstone);
+		--color-two: var(--fandango);
+		background: linear-gradient(
+				90deg,
+				var(--color-one),
+				var(--color-two),
+				var(--color-one)
+			)
+			0 0 / var(--bg-size) 100%;
+		color: transparent;
+		-webkit-background-clip: text;
+		background-clip: text;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.gradient-text {
+			animation: move-bg 20s linear infinite;
+		}
+		@keyframes move-bg {
+			to {
+				background-position: var(--bg-size) 0;
+			}
+		}
+	}
+</style>
