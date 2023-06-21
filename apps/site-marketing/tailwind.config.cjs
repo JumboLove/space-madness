@@ -14,6 +14,11 @@ module.exports = {
 		},
 		extend: {
 			colors: {
+				moonstone: "#2cb1c8ff",
+				fandango: "#b1409fff",
+				"space-cadet": "#182443ff",
+				glaucous: "#798cc3ff",
+				plum: "#933c85ff",
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",

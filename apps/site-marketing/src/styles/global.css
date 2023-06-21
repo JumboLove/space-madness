@@ -201,7 +201,8 @@
   a[href^="http://"],
   a[href^="https://"],
   .link {
-    @apply underline decoration-fuchsia-600 decoration-2 underline-offset-2;
+    @apply underline decoration-2 underline-offset-2;
+    text-decoration-color: var(--fandango);
     position: relative;
     transition: text-underline-offset 0.1s ease-in;
   }

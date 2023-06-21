@@ -1,5 +1,51 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const featuresList: { title: string; description: string }[] = [
+	{
+		title: "Fast by default",
+		description:
+			"Sites are compiled at build time. Always fast. Scales infinitely <br/>CDN & Edge hostable",
+	},
+	{
+		title: "Link everything",
+		description:
+			"Links connect different content pieces together, allowing for organic exploration. All links are bi-directional. <br/>Backlinks are automagic  🪄",
+	},
+	{
+		title: "Search anything",
+		description:
+			"Fast and local search is built in. No tweaking necessary. <br/>Try it now (TODO link)",
+	},
+	{
+		title: "Fully customizable",
+		description:
+			"You own the entire stack <br/>A powerful and easy to use backend Sanity Studio <br/>A feature rich, DX paradise frontend with Astro",
+	},
+];
+
+const techFeatures: { title: string; description: string }[] = [
+	{
+		title: "Type safety everywhere",
+		description:
+			"Shared types across the front-end and backend <br/>Typescript + Zod = 🧘",
+	},
+	{
+		title: "Radix + shadcn/ui",
+		description:
+			"Prebuilt feature rich, beautiful, fully accessible components",
+	},
+	{
+		title: "Tailwind CSS + Scoped Styles",
+		description:
+			"Build with consistency using Tailwind when you need it <br/>Scope your styles with Astro when you want to get fancy with the spices",
+	},
+	{
+		title: "Pagefind + cmdk",
+		description:
+			"Pagefind builds search indexes at build time <br/>Client side search with cmdk feels like flying in Plaid Mode™",
+	},
+];
 ---
 
 <Layout>
@@ -19,33 +65,138 @@ import Layout from "../layouts/Layout.astro";
 				</h1>
 			</div>
 		</header>
-		<div class="py-14 px-6">
-			<h2 class="text-3xl text-center max-w-prose text-balance">
+
+		<!-- Subheading -->
+		<section class="py-14 px-6">
+			<h2
+				class="text-3xl font-semibold text-center leading-relaxed mx-auto text-balance max-w-[800px]"
+			>
 				A content framework that connects ideas so you can build your digital
 				garden
 			</h2>
-		</div>
+		</section>
+
+		<!-- Sanity + Astro Logos -->
+		<section
+			class="flex flex-col sm:flex-row items-center justify-center px-4 py-12 gap-10"
+		>
+			<img src="images/sanity.svg" alt="Sanity.io logo" class="h-10" />
+			<div class="text-5xl">+</div>
+			<img
+				src="images/astro-logo-light.svg"
+				alt="Astro.build logo"
+				class="h-12"
+			/>
+		</section>
+
+		<!-- Features -->
+		<section class="py-24 sm:py-32">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="mx-auto max-w-2xl lg:text-center">
+					<h2
+						class="text-base font-semibold uppercase tracking-wide leading-7 text-moonstone"
+					>
+						Grow your garden
+					</h2>
+					<p
+						class="mt-2 text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl"
+					>
+						Everything you need to build connected, explorable websites
+					</p>
+					<p class="mt-6 text-lg leading-8 text-gray-400">
+						People don't think in pages and discrete ideas. They like to explore
+						ideas organically, bouncing from place to place in a way that makes
+						sense to them. Now you can build your content for your explorers.
+					</p>
+				</div>
+				<div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+					<dl
+						class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+					>
+						{
+							featuresList.map((feature) => {
+								return (
+									<div class="relative pl-16">
+										<dt class="text-base font-semibold leading-7 text-gray-200">
+											<div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-moonstone">
+												<svg
+													class="h-6 w-6 text-white"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke-width="1.5"
+													stroke="currentColor"
+													aria-hidden="true"
+												>
+													<path
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+													/>
+												</svg>
+											</div>
+											{feature.title}
+										</dt>
+										<dd
+											class="mt-2 text-base leading-7 text-gray-400"
+											set:html={feature.description}
+										/>
+									</div>
+								);
+							})
+						}
+					</dl>
+				</div>
+			</div>
+		</section>
+
+		<section class="py-24 sm:py-32">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="mx-auto max-w-2xl lg:text-center">
+					<h2
+						class="mt-2 text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl"
+					>
+						A Developer's Paradise
+					</h2>
+
+					<div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+						<dl
+							class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+						>
+							{
+								techFeatures.map((feature) => {
+									return (
+										<div class="relative">
+											<dt class="text-base font-semibold leading-7 text-gray-200">
+												{feature.title}
+											</dt>
+											<dd
+												class="mt-2 text-base leading-7 text-gray-400"
+												set:html={feature.description}
+											/>
+										</div>
+									);
+								})
+							}
+						</dl>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Footer -->
+		<section class="py-24 sm:py-32">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="mx-auto max-w-2xl lg:text-center">
+					<h2
+						class="mt-2 text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl"
+					>
+						Seed your Garden Today
+					</h2>
+					<p class="mt-8">TODO CTA/NPX create</p>
+				</div>
+			</div>
+		</section>
 	</main>
-	<section>
-		<h2>Sanity + Astro</h2>
-		<p>Fast as a default 🚀</p>
-		<p>Connect your content with links: backlinks are automagic 🪄</p>
-		<p>Shared types for peace of mind 🧘</p>
-	</section>
-	<section>
-		<h2>High quality, highly opinionated</h2>
-		<ul>
-			<li>Tailwind</li>
-			<li>Zod</li>
-			<li>Radix</li>
-			<li>ShadCN UI</li>
-		</ul>
-	</section>
-	<section>
-		<h2>Built for discovery</h2>
-		<p>Backlinks connect content together with 0 effort</p>
-		<p>Search everything with Pagefind + cmdk</p>
-	</section>
 </Layout>
 
 <style is:global>
@@ -58,18 +209,10 @@ import Layout from "../layouts/Layout.astro";
 <style>
 	.gradient-text {
 		font-size: clamp(2rem, 25vmin, 6rem);
-	}
-
-	@media (max-width: 500px) {
-		.gradient-text {
-			font-size: 2.5rem;
-		}
-	}
-
-	.gradient-text {
 		--bg-size: 400%;
-		--color-one: var(--moonstone);
-		--color-two: var(--fandango);
+		/* Slightly lightened moonstone and fandango for legibility */
+		--color-one: rgb(62, 212, 239);
+		--color-two: rgb(218, 85, 196);
 		background: linear-gradient(
 				90deg,
 				var(--color-one),
@@ -82,9 +225,15 @@ import Layout from "../layouts/Layout.astro";
 		background-clip: text;
 	}
 
+	@media (max-width: 500px) {
+		.gradient-text {
+			font-size: 2.5rem;
+		}
+	}
+
 	@media (prefers-reduced-motion: no-preference) {
 		.gradient-text {
-			animation: move-bg 20s linear infinite;
+			animation: move-bg 30s linear infinite;
 		}
 		@keyframes move-bg {
 			to {
