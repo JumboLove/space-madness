@@ -94,7 +94,7 @@ const techFeatures: { title: string; description: string }[] = [
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
 				<div class="mx-auto max-w-2xl lg:text-center">
 					<h2
-						class="text-base font-semibold uppercase tracking-wide leading-7 text-moonstone"
+						class="text-base font-semibold uppercase tracking-wide leading-7 text-fandango"
 					>
 						Grow your garden
 					</h2>
@@ -118,7 +118,8 @@ const techFeatures: { title: string; description: string }[] = [
 								return (
 									<div class="relative pl-16">
 										<dt class="text-base font-semibold leading-7 text-gray-200">
-											<div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-moonstone">
+											<div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-fandango">
+												<!-- TODO replace icons -->
 												<svg
 													class="h-6 w-6 text-white"
 													fill="none"
@@ -134,7 +135,7 @@ const techFeatures: { title: string; description: string }[] = [
 													/>
 												</svg>
 											</div>
-											{feature.title}
+											<span class="tracking-wide">{feature.title}</span>
 										</dt>
 										<dd
 											class="mt-2 text-base leading-7 text-gray-400"

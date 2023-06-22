@@ -94,7 +94,7 @@
 
 @layer utilities {
   .prose-custom {
-    @apply prose prose-slate md:prose-lg prose-headings:tracking-tight prose-p:leading-7 prose-code:before:hidden prose-code:after:hidden;
+    @apply prose prose-slate dark:prose-invert md:prose-lg prose-headings:tracking-tight prose-p:leading-7 prose-code:before:hidden prose-code:after:hidden;
   }
 
   .content-container {
@@ -108,6 +108,10 @@
 
   .prose-custom code:not(pre code) {
     @apply rounded-sm bg-slate-200 px-2 py-1;
+  }
+
+  .dark .prose-custom code:not(pre code) {
+    @apply rounded-sm bg-slate-700 px-2 py-1 text-slate-200;
   }
 
   /* TOFIX Code smell, need to hard code widths for now */

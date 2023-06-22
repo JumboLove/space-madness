@@ -1,7 +1,7 @@
 export function getSanityTypeDisplayText(type: string, plural?: boolean) {
   switch (type) {
     case "post":
-      return plural ? "Articles" : "Article";
+      return plural ? "Docs" : "Article";
     case "concept":
       return plural ? "Concepts" : "Concept";
     case "resource":

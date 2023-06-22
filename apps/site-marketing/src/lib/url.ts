@@ -6,7 +6,7 @@ type SanityTypes = "post" | "concept" | "tag" | "resource";
 export function getUrlForSanityType(type: SanityTypes, slug: string) {
   switch (type) {
     case "post":
-      return `/blog/${slug}`;
+      return `/docs/${slug}`;
     case "concept":
       return `/concepts/${slug}`;
     case "tag":
