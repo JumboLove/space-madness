@@ -56,7 +56,7 @@ const techFeatures: { title: string; description: string }[] = [
 				alt="Astronaut sitting in lotus position"
 			/>
 			<div
-				class="absolute inset-0 backdrop-brightness-75 flex flex-col items-center justify-center"
+				class="hero-overlay absolute inset-0 flex flex-col items-center justify-end"
 			>
 				<h1
 					class="text-center gradient-text font-extrabold tracking-tight uppercase leading-none drop-shadow-md px-2"
@@ -241,5 +241,11 @@ const techFeatures: { title: string; description: string }[] = [
 				background-position: var(--bg-size) 0;
 			}
 		}
+	}
+
+	.hero-overlay {
+		background-image: 
+    linear-gradient(to bottom, #32000000 0%, 80%, #0a122b 94% 100%)
+  ;
 	}
 </style>
