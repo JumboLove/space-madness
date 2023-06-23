@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["SANITY_STUDIO_PROJECT_ID"],
   "pipeline": {
     "build": {
       "outputs": ["dist/**"]
