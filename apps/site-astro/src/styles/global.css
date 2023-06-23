@@ -249,6 +249,13 @@
   }
 }
 
+/* Shiki code blocks */
+@layer components {
+  .shiki .line {
+    @apply inline-block min-w-full px-2;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
