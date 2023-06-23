@@ -25,7 +25,9 @@ popoverButtons.forEach((btn) => {
 });
 
 function setupButtonPopover(btn: PopoverButton) {
+  const uniqueId = btn.dataset.popoverId;
   const popover = btn.querySelector<HTMLDivElement>(".pt-popover")!;
+  popover.id = uniqueId;
   document.body.appendChild(popover as Node);
   popover.style.display = "";
   return popover;

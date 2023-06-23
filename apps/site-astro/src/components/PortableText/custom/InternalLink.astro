@@ -1,6 +1,10 @@
 ---
-import PopoverBubble from "@/components/svg/PopoverBubble";
-import { generateUniqueId, splitIntoLines } from "@/lib/stringUtils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/content/Popover";
+import { splitIntoLines } from "@/lib/stringUtils";
 import { getUrlForSanityType } from "@/lib/url";
 import type { Props as $, Mark } from "astro-portabletext/types";
 import type { InternalLinkAnnotation } from "content-models";
@@ -56,29 +60,17 @@ function buildLinks(mark: InternalLinkAnnotation) {
 }
 
 const [mainLink, resourceLink] = buildLinks(markDef);
-const uniqueId = `popover-${generateUniqueId()}`;
 const lines = splitIntoLines(markDef.internalLink.description);
 ---
 
 {
   markDef.showPopover && (
-    <button
-      class="popover-link"
-      data-popover-id={uniqueId}
-      aria-expanded="false"
-      aria-haspopup="dialog"
-      aria-describedby={uniqueId}
-    >
-      <span>
+    <Popover>
+      <PopoverTrigger>
         <slot />
-        <PopoverBubble className="w=4 h-4 inline text-sky-500" />
-      </span>
+      </PopoverTrigger>
 
-      <div
-        id={uniqueId}
-        class="pt-popover not-prose bg-gray-50 dark:bg-zinc-800 border-2 border-gray-200 dark:border-zinc-700 rounded-md drop-shadow-lg p-4"
-        style="display: none;"
-      >
+      <PopoverContent>
         <div class="flex flex-col gap-2 justify-between leading-snug">
           {lines.map((line, i) => (
             <p class="text-md" set:html={line} />
@@ -98,9 +90,8 @@ const lines = splitIntoLines(markDef.internalLink.description);
             </div>
           )}
         </div>
-        <div class="pt-popover-arrow" />
-      </div>
-    </button>
+      </PopoverContent>
+    </Popover>
   )
 }
 {
