@@ -1,0 +1,104 @@
+---
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
+import { getUrlForSanityType } from "@/lib/url";
+import { cn } from "@/lib/utils";
+import type { Backlink, BacklinkResult } from "@/queries/partials/backlink";
+
+interface Props {
+  backlinks: BacklinkResult;
+  className?: string;
+  grouped?: boolean;
+}
+
+const { backlinks, className, grouped = false } = Astro.props;
+
+const defaultClasses = "grid md:grid-cols-2 gap-4 not-prose";
+
+// Resource content will not have its own page
+// grab the resource content's parent resource data instead
+function getBacklinkUrl(backlink: Backlink) {
+  const backlinkObj =
+    backlink._type === "resourceContent" ? backlink.resource : backlink;
+
+  return getUrlForSanityType(backlinkObj._type, backlinkObj.slug.current);
+}
+
+type SanityTypes = "post" | "concept" | "tag" | "resource" | "resourceContent";
+
+type BacklinkBucket = {
+  [K in SanityTypes]: Backlink[];
+};
+
+function bucketBacklinksByType(backlinks: Backlink[]) {
+  // Use this structure to set the display order of buckets
+  // Buckets not listed here will show at the end
+  const backlinkBucket: BacklinkBucket = {
+    post: [],
+    concept: [],
+    resource: [],
+    resourceContent: [],
+    tag: [],
+  };
+
+  for (const backlink of backlinks) {
+    const type = backlink._type;
+
+    if (backlinkBucket[type]) {
+      backlinkBucket[type].push(backlink);
+    } else {
+      backlinkBucket[type] = [backlink];
+    }
+  }
+
+  return backlinkBucket;
+}
+
+const buckets = backlinks ? bucketBacklinksByType(backlinks) : [];
+---
+
+{
+  !grouped && (
+    <div class={cn(defaultClasses, className)} data-pagefind-ignore>
+      {backlinks &&
+        backlinks.map((backlink) => (
+          <a href={getBacklinkUrl(backlink)}>
+            <Card>
+              <CardHeader>
+                <CardTitle>{backlink.title}</CardTitle>
+                <CardDescription>{backlink.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          </a>
+        ))}
+    </div>
+  )
+}
+
+{
+  grouped &&
+    Object.entries(buckets)
+      .filter(([type, backlinks]) => backlinks.length > 0)
+      .map(([type, backlinks]) => (
+        <div data-pagefind-ignore>
+          <h3>{getSanityTypeDisplayText(type, true)}</h3>
+          <div class={cn(defaultClasses, className)}>
+            {backlinks.map((backlink) => (
+              <a href={getBacklinkUrl(backlink)}>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{backlink.title}</CardTitle>
+                    <CardDescription>{backlink.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+}

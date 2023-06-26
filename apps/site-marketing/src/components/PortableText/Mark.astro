@@ -1,0 +1,14 @@
+---
+import { Mark as PortableTextMark } from "astro-portabletext/components";
+import InternalLink from "./custom/InternalLink.astro";
+
+export type Props = Parameters<typeof PortableTextMark>[0];
+
+const props = Astro.props;
+const markTypeIs = (markType: string) => markType === props.node.markType;
+
+// Use `markTypeIs` to setup chained ternary operators to define custom marks
+const Cmp = markTypeIs("internalLink") ? InternalLink : PortableTextMark;
+---
+
+<Cmp {...props}><slot /></Cmp>

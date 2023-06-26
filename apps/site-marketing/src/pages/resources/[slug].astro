@@ -1,0 +1,86 @@
+---
+import MetaTags from "@/components/MetaTags.astro";
+import TagsList from "@/components/content/TagsList.astro";
+import BacklinksList from "@/components/content/BacklinksList.astro";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getAllResourcesFull } from "@/queries/resource";
+import type { InferGetStaticPropsType } from "astro";
+import type { Backlink } from "@/queries/partials/backlink";
+import { splitIntoLines } from "@/lib/stringUtils";
+
+export async function getStaticPaths() {
+  const data = await getAllResourcesFull();
+  const staticProps = data.map((resource) => {
+    return {
+      params: {
+        slug: resource.slug.current,
+      },
+      props: {
+        resource: resource,
+      },
+    };
+  });
+
+  return staticProps;
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { resource } = Astro.props as Props;
+const descriptionLines = splitIntoLines(resource.description);
+
+// Prevent 'Resource Content' from showing in backlinks section
+// It will already show in the Resources content section
+function deduplicateBacklinks(backlinks: Backlink[]) {
+  return backlinks.filter((backlink) => backlink._type !== "resourceContent");
+}
+
+const renderedBacklinks = resource.backlinks
+  ? deduplicateBacklinks(resource.backlinks)
+  : [];
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate(resource.title)}
+    description={resource.description}
+    slot="metadata"
+  />
+  <div class="prose-custom content-container">
+    <h1 class="h2">{resource.title}</h1>
+    {resource.tags && <TagsList tags={resource.tags} asLinks={true} />}
+    <p><a href={resource.url}>{resource.url}</a></p>
+
+    {descriptionLines.map((line, i) => <p class="p" set:html={line} />)}
+
+    <!-- TODO render this as a nice list -->
+    <!-- TODO "referenced in" query results to articles, concepts -->
+    {
+      resource.resourceContent && (
+        <div>
+          {resource.resourceContent.map((rc) => {
+            return (
+              <div>
+                <h3>
+                  {rc.url ? <a href={rc.title}>{rc.title}</a> : <>{rc.title}</>}
+                </h3>
+
+                <p>{rc.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      )
+    }
+
+    {
+      renderedBacklinks && renderedBacklinks.length > 0 && (
+        <>
+          <h3>Backlinks</h3>
+          <BacklinksList backlinks={renderedBacklinks} />
+        </>
+      )
+    }
+  </div>
+</Layout>

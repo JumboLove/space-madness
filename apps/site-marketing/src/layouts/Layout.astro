@@ -1,0 +1,11 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+---
+
+<BaseLayout>
+	{/* Pass through slot data to BaseLayout.astro */}
+	<slot name="metadata" slot="metadata" />
+	<SiteHeader />
+	<slot />
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+import { Alert, AlertDescription, alertVariants } from "@/components/ui/alert";
+import type { Props as $ } from "astro-portabletext/types";
+import type { VariantProps } from "class-variance-authority";
+import type { CalloutBlock } from "content-models";
+import { AlertCircle, CheckCircle, HelpCircle } from "lucide-react";
+import PortableText from "../PortableText.astro";
+export type Props = $<CalloutBlock>;
+
+const { node } = Astro.props;
+
+let Icon;
+let alertVariant: VariantProps<typeof alertVariants>["variant"];
+switch (node.type) {
+  case "success":
+    alertVariant = "sucess";
+    Icon = CheckCircle;
+    break;
+  case "info":
+    alertVariant = "info";
+    Icon = HelpCircle;
+    break;
+  case "warning":
+    alertVariant = "warning";
+    Icon = AlertCircle;
+    break;
+  case "danger":
+    alertVariant = "destructive";
+    Icon = AlertCircle;
+    break;
+  default:
+    alertVariant = "info";
+    Icon = HelpCircle;
+    break;
+}
+---
+
+<Alert variant={alertVariant} className="callout not-prose">
+  <Icon className="h-4 w-4" />
+  <AlertDescription><PortableText value={node.body} /></AlertDescription>
+</Alert>

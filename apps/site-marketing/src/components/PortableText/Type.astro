@@ -1,0 +1,38 @@
+---
+import type { Props as ComponentProps } from "astro-portabletext/types";
+import { usePortableText } from "astro-portabletext/utils";
+import Callout, { type Props as CalloutProps } from "./custom/Callout.astro";
+import Image, { type Props as ImageProps } from "./custom/Image.astro";
+import Figure, { type Props as FigureProps } from "./custom/Figure.astro";
+import CodeBlock, {
+  type Props as CodeBlockProps,
+} from "./custom/CodeBlock.astro";
+import Embed, { type Props as EmbedProps } from "./custom/Embed.astro";
+import PartialInclude, {
+  type Props as PartialIncludeProps,
+} from "./custom/PartialInclude.astro";
+
+// prettier-ignore
+export type Props = CalloutProps | ImageProps | FigureProps | CodeBlockProps | EmbedProps | PartialIncludeProps;
+
+const props = Astro.props;
+const typeIs = (type: string) => type === props.node._type;
+const { getDefaultComponent } = usePortableText(props.node);
+
+// Each component should be added to this ternary
+const Cmp = typeIs("callout")
+  ? Callout
+  : typeIs("image")
+  ? Image
+  : typeIs("figure")
+  ? Figure
+  : typeIs("codeBlock")
+  ? CodeBlock
+  : typeIs("embed")
+  ? Embed
+  : typeIs("partialInclude")
+  ? PartialInclude
+  : getDefaultComponent();
+---
+
+<Cmp {...props} />

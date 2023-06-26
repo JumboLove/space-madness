@@ -1,0 +1,36 @@
+---
+import { Badge, badgeVariants } from "@/components/ui/badge";
+import { getUrlForSanityType } from "@/lib/url";
+import { cn } from "@/lib/utils";
+import type { TagsResult } from "@/queries/partials/tag";
+import type { VariantProps } from "class-variance-authority";
+
+interface Props {
+  tags: TagsResult;
+  asLinks?: boolean;
+  variant?: VariantProps<typeof badgeVariants>["variant"];
+  className?: string;
+}
+
+const { tags, asLinks = false, variant = "outline", className } = Astro.props;
+---
+
+{
+  tags && (
+    <div class={cn("flex gap-2 not-prose", className)}>
+      {tags.map((tag) => {
+        return asLinks ? (
+          <a
+            href={getUrlForSanityType("tag", tag.slug.current)}
+            class={badgeVariants({ variant })}
+            title={tag.description}
+          >
+            {tag.title}
+          </a>
+        ) : (
+          <Badge variant={variant}>{tag.title}</Badge>
+        );
+      })}
+    </div>
+  )
+}

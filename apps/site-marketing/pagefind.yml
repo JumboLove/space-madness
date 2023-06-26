@@ -1,0 +1,4 @@
+source: dist
+exclude_selectors:
+  - ".site-header"
+  - "[data-pagefind-ignore]"

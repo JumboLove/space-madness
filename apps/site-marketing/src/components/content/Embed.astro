@@ -1,0 +1,31 @@
+---
+// @ts-ignore
+import { Tweet, Vimeo, YouTube } from "astro-embed";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+{
+  (() => {
+    switch (true) {
+      case /^https?:\/\/twitter\.com/.test(url):
+        return <Tweet id={url} />;
+
+      case /^https?:\/\/vimeo\.com/.test(url):
+        return <Vimeo id={url} />;
+
+      case /^https?:\/\/(?:www\.)?youtu(?:be\.com\/(?:watch\?v=|embed\/)|\.be\/)([\w\-]+)(?:$|\&|\?)/.test(
+        url
+      ):
+        return <YouTube id={url} />;
+
+      default:
+        // Default case when the URL doesn't match any conditions
+        return <p>Embed not supported for this platform</p>;
+    }
+  })()
+}

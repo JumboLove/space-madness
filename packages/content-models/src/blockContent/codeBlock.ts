@@ -18,6 +18,9 @@ export const codeBlockSanityDefinition = defineArrayMember({
       { title: "HTML", value: "html" },
       { title: "CSS", value: "css" },
       { title: "Shell", value: "sh" },
+      { title: "GROQ", value: "groq" },
+      { title: "JSX", value: "jsx" },
+      { title: "TSX", value: "tsx" },
     ],
   },
   initialValue: {

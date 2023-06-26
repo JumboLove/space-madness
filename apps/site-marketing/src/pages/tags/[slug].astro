@@ -1,0 +1,45 @@
+---
+import MetaTags from "@/components/MetaTags.astro";
+import BacklinksList from "@/components/content/BacklinksList.astro";
+import Layout from "@/layouts/Layout.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { getAllTagsFull } from "@/queries/tag";
+import type { InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
+  const data = await getAllTagsFull();
+  const staticProps = data.map((tag) => {
+    return {
+      params: {
+        slug: tag.slug.current,
+      },
+      props: {
+        tag: tag,
+      },
+    };
+  });
+
+  return staticProps;
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { tag } = Astro.props as Props;
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate(tag.title)}
+    description={tag.description}
+    slot="metadata"
+  />
+  <article class="prose-custom content-container">
+    <h1 class="h2">{tag.title}</h1>
+    <p class="text-lead">{tag.description}</p>
+    {
+      tag.backlinks && tag.backlinks.length > 0 && (
+        <BacklinksList backlinks={tag.backlinks} grouped={true} />
+      )
+    }
+  </article>
+</Layout>

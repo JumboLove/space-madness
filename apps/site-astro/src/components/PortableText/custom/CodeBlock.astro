@@ -11,9 +11,15 @@ const { node } = Astro.props;
 
 const THEME = "github-dark";
 const preClasses = ["px-7 py-6", "rounded-lg", "overflow-x-auto"];
+const highlightClasses = ["bg-sky-500/[.2]"];
 
 const highlighter = await getHighlighter({
   theme: THEME,
+});
+
+// highlight lines
+const lineOptions = node.highlightedLines?.map((line) => {
+  return { line: line, classes: highlightClasses };
 });
 
 const tokens = highlighter.codeToThemedTokens(node.code, node.language);
@@ -21,6 +27,7 @@ const tokens = highlighter.codeToThemedTokens(node.code, node.language);
 const htmlString = shiki.renderToHtml(tokens, {
   fg: highlighter.getForegroundColor(THEME),
   bg: highlighter.getBackgroundColor(THEME),
+  lineOptions: lineOptions,
   elements: {
     pre({ className, style, children }) {
       return `<pre class="${cn(

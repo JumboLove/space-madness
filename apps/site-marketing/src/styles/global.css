@@ -1,0 +1,275 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Color theme */
+@layer base {
+  :root {
+    --moonstone: #2cb1c8ff;
+    --fandango: #b1409fff;
+    --space-cadet: #182443ff;
+    --glaucous: #798cc3ff;
+    --plum: #933c85ff;
+  }
+}
+
+/* Shadcn Theme */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .prose-custom {
+    @apply prose prose-slate dark:prose-invert md:prose-lg prose-headings:tracking-tight prose-p:leading-7 prose-code:before:hidden prose-code:after:hidden;
+  }
+
+  .content-container {
+    @apply mx-auto w-full p-4 md:px-0 md:py-4;
+  }
+
+  /* Style fixes for prose content */
+  .prose-custom .callout {
+    @apply my-12;
+  }
+
+  .prose-custom code:not(pre code) {
+    @apply rounded-sm bg-slate-200 px-2 py-1;
+  }
+
+  .dark .prose-custom code:not(pre code) {
+    @apply rounded-sm bg-slate-700 px-2 py-1 text-slate-200;
+  }
+
+  /* TOFIX Code smell, need to hard code widths for now */
+  .prose-width {
+    @apply max-w-prose md:max-w-[731px];
+  }
+}
+
+/* Shadcn Typography */
+@layer base {
+  .h1 {
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+  }
+
+  .h2 {
+    @apply scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0;
+  }
+
+  .h3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+
+  .h4 {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+  }
+
+  .p {
+    @apply leading-7 [&:not(:first-child)]:mt-4;
+  }
+
+  .blockquote {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+
+  .ul {
+    @apply my-6 ml-6 list-disc [&>li]:mt-2;
+  }
+
+  .code {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+  }
+}
+
+/* Shadn UI Typography utils */
+@layer utilities {
+  .text-lead {
+    @apply text-xl text-muted-foreground;
+  }
+
+  .text-large {
+    @apply text-lg font-semibold;
+  }
+
+  .text-small {
+    @apply text-sm font-medium leading-none;
+  }
+
+  .text-muted {
+    @apply text-sm text-muted-foreground;
+  }
+}
+
+/* Popover */
+@layer components {
+  .pt-popover {
+    visibility: hidden;
+    pointer-events: none;
+    width: max-content;
+    max-width: 40ch;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+  }
+
+  .pt-popover[data-show] {
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .pt-popover-arrow {
+    position: absolute;
+    background: inherit;
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+  }
+}
+
+/* Base Links */
+@layer base {
+  a[href^="http://"],
+  a[href^="https://"],
+  .link {
+    @apply underline decoration-2 underline-offset-2;
+    text-decoration-color: var(--fandango);
+    position: relative;
+    transition: text-underline-offset 0.1s ease-in;
+  }
+
+  a[href^="http://"]:hover,
+  a[href^="http://"]:focus,
+  a[href^="https://"]:hover,
+  a[href^="https://"]:focus,
+  .link:hover,
+  .link:focus {
+    @apply underline-offset-4;
+  }
+}
+
+/* Popover Links */
+@layer components {
+  .popover-link {
+    @apply underline decoration-sky-500 decoration-2 underline-offset-2 hover:underline-offset-4;
+    transition: text-underline-offset 0.1s ease-in;
+  }
+}
+
+/* Zoom Vanilla JS */
+@layer base {
+  img[data-action="zoom"] {
+    cursor: zoom-in;
+  }
+  .zoom-img,
+  .zoom-img-wrap {
+    position: relative;
+    z-index: 200;
+    transition: all 200ms;
+  }
+  img.zoom-img {
+    cursor: zoom-out;
+  }
+  .zoom-overlay {
+    cursor: zoom-out;
+    z-index: 190;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  .zoom-overlay-open .zoom-overlay {
+    opacity: 1;
+  }
+}
+
+/* Shiki code blocks */
+@layer components {
+  .shiki .line {
+    @apply inline-block min-w-full px-2;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

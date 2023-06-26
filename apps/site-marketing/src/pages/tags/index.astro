@@ -1,0 +1,27 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getAllTagsList } from "@/queries/tag";
+import TagsList from "@/components/content/TagsList.astro";
+import { titleTemplate } from "@/lib/metadata";
+import MetaTags from "@/components/MetaTags.astro";
+import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
+
+const data = await getAllTagsList();
+const title = getSanityTypeDisplayText("tag", true);
+---
+
+<Layout>
+  <MetaTags
+    title={titleTemplate(title)}
+    description={"Browse all connnected content by tag"}
+    slot="metadata"
+  />
+
+  <header class="prose-width content-container">
+    <h1 class="h2">Browse content by tag</h1>
+  </header>
+
+  <main class="prose-custom content-container" data-pagefind-ignore>
+    {data && <TagsList tags={data} asLinks={true} />}
+  </main>
+</Layout>
