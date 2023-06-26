@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import { Button } from "@/components/ui/button";
 import { getUrlForSanityType } from "@/lib/url";
 import { getDocsNavItems } from "@/queries/docsNav";
+import { Search } from "lucide-react";
 const { posts, concepts, resources } = await getDocsNavItems();
 ---
 
@@ -12,20 +13,37 @@ const { posts, concepts, resources } = await getDocsNavItems();
 
   <aside
     id="default-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    class="fixed top-0 left-0 bottom-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar"
   >
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+      <a href="/" class="site-title mb-4 block"
+        ><h2 class="h2 pb-0 gradient-text">Space Madness</h2></a
+      >
+
+      <div class="flex p-2">
+        <button
+          class="inline-flex items-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-slate-600 hover:bg-accent hover:text-accent-foreground py-2 px-4 relative h-9 justify-start rounded-[0.5rem] text-sm text-muted-foreground w-full"
+          id="site-search"
+          ><span class="sr-only">Open Site Search</span><Search
+            className="w-4 h-4"
+          /><kbd
+            class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-slate-700 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex"
+            >/</kbd
+          ></button
+        >
+      </div>
+
       {
         posts && (
           <>
-            <h3 class="text-lead p-2">Guides</h3>
-            <nav class="space-y-2 font-medium">
+            <h3 class="text-md font-semibold tracking-wide p-2">Guides</h3>
+            <nav class="space-y-1 text-sm mb-10">
               {posts.map((article) => {
                 return (
                   <a
                     href={getUrlForSanityType("post", article.slug.current)}
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    class="flex items-center px-2 py-1 text-gray-900 rounded-md dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     {article.title}
                   </a>
@@ -39,13 +57,13 @@ const { posts, concepts, resources } = await getDocsNavItems();
       {
         concepts && (
           <>
-            <h3 class="text-lead mt-8 p-2">Concepts</h3>
-            <nav class="space-y-2 font-medium">
+            <h3 class="text-md font-semibold tracking-wide p-2">Concepts</h3>
+            <nav class="space-y-1 text-sm mb-10">
               {concepts.map((concept) => {
                 return (
                   <a
                     href={getUrlForSanityType("concept", concept.slug.current)}
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    class="flex items-center px-2 py-1 text-gray-900 rounded-md dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     {concept.title}
                   </a>
@@ -59,8 +77,8 @@ const { posts, concepts, resources } = await getDocsNavItems();
       {
         resources && (
           <>
-            <h3 class="text-lead mt-8 p-2">Resources</h3>
-            <nav class="space-y-2 font-medium">
+            <h3 class="text-md font-semibold tracking-wide p-2">Resources</h3>
+            <nav class="space-y-1 text-sm">
               {resources.map((resource) => {
                 return (
                   <a
@@ -68,7 +86,7 @@ const { posts, concepts, resources } = await getDocsNavItems();
                       "resource",
                       resource.slug.current
                     )}
-                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    class="flex items-center px-2 py-1 text-gray-900 rounded-md dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     {resource.title}
                   </a>
@@ -110,8 +128,37 @@ const { posts, concepts, resources } = await getDocsNavItems();
     </Button>
   </div>
 
+  <style>
+    .gradient-text {
+      --bg-size: 200%;
+      /* Slightly lightened moonstone and fandango for legibility */
+      --color-one: rgb(62, 212, 239);
+      --color-two: rgb(218, 85, 196);
+      background: linear-gradient(
+          90deg,
+          var(--color-one),
+          var(--color-two),
+          var(--color-one)
+        )
+        0 0 / var(--bg-size) 100%;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  </style>
+
   <script
     is:inline
     src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"
   ></script>
+
+  <script>
+    function openSearch() {
+      const event = new Event("openSearch");
+      document.dispatchEvent(event);
+    }
+
+    const search = document.getElementById("site-search");
+    search?.addEventListener("click", openSearch);
+  </script>
 </BaseLayout>
