@@ -45,7 +45,7 @@ const htmlString = shiki.renderToHtml(tokens, {
       return `<pre class="${cn(
         className,
         preClasses
-      )}" style="${style}">${children}</pre>`;
+      )}" style="${style}" data-pagefind-ignore>${children}</pre>`;
     },
     code({ className, style, children }) {
       return `<code>${children}</code>`;
