@@ -166,7 +166,7 @@
   .pt-popover {
     visibility: hidden;
     pointer-events: none;
-    width: max-content;
+    width: 90%;
     max-width: 40ch;
     position: absolute;
     top: 0;
