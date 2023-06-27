@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
 import { getAllTagsList } from "@/queries/tag";
 import TagsList from "@/components/content/TagsList.astro";
 import { titleTemplate } from "@/lib/metadata";
@@ -10,7 +10,7 @@ const data = await getAllTagsList();
 const title = getSanityTypeDisplayText("tag", true);
 ---
 
-<Layout>
+<DocsLayout>
   <MetaTags
     title={titleTemplate(title)}
     description={"Browse all connnected content by tag"}
@@ -24,4 +24,4 @@ const title = getSanityTypeDisplayText("tag", true);
   <main class="prose-custom content-container" data-pagefind-ignore>
     {data && <TagsList tags={data} asLinks={true} />}
   </main>
-</Layout>
+</DocsLayout>

@@ -2,7 +2,7 @@
 import MetaTags from "@/components/MetaTags.astro";
 import TagsList from "@/components/content/TagsList.astro";
 import BacklinksList from "@/components/content/BacklinksList.astro";
-import Layout from "@/layouts/Layout.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
 import { titleTemplate } from "@/lib/metadata";
 import { getAllResourcesFull } from "@/queries/resource";
 import type { InferGetStaticPropsType } from "astro";
@@ -41,7 +41,7 @@ const renderedBacklinks = resource.backlinks
   : [];
 ---
 
-<Layout>
+<DocsLayout>
   <MetaTags
     title={titleTemplate(resource.title)}
     description={resource.description}
@@ -83,4 +83,4 @@ const renderedBacklinks = resource.backlinks
       )
     }
   </div>
-</Layout>
+</DocsLayout>

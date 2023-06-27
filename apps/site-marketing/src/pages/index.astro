@@ -1,5 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import {getConcept} from "@/queries/concept";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/content/Popover";
+import { getUrlForSanityType } from "@/lib/url";
+import { Search } from "lucide-react";
+
+const digitalGardenConcept = await getConcept('digital-garden');
+const digitalGardenUrl = new URL(getUrlForSanityType('concept', digitalGardenConcept.slug.current), Astro.url ).toString();
 
 const featuresList: { title: string; description: string }[] = [
 	{
@@ -15,7 +22,7 @@ const featuresList: { title: string; description: string }[] = [
 	{
 		title: "Search anything",
 		description:
-			"Fast and local search is built in. No tweaking necessary. <br/>Try it now (TODO link)",
+			"Fast and local search is built in. No tweaking necessary.",
 	},
 	{
 		title: "Fully customizable",
@@ -33,7 +40,7 @@ const techFeatures: { title: string; description: string }[] = [
 	{
 		title: "Radix + shadcn/ui",
 		description:
-			"Prebuilt feature rich, beautiful, fully accessible components",
+			"Prebuilt feature rich, beautiful, fully accessible components<br/> <a href=https://ui.shadcn.com/docs/cli>Component CLI</a> ready",
 	},
 	{
 		title: "Tailwind CSS + Scoped Styles",
@@ -71,8 +78,8 @@ const techFeatures: { title: string; description: string }[] = [
 			<h2
 				class="text-3xl font-semibold text-center leading-relaxed mx-auto text-balance max-w-[800px]"
 			>
-				A content framework that connects ideas so you can build your digital
-				garden
+				A content framework that connects ideas so you can build your <Popover><PopoverTrigger>digital garden</PopoverTrigger>
+				<PopoverContent><div class="flex flex-col gap-2 justify-between leading-snug"><p class="text-md">{digitalGardenConcept.description}</p><a href={digitalGardenUrl} class="pt-popover-content-link inline-block">Digital Garden</a></div></PopoverContent></Popover>
 			</h2>
 		</section>
 
@@ -114,7 +121,7 @@ const techFeatures: { title: string; description: string }[] = [
 						class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
 					>
 						{
-							featuresList.map((feature) => {
+							featuresList.map((feature, i) => {
 								return (
 									<div class="relative pl-16">
 										<dt class="text-base font-semibold leading-7 text-gray-200">
@@ -141,6 +148,18 @@ const techFeatures: { title: string; description: string }[] = [
 											class="mt-2 text-base leading-7 text-gray-400"
 											set:html={feature.description}
 										/>
+										{/* Search feature */}
+										{(i == 2) && <div class="my-4 max-w-sm" data-pagefind-ignore>
+											<button
+												class="relative inline-flex px-2 py-3 items-center font-medium w-full border-focusable"
+												id="site-search-home"
+												><span class="sr-only">Open Site Search</span><Search
+													className="w-4 h-4"
+												/>
+												<span class="pl-2">Try searching "Portable Text"</span><kbd
+													class="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 rounded border bg-slate-700 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">/</kbd>
+											</button>
+										</div>}
 									</div>
 								);
 							})
@@ -248,4 +267,15 @@ const techFeatures: { title: string; description: string }[] = [
     linear-gradient(to bottom, #32000000 0%, 80%, #0a122b 94% 100%)
   ;
 	}
+	
 </style>
+
+<script>
+	function openSearch() {
+		const event = new Event("openSearch");
+		document.dispatchEvent(event);
+	}
+
+	const search = document.getElementById("site-search-home");
+	search?.addEventListener("click", openSearch);
+</script>

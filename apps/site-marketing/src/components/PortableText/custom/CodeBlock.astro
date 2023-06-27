@@ -5,6 +5,7 @@ import type { Props as $ } from "astro-portabletext/types";
 import type { CodeBlock } from "content-models";
 import shiki, { getHighlighter } from "shiki";
 import { TerminalIcon } from "lucide-react";
+import groqGrammar from "src/shiki/groq.json";
 
 export type Props = $<CodeBlock>;
 const { node } = Astro.props;
@@ -17,6 +18,16 @@ const highlightClasses = ["bg-sky-500/[.2]"];
 const highlighter = await getHighlighter({
   theme: THEME,
 });
+
+// GROQ Language support
+const groqLanguage = {
+  id: "groq",
+  scopeName: "source.groq",
+  grammar: groqGrammar,
+  aliases: ["Groq", "GROQ"],
+};
+
+await highlighter.loadLanguage(groqLanguage);
 
 // highlight lines
 const lineOptions = node.highlightedLines?.map((line) => {
@@ -34,7 +45,7 @@ const htmlString = shiki.renderToHtml(tokens, {
       return `<pre class="${cn(
         className,
         preClasses
-      )}" style="${style}">${children}</pre>`;
+      )}" style="${style}" data-pagefind-ignore>${children}</pre>`;
     },
     code({ className, style, children }) {
       return `<code>${children}</code>`;
