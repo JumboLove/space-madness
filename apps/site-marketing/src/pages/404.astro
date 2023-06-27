@@ -1,0 +1,52 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+import MetaTags from "@/components/MetaTags.astro";
+import { titleTemplate } from "@/lib/metadata";
+import { Search } from "lucide-react";
+---
+
+<DocsLayout>
+  <MetaTags
+    title={titleTemplate("Page Not Found")}
+    description={"This page appears to have drifted off into space"}
+    slot="metadata"
+  />
+  <header class="prose-width content-container">
+    <h1 class="h2">Ground Control to Major Tom</h1>
+  </header>
+  <main class="prose-width content-container" data-pagefind-ignore>
+    <h2 class="h3">This page appears to have drifted off.</h2>
+
+    <div class="flex flex-col md:flex-row w-full gap-6 py-12">
+      <a
+        href="/docs"
+        class="flex-1 flex px-2 py-4 items-center justify-center border-focusable"
+        ><span>Head back to earth</span></a
+      >
+
+      <div class="flex flex-col items-center flex-1">
+        <button
+          class="relative inline-flex px-2 py-4 items-center font-medium w-full border-focusable"
+          id="site-search-404"
+          ><span class="sr-only">Open Site Search</span><Search
+            className="w-4 h-4"
+          />
+          <span class="pl-2">Find a new flight path</span><kbd
+            class="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 rounded border bg-slate-700 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex"
+            >/</kbd
+          ></button
+        >
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function openSearch() {
+      const event = new Event("openSearch");
+      document.dispatchEvent(event);
+    }
+
+    const search = document.getElementById("site-search-404");
+    search?.addEventListener("click", openSearch);
+  </script>
+</DocsLayout>

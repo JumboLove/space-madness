@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Layout from "@/layouts/Layout.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
 import { titleTemplate } from "@/lib/metadata";
 import { getSanityTypeDisplayText } from "@/lib/sanityStrings";
 import { getUrlForSanityType } from "@/lib/url";
@@ -16,7 +16,7 @@ const data = await getAllConceptsList();
 const title = getSanityTypeDisplayText("concept", true);
 ---
 
-<Layout>
+<DocsLayout>
   <MetaTags
     title={titleTemplate(title)}
     description={"Ideas explained to help people learn"}
@@ -47,4 +47,4 @@ const title = getSanityTypeDisplayText("concept", true);
       )
     }
   </main>
-</Layout>
+</DocsLayout>

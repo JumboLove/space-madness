@@ -3,7 +3,7 @@ import MetaTags from "@/components/MetaTags.astro";
 import PortableText from "@/components/PortableText/PortableText.astro";
 import BacklinksList from "@/components/content/BacklinksList.astro";
 import TagsList from "@/components/content/TagsList.astro";
-import Layout from "@/layouts/Layout.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
 import { titleTemplate } from "@/lib/metadata";
 import { getAllConceptsFull } from "@/queries/concept";
 import type { InferGetStaticPropsType } from "astro";
@@ -29,7 +29,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { concept } = Astro.props as Props;
 ---
 
-<Layout>
+<DocsLayout>
   <MetaTags
     title={titleTemplate(concept.title)}
     description={concept.description}
@@ -50,4 +50,4 @@ const { concept } = Astro.props as Props;
       )
     }
   </article>
-</Layout>
+</DocsLayout>

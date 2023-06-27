@@ -1,7 +1,7 @@
 ---
 import MetaTags from "@/components/MetaTags.astro";
 import BacklinksList from "@/components/content/BacklinksList.astro";
-import Layout from "@/layouts/Layout.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
 import { titleTemplate } from "@/lib/metadata";
 import { getAllTagsFull } from "@/queries/tag";
 import type { InferGetStaticPropsType } from "astro";
@@ -27,7 +27,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { tag } = Astro.props as Props;
 ---
 
-<Layout>
+<DocsLayout>
   <MetaTags
     title={titleTemplate(tag.title)}
     description={tag.description}
@@ -42,4 +42,4 @@ const { tag } = Astro.props as Props;
       )
     }
   </article>
-</Layout>
+</DocsLayout>
