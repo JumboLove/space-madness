@@ -25,6 +25,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_STUDIO_PROJECT_ID }}
   BUILD_PATH: "." # default value when not using subfolders
   # BUILD_PATH: subfolder
 
