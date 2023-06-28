@@ -1,8 +1,7 @@
-// Update these as the defaults for your site (TODO update copy)
 export const siteTitle = "Space Madness Stack";
-export const siteTagline = "Connected Content with ease";
+export const siteTagline = "Connected content with ease";
 export const siteDescription =
-  "Combining the best of Sanity and Astro to create deeply connected content sites";
+  "A content framework that connects ideas so you can build your digital garden ";
 export const hostname =
   process.env.NODE_ENV === "production"
     ? "https://demo.spacemadness.dev/"
