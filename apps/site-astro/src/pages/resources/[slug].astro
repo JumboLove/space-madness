@@ -62,7 +62,7 @@ const renderedBacklinks = resource.backlinks
             return (
               <div>
                 <h3>
-                  {rc.url ? <a href={rc.title}>{rc.title}</a> : <>{rc.title}</>}
+                  {rc.url ? <a href={rc.url}>{rc.title}</a> : <>{rc.title}</>}
                 </h3>
 
                 <p>{rc.description}</p>
