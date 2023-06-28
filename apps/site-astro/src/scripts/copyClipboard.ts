@@ -18,7 +18,6 @@ function initButton(btn: ClipboardButton) {
 }
 
 function copyToClipboard(btn: ClipboardButton) {
-  console.log("button clicked");
   // Get the parent element with attribute data-code-block
   const parentElement = btn.parentElement?.closest("[data-code-block]");
   if (!parentElement) {
@@ -49,7 +48,7 @@ function copyToClipboard(btn: ClipboardButton) {
       }, 2000);
     },
     (err) => {
-      console.log("Failed to copy text to clipboard", err.mesage);
+      console.warn("Failed to copy text to clipboard", err.mesage);
     }
   );
 }
