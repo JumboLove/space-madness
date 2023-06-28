@@ -3,7 +3,7 @@ import { z } from "zod";
 import * as S from "sanity-zod-types";
 
 export const backlinksQuery = groq`  
-  "backlinks": *[references(^._id && isVisible == true)]{ 
+  "backlinks": *[references(^._id) && isVisible == true]{ 
     title,
     _type,
     slug,
