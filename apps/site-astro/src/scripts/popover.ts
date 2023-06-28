@@ -44,7 +44,7 @@ function initPopper(btn: PopoverButton, popover: HTMLDivElement) {
         middleware: [
           offset(10),
           flip(),
-          shift({ padding: 10, limiter: limitShift(), mainAxis: false }),
+          shift({ padding: 10, limiter: limitShift(), mainAxis: true }),
           arrow({ element: arrowEl }),
         ],
       }).then(({ x, y, placement, middlewareData }) => {
