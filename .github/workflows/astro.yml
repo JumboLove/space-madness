@@ -71,7 +71,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ${{ env.BUILD_PATH }}/apps/site-docs/dist
+          path: ${{ env.BUILD_PATH }}/apps/site-astro/dist
 
   deploy:
     environment:
