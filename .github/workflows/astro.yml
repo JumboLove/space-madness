@@ -66,7 +66,7 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: |
-          ${{ steps.detect-package-manager.outputs.runner }} turbo build --filter=site-space-madness-docs
+          ${{ steps.detect-package-manager.outputs.runner }} turbo build --filter=site-space-madness-astro
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
