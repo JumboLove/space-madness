@@ -23,12 +23,21 @@ const highlighter = await getHighlighter({
   theme: THEME,
 });
 
+// fallback to "plaintext" if a language isn't supported
+const languages = highlighter.getLoadedLanguages();
+const selecteLanguage = languages.includes(language as shiki.Lang)
+  ? (() => {
+      console.log(`shiki does not support ${language}`);
+      return language;
+    })()
+  : "plaintext";
+
 // highlight lines
 const lineOptions = highlightLines?.map((line) => {
   return { line: line, classes: highlightClasses };
 });
 
-const tokens = highlighter.codeToThemedTokens(code, language);
+const tokens = highlighter.codeToThemedTokens(code, selecteLanguage);
 const htmlString = shiki.renderToHtml(tokens, {
   fg: highlighter.getForegroundColor(THEME),
   bg: highlighter.getBackgroundColor(THEME),
