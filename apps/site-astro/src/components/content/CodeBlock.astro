@@ -26,11 +26,13 @@ const highlighter = await getHighlighter({
 // fallback to "plaintext" if a language isn't supported
 const languages = highlighter.getLoadedLanguages();
 const selecteLanguage = languages.includes(language as shiki.Lang)
-  ? (() => {
-      console.log(`shiki does not support ${language}`);
-      return language;
-    })()
-  : "plaintext";
+  ? language
+  : (() => {
+      console.log(
+        `shiki does not support ${language}, using "plaintext" instead`
+      );
+      return "plaintext";
+    })();
 
 // highlight lines
 const lineOptions = highlightLines?.map((line) => {
