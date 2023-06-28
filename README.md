@@ -2,6 +2,10 @@
 
 ## A content framework that connects ideas so you can build your digital garden
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b7b70f89-282d-4a89-97c8-fc97b39565f1/deploy-status)](https://app.netlify.com/sites/space-madness-demo/deploys)
+
+[demo.spacemadness.dev](https://demo.spacemadness.dev/)
+
 A turbo repo that includes everything you need to run your backend in Sanity and your frontend in Astro.
 
 The monorepo is configured with apps as the primary hosted sites.
