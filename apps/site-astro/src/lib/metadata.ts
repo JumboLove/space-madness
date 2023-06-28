@@ -5,8 +5,8 @@ export const siteDescription =
   "Combining the best of Sanity and Astro to create deeply connected content sites";
 export const hostname =
   process.env.NODE_ENV === "production"
-    ? "https://spacemadness.stack"
-    : "https://localhost:8888/";
+    ? "https://spacemadness.dev"
+    : "https://localhost:3000/";
 
 export function titleTemplate(title?: string, tagline: string = siteTagline) {
   const pieces: string[] = [siteTitle, tagline];
