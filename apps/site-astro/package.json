@@ -7,6 +7,7 @@
     "start": "astro dev",
     "build": "astro build && npx -y pagefind",
     "build:search": "npm run build && cp -fR dist/_pagefind public/",
+    "format": "prettier --write \"**/*.{ts,tsx,md,astro}\"",
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf .turbo && rm -rf node_modules"

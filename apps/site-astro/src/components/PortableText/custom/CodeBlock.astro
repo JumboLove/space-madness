@@ -1,55 +1,17 @@
 ---
-// TODO clipboard copy button
-import { cn } from "@/lib/utils";
 import type { Props as $ } from "astro-portabletext/types";
 import type { CodeBlock } from "content-models";
-import shiki, { getHighlighter } from "shiki";
-import { TerminalIcon } from "lucide-react";
+import ContentCodeBlock from "@/components/content/CodeBlock.astro";
 
 export type Props = $<CodeBlock>;
 const { node } = Astro.props;
-
-const THEME = "github-dark";
-const preClasses = ["px-7 py-6", "rounded-lg", "overflow-x-auto"];
-const highlightClasses = ["bg-sky-500/[.2]"];
-
-const highlighter = await getHighlighter({
-  theme: THEME,
-});
-
-// highlight lines
-const lineOptions = node.highlightedLines?.map((line) => {
-  return { line: line, classes: highlightClasses };
-});
-
-const tokens = highlighter.codeToThemedTokens(node.code, node.language);
-
-const htmlString = shiki.renderToHtml(tokens, {
-  fg: highlighter.getForegroundColor(THEME),
-  bg: highlighter.getBackgroundColor(THEME),
-  lineOptions: lineOptions,
-  elements: {
-    pre({ className, style, children }) {
-      return `<pre class="${cn(
-        className,
-        preClasses
-      )}" style="${style}" data-pagefind-ignore>${children}</pre>`;
-    },
-    code({ className, style, children }) {
-      return `<code>${children}</code>`;
-    },
-  },
-});
 ---
 
 <section class="not-prose my-8">
-  {
-    node.filename && (
-      <header class="flex items-center mb-2 text-muted">
-        <TerminalIcon className="h-4 w-4" />
-        <span class="pl-2">{node.filename}</span>
-      </header>
-    )
-  }
-  <Fragment set:html={htmlString} />
+  <ContentCodeBlock
+    code={node.code}
+    language={node.language}
+    filename={node.filename}
+    highlightLines={node.highlightedLines}
+  />
 </section>

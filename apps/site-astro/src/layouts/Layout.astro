@@ -22,7 +22,7 @@ import SiteSearch from "@/components/SiteSearch.astro";
 			<MetaTags />
 		</slot>
 	</head>
-	<body>
+	<body class="max-w-full overflow-x-hidden">
 		<SiteHeader />
 		<slot />
 
@@ -31,5 +31,6 @@ import SiteSearch from "@/components/SiteSearch.astro";
 		<!-- Global scripts -->
 		<script src="src/scripts/popover.ts"></script>
 		<script src="src/scripts/imageZoom.js"></script>
+		<script src="src/scripts/copyClipboard.ts"></script>
 	</body>
 </html>
