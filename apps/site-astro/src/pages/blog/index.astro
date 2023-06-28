@@ -12,36 +12,36 @@ const title = getSanityTypeDisplayText("post", true);
 ---
 
 <Layout>
-	<MetaTags
-		title={titleTemplate(title)}
-		description={"My thoughts and musings"}
-		slot="metadata"
-	/>
+  <MetaTags
+    title={titleTemplate(title)}
+    description={"My thoughts and musings"}
+    slot="metadata"
+  />
 
-	<header class="prose-width content-container">
-		<h1 class="h2">{title}</h1>
-	</header>
+  <header class="prose-width content-container">
+    <h1 class="h2">{title}</h1>
+  </header>
 
-	<main
-		class="content-container prose-width flex flex-col gap-12"
-		data-pagefind-ignore
-	>
-		{
-			data &&
-				data.map((post) => {
-					const lines = splitIntoLines(post.description);
-					return (
-						<a
-							href={getUrlForSanityType("post", post.slug.current)}
-							class="group"
-						>
-							<h2 class="h3 group-hover:text-sky-500">{post.title}</h2>
-							{lines.map((line, i) => (
-								<p class="p text-md" set:html={line} />
-							))}
-						</a>
-					);
-				})
-		}
-	</main>
+  <main
+    class="content-container prose-width flex flex-col gap-12"
+    data-pagefind-ignore
+  >
+    {
+      data &&
+        data.map((post) => {
+          const lines = splitIntoLines(post.description);
+          return (
+            <a
+              href={getUrlForSanityType("post", post.slug.current)}
+              class="group"
+            >
+              <h2 class="h3 group-hover:text-sky-500">{post.title}</h2>
+              {lines.map((line, i) => (
+                <p class="p text-md" set:html={line} />
+              ))}
+            </a>
+          );
+        })
+    }
+  </main>
 </Layout>

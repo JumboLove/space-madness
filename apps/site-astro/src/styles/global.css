@@ -93,11 +93,13 @@
     @apply my-12;
   }
 
-  .prose-custom code:not(pre code) {
+  .prose-custom code:not(pre code),
+  .code {
     @apply rounded-sm bg-slate-200 px-2 py-1;
   }
 
-  .dark .prose-custom code:not(pre code) {
+  .dark .prose-custom code:not(pre code),
+  .dark .code {
     @apply rounded-sm bg-slate-700 px-2 py-1 text-slate-200;
   }
 
@@ -166,7 +168,7 @@
   .pt-popover {
     visibility: hidden;
     pointer-events: none;
-    width: max-content;
+    width: 90%;
     max-width: 40ch;
     position: absolute;
     top: 0;
@@ -208,6 +210,13 @@
   }
 }
 
+/* Base elements */
+@layer base {
+  mark {
+    @apply bg-pink-400;
+  }
+}
+
 /* Popover Links */
 @layer components {
   .popover-link {
@@ -242,6 +251,11 @@
     opacity: 0;
     transition: opacity 200ms;
   }
+
+  .dark .zoom-overlay {
+    background: hsla(223, 54%, 8%, 0.922);
+  }
+
   .zoom-overlay-open .zoom-overlay {
     opacity: 1;
   }
@@ -257,5 +271,9 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .border-focusable {
+    @apply rounded-[0.5rem] border border-slate-600 text-muted-foreground ring-offset-background transition-colors hover:bg-accent/10 hover:text-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:hover:bg-accent dark:hover:text-accent-foreground;
   }
 }

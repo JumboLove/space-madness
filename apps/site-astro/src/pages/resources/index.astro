@@ -30,7 +30,7 @@ const title = getSanityTypeDisplayText("resource", true);
   <main class="content-container prose-width" data-pagefind-ignore>
     {
       data && (
-        <div class="grid md:grid-cols-2 gap-4 not-prose">
+        <div class="not-prose grid gap-4 md:grid-cols-2">
           {data.map((resource) => {
             return (
               <a href={getUrlForSanityType("resource", resource.slug.current)}>

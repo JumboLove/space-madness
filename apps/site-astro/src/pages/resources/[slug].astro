@@ -55,7 +55,6 @@ const renderedBacklinks = resource.backlinks
     {descriptionLines.map((line, i) => <p class="p" set:html={line} />)}
 
     <!-- TODO render this as a nice list -->
-    <!-- TODO "referenced in" query results to articles, concepts -->
     {
       resource.resourceContent && (
         <div>
@@ -63,7 +62,7 @@ const renderedBacklinks = resource.backlinks
             return (
               <div>
                 <h3>
-                  {rc.url ? <a href={rc.title}>{rc.title}</a> : <>{rc.title}</>}
+                  {rc.url ? <a href={rc.url}>{rc.title}</a> : <>{rc.title}</>}
                 </h3>
 
                 <p>{rc.description}</p>

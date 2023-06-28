@@ -1,0 +1,72 @@
+---
+import { cn } from "@/lib/utils";
+import shiki, { getHighlighter } from "shiki";
+import { TerminalIcon } from "lucide-react";
+import ClipboardCopyBtn from "@/components/util/ClipboardCopyBtn.astro";
+
+export interface Props {
+  code: string;
+  language: string;
+  filename?: string;
+  highlightLines?: number[];
+  className?: string;
+}
+
+const { code, language, filename, highlightLines, className } = Astro.props;
+
+// Other styles are set in global.css
+const THEME = "github-dark";
+const preClasses = ["px-5 py-6", "rounded-lg", "overflow-x-auto", "text-sm"];
+const highlightClasses = ["bg-sky-500/[.2]"];
+
+const highlighter = await getHighlighter({
+  theme: THEME,
+});
+
+// fallback to "plaintext" if a language isn't supported
+const languages = highlighter.getLoadedLanguages();
+const selecteLanguage = languages.includes(language as shiki.Lang)
+  ? language
+  : (() => {
+      console.log(
+        `shiki does not support ${language}, using "plaintext" instead`
+      );
+      return "plaintext";
+    })();
+
+// highlight lines
+const lineOptions = highlightLines?.map((line) => {
+  return { line: line, classes: highlightClasses };
+});
+
+const tokens = highlighter.codeToThemedTokens(code, selecteLanguage);
+const htmlString = shiki.renderToHtml(tokens, {
+  fg: highlighter.getForegroundColor(THEME),
+  bg: highlighter.getBackgroundColor(THEME),
+  lineOptions: lineOptions,
+  elements: {
+    pre({ className, style, children }) {
+      return `<pre class="${cn(
+        className,
+        preClasses
+      )}" style="${style}" data-pagefind-ignore>${children}</pre>`;
+    },
+    code({ className, style, children }) {
+      return `<code>${children}</code>`;
+    },
+  },
+});
+---
+
+{
+  filename && (
+    <header class="mb-2 flex items-center text-muted">
+      <TerminalIcon className="h-4 w-4" />
+      <span class="pl-2">{filename}</span>
+    </header>
+  )
+}
+<div class={cn(className, "not-prose relative")} data-code-block>
+  <ClipboardCopyBtn />
+  <Fragment set:html={htmlString} />
+</div>

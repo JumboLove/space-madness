@@ -60,7 +60,7 @@ const PopoverContent = React.forwardRef<
     style={{ display: "none" }}
   >
     {children}
-    <div class="pt-popover-arrow" />
+    <div className="pt-popover-arrow" />
   </div>
 ));
 PopoverContent.displayName = "PopoverContent";

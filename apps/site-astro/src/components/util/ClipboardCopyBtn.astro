@@ -1,0 +1,18 @@
+---
+import { ClipboardCopy, ClipboardCheck } from "lucide-react";
+---
+
+<button
+  class="border-focusable absolute right-2 top-2 flex bg-[#24292e] p-2"
+  data-clipboard-copy
+  ><span class="sr-only">Copy to Clipboard</span>
+  <div class="w-5 overflow-hidden">
+    <div
+      class="flex h-5 w-10 flex-row items-center transition-transform"
+      data-clipboard-icons
+    >
+      <ClipboardCopy className="w-5" />
+      <ClipboardCheck className="w-5 text-green-600 dark:text-green-400" />
+    </div>
+  </div>
+</button>

@@ -71,7 +71,7 @@ const lines = splitIntoLines(markDef.internalLink.description);
       </PopoverTrigger>
 
       <PopoverContent>
-        <div class="flex flex-col gap-2 justify-between leading-snug">
+        <div class="flex flex-col justify-between gap-2 leading-snug">
           {lines.map((line, i) => (
             <p class="text-md" set:html={line} />
           ))}

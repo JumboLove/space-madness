@@ -8,9 +8,9 @@ import { Search } from "lucide-react";
   class="site-header flex flex-col place-content-between items-center gap-4 p-4 sm:flex-row sm:items-end sm:p-6"
   data-pagefind-ignore
 >
-  <a href="/"><h2 class="h2 pb-0">Site Name</h2></a>
+  <a href="/"><h2 class="h2 pb-0">Space Madness</h2></a>
 
-  <nav class="flex flex-row flex-wrap items-center gap-x-10 gap-y-4 sm:gap-6">
+  <nav class="flex flex-row flex-wrap items-center gap-x-8 gap-y-4 sm:gap-6">
     <a href={getUrlForSanityType("post", "")} class="link"
       >{getSanityTypeDisplayText("post", true)}</a
     >
@@ -22,7 +22,7 @@ import { Search } from "lucide-react";
     >
 
     <button
-      class="inline-flex items-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-input hover:bg-accent hover:text-accent-foreground py-2 px-4 relative h-9 justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+      class="relative inline-flex h-9 items-center justify-start rounded-[0.5rem] border border-input px-4 py-2 text-sm font-medium text-muted-foreground ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 sm:pr-12 md:w-40 lg:w-64"
       id="site-search"
       ><span class="sr-only">Open Site Search</span><Search
         className="w-4 h-4"
