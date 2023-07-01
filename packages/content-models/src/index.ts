@@ -6,9 +6,6 @@ export * from "./concept";
 import * as post from "./post";
 export * from "./post";
 
-import * as project from "./project";
-export * from "./project";
-
 import * as resource from "./resource";
 export * from "./resource";
 
@@ -37,7 +34,6 @@ export * from "./blockContent/partialInclude";
 export const sanitySchemaTypes = [
   concept.conceptSanityDefinition,
   post.postSanityDefinition,
-  project.projectSanityDefinition,
   resource.resourceSanityDefinition,
   resourceContent.resourceContentSanityDefinition,
   tag.tagSanityDefinition,
@@ -61,7 +57,6 @@ export const translatedSanitySchemaTypes = [
 export const SanityBacklinkType = z.union([
   z.literal("concept"),
   z.literal("post"),
-  z.literal("project"),
   z.literal("resource"),
   z.literal("tag"),
 ]);
@@ -82,7 +77,6 @@ export type SanityBacklinkType = z.infer<typeof SanityBacklinkType>;
 export const SanityLinkableType = z.union([
   z.literal("concept"),
   z.literal("post"),
-  z.literal("project"),
   z.literal("resource"),
   z.literal("tag"),
 ]);
