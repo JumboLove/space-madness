@@ -1,6 +1,7 @@
+import { SanityBacklinkType } from "content-models";
 import groq from "groq";
-import { z } from "zod";
 import * as S from "sanity-zod-types";
+import { z } from "zod";
 
 export const backlinksQuery = groq`  
   "backlinks": *[references(^._id) && isVisible == true]{ 
@@ -19,12 +20,7 @@ export const backlinksQuery = groq`
 
 const StandardBacklink = z.object({
   title: S.String,
-  _type: z.union([
-    z.literal("post"),
-    z.literal("concept"),
-    z.literal("resource"),
-    z.literal("tag"),
-  ]), // TODO can I make this reference somewhere a bit better?
+  _type: SanityBacklinkType,
   slug: S.Slug,
   description: S.String,
 });
