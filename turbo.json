@@ -9,6 +9,9 @@
       "cache": false,
       "persistent": true
     },
+    "build:search": {
+      "cache": true
+    },
     "clean": {
       "cache": false
     },
