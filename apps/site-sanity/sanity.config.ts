@@ -2,7 +2,7 @@ import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {codeInput} from '@sanity/code-input'
-import {schemaTypes, translatedTypes} from './schemas'
+import {sanitySchemaTypes, translatedSanitySchemaTypes} from 'content-models'
 import {documentInternationalization} from '@sanity/document-internationalization'
 
 export default defineConfig({
@@ -20,11 +20,11 @@ export default defineConfig({
         {id: 'en', title: 'English'},
         {id: 'es', title: 'Spanish'},
       ],
-      schemaTypes: translatedTypes,
+      schemaTypes: translatedSanitySchemaTypes,
     }),
   ],
 
   schema: {
-    types: schemaTypes,
+    types: sanitySchemaTypes,
   },
 })

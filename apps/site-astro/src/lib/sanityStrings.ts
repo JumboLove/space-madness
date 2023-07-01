@@ -1,19 +1,19 @@
-export function getSanityTypeDisplayText(type: string, plural?: boolean) {
-  switch (type) {
-    case "post":
-      return plural ? "Articles" : "Article";
-    case "concept":
-      return plural ? "Concepts" : "Concept";
-    case "resource":
-      return plural ? "Resources" : "Resource";
-    case "resourceContent":
-      return "Resource Content";
-    case "tag":
-      return plural ? "Tags" : "Tag";
-    default:
-      console.warn(
-        `Please add a display text case for ${type} to getSanityTypeDisplayText()`
-      );
-      return type;
+import { SanityTypeDisplayNames } from "content-models";
+
+type SanityTypeName = keyof typeof SanityTypeDisplayNames;
+
+export function getSanityTypeDisplayText(
+  type: SanityTypeName,
+  plural?: boolean
+) {
+  if (type in SanityTypeDisplayNames) {
+    return plural
+      ? SanityTypeDisplayNames[type][1]
+      : SanityTypeDisplayNames[type][0];
+  } else {
+    console.warn(
+      `Please add a display text case for ${type} to SanityTypeDisplayNames`
+    );
+    return type;
   }
 }
