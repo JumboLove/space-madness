@@ -1,5 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PortableText from "@/components/PortableText/PortableText.astro";
+
+/**
+ * Mocking a Sanity query that returns Portable Text
+ * @see https://spacemadness.dev/docs/render-portable-text/
+ */
+import testPortableTextData from "@/data/test-portable-text.json";
+const { body } = testPortableTextData;
 ---
 
 <Layout>
@@ -8,8 +16,12 @@ import Layout from "../layouts/Layout.astro";
       <h1 class="h1">Welcome to Space Madness</h1>
       <p class="p">
         Check out <a href="https://spacemadness.dev/docs/">the docs</a> for details
-        on how to get started
+        on how to get started.
       </p>
+      <hr class="my-10" />
+      <div class="prose mt-6">
+        <PortableText value={body} />
+      </div>
     </div>
   </main>
 </Layout>
