@@ -30,13 +30,10 @@ function buildLinks(mark: InternalLinkAnnotation) {
 
   if (mark.internalLink._type === "resourceContent") {
     links.push({
-      url: new URL(
-        getUrlForSanityType(
-          mark.internalLink.resource._type,
-          mark.internalLink.resource.slug.current
-        ),
-        Astro.url
-      ).toString(),
+      url: getUrlForSanityType(
+        mark.internalLink.resource._type,
+        mark.internalLink.resource.slug.current
+      ),
       text: mark.internalLink.resource.title,
       internal: true,
     });
@@ -44,13 +41,10 @@ function buildLinks(mark: InternalLinkAnnotation) {
 
   if (mark.internalLink._type !== "resourceContent") {
     links.push({
-      url: new URL(
-        getUrlForSanityType(
-          mark.internalLink._type,
-          mark.internalLink.slug.current
-        ),
-        Astro.url
-      ).toString(),
+      url: getUrlForSanityType(
+        mark.internalLink._type,
+        mark.internalLink.slug.current
+      ),
       text: mark.internalLink.title,
       internal: true,
     });
@@ -75,14 +69,17 @@ const lines = splitIntoLines(markDef.internalLink.description);
           {lines.map((line, i) => (
             <p class="text-md" set:html={line} />
           ))}
-          <a href={mainLink.url} class="pt-popover-content-link inline-block">
+          <a
+            href={mainLink.url}
+            class="pt-popover-content-link inline-block link"
+          >
             {mainLink.text}
           </a>
           {resourceLink && (
             <div>
               Resource:{" "}
               <a
-                class="pt-popover-content-link inline-block"
+                class="pt-popover-content-link inline-block link"
                 href={resourceLink.url}
               >
                 {resourceLink.text}
