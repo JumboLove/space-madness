@@ -1,7 +1,7 @@
-import { defineField, defineType } from "sanity";
-import { z } from "zod";
-import * as S from "sanity-zod-types";
 import { BlockContentIcon } from "@sanity/icons";
+import { defineField, defineType } from "sanity";
+import * as S from "sanity-zod-types";
+import { z } from "zod";
 
 export const partialSanityDefinition = defineType({
   name: "partial",

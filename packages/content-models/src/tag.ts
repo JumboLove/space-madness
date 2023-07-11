@@ -1,7 +1,7 @@
-import { defineField, defineType } from "sanity";
-import { z } from "zod";
-import * as S from "sanity-zod-types";
 import { TagIcon } from "@sanity/icons";
+import { defineField, defineType } from "sanity";
+import * as S from "sanity-zod-types";
+import { z } from "zod";
 
 export const tagSanityDefinition = defineType({
   name: "tag",
