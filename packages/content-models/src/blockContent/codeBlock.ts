@@ -10,21 +10,22 @@ export const codeBlockSanityDefinition = defineArrayMember({
   name: "codeBlock",
   title: "Code Block",
   options: {
-    language: "javascript",
+    language: "typescript",
     withFilename: true,
     languageAlternatives: [
-      { title: "Javascript", value: "javascript" },
       { title: "Typescript", value: "typescript" },
+      { title: "Javascript", value: "javascript" },
+      { title: "TSX", value: "tsx" },
+      { title: "JSX", value: "jsx" },
+      { title: "Astro", value: "astro", mode: "tsx" },
       { title: "HTML", value: "html" },
       { title: "CSS", value: "css" },
       { title: "Shell", value: "sh" },
       { title: "GROQ", value: "groq" },
-      { title: "JSX", value: "jsx" },
-      { title: "TSX", value: "tsx" },
     ],
   },
   initialValue: {
-    language: "javascript",
+    language: "typescript",
   },
 });
 
@@ -32,6 +33,15 @@ export interface CodeBlock extends PortableTextObject {
   _type: "codeBlock";
   code: string;
   filename?: string;
-  language: "javascript" | "typescript" | "html" | "css" | "sh";
+  language:
+    | "typescript"
+    | "javascript"
+    | "tsx"
+    | "jsx"
+    | "astro"
+    | "html"
+    | "css"
+    | "sh"
+    | "groq";
   highlightedLines?: number[];
 }
