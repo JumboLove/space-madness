@@ -1,0 +1,17 @@
+---
+import type { Image } from "sanity-zod-types";
+import type { HTMLAttributes } from "astro/types";
+import { urlForImage } from "@/lib/sanityImageUrl";
+
+export interface Props extends HTMLAttributes<"img"> {
+  image: Image;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+const { image, alt, width, height, ...attrs } = Astro.props;
+const imageObj = urlForImage(image.asset._ref).width(width).auto("format");
+---
+
+<img src={imageObj.url()} alt={alt} width={width} height={height} {...attrs} />
