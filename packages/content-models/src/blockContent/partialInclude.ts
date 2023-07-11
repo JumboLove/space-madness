@@ -25,7 +25,6 @@ export const partialIncludeSanityDefinition = defineArrayMember({
   },
 });
 
-// TODO this may need to be expanded
 export interface PartialInclude extends PortableTextObject {
   _type: "partialInclude";
   content: Reference;

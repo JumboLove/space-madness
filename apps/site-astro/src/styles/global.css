@@ -103,6 +103,12 @@
     @apply rounded-sm bg-slate-700 px-2 py-1 text-slate-200;
   }
 
+  .prose img,
+  .prose-custom img {
+    max-width: 100%;
+    height: auto;
+  }
+
   /* TOFIX Code smell, need to hard code widths for now */
   .prose-width {
     @apply max-w-prose md:max-w-[731px];
