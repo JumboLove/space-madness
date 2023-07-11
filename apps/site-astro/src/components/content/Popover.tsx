@@ -1,8 +1,10 @@
 /**
  * @example:
  * <Popover>
- *  <PopoverTrigger>Click me</Popover>
- *  <PopoverContent>To show this</PopoverContent>
+ *  <>
+ *    <PopoverTrigger>Click me</Popover>
+ *    <PopoverContent>To show this</PopoverContent>
+ *  </>
  * </Popover>
  *
  * This component will only handle rendering of content.

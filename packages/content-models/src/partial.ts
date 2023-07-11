@@ -1,6 +1,7 @@
+import { BlockContentIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
-import { z } from "zod";
 import * as S from "sanity-zod-types";
+import { z } from "zod";
 
 export const partialSanityDefinition = defineType({
   name: "partial",
@@ -8,6 +9,7 @@ export const partialSanityDefinition = defineType({
   description:
     "Content that can be included in another resource's block content",
   type: "document",
+  icon: BlockContentIcon,
   fields: [
     defineField({
       name: "title",
