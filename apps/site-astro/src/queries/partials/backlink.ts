@@ -1,4 +1,4 @@
-import { SanityBacklinkType } from "content-models";
+import { SanityLinkableType } from "content-models";
 import groq from "groq";
 import * as S from "sanity-zod-types";
 import { z } from "zod";
@@ -18,9 +18,10 @@ export const backlinksQuery = groq`
   }
 `;
 
+// Standard backlinks are linkable
 const StandardBacklink = z.object({
   title: S.String,
-  _type: SanityBacklinkType,
+  _type: SanityLinkableType,
   slug: S.Slug,
   description: S.String,
 });
