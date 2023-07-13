@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && npx -y pagefind",
+    "build": "astro build && npm run pagefind -- --source ./dist --verbose",
     "build:search": "npm run build && cp -fR dist/_pagefind public/",
     "format": "prettier --write \"**/*.{ts,tsx,md,astro}\"",
     "preview": "astro preview",
+    "pagefind": "pagefind",
     "astro": "astro",
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
@@ -27,6 +28,7 @@
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "lucide-react": "^0.259.0",
+    "pagefind": "^0.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "shiki": "^0.14.2",
