@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
-    "build": "sanity build",
+    "build": "sanity build && cp _redirects dist",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .sanity"
