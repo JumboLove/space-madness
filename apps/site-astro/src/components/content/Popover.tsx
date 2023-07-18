@@ -1,22 +1,21 @@
-/**
- * @example:
- * <Popover>
- *  <>
- *    <PopoverTrigger>Click me</Popover>
- *    <PopoverContent>To show this</PopoverContent>
- *  </>
- * </Popover>
- *
- * This component will only handle rendering of content.
- * All interactivity will be handled by src/scripts/popover.ts
- */
-
 import * as React from "react";
 import { generateUniqueId } from "@/lib/stringUtils";
 import PopoverBubble from "@/components/svg/PopoverBubble";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * This component will only handle rendering of content.
+ * All interactivity will be handled by src/scripts/popover.ts
+ *
+ * @example
+ * <Popover>
+ *  <>
+ *    <PopoverTrigger>Click me</Popover>
+ *    <PopoverContent>To show this</PopoverContent>
+ *  </>
+ * </Popover>
+ */
 const Popover = React.forwardRef<
   HTMLButtonElement,
   React.HTMLAttributes<HTMLButtonElement>
@@ -56,7 +55,7 @@ const PopoverContent = React.forwardRef<
     ref={ref}
     className={cn(
       "pt-popover not-prose rounded-md border-2 border-gray-200 bg-gray-50 p-4 drop-shadow-lg dark:border-zinc-700 dark:bg-zinc-800",
-      className
+      className,
     )}
     {...props}
     style={{ display: "none" }}

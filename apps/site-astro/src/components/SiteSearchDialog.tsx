@@ -57,7 +57,7 @@ export function SiteSearchDialog() {
             .map(async (result: PagefindResult) => {
               const data = await result.data();
               return { id: result.id, ...data };
-            })
+            }),
         );
         setResults(dataArray);
       } else {

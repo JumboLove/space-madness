@@ -73,7 +73,7 @@ function initPopper(btn: PopoverButton, popover: HTMLDivElement) {
         }
       });
     },
-    { animationFrame: true }
+    { animationFrame: true },
   );
 }
 

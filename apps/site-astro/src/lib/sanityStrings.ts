@@ -4,7 +4,7 @@ type SanityTypeName = keyof typeof SanityTypeDisplayNames;
 
 export function getSanityTypeDisplayText(
   type: SanityTypeName,
-  plural?: boolean
+  plural?: boolean,
 ) {
   if (type in SanityTypeDisplayNames) {
     return plural
@@ -12,7 +12,7 @@ export function getSanityTypeDisplayText(
       : SanityTypeDisplayNames[type][0];
   } else {
     console.warn(
-      `Please add a display text case for ${type} to SanityTypeDisplayNames`
+      `Please add a display text case for ${type} to SanityTypeDisplayNames`,
     );
     return type;
   }

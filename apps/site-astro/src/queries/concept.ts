@@ -26,7 +26,7 @@ export async function getAllConceptsList() {
       slug: true,
       description: true,
       tags: true,
-    })
+    }),
   );
 
   const data = await useSanityClient().fetch(query, {
@@ -63,7 +63,7 @@ export async function getAllConceptsFull() {
       tags: true,
       body: true,
       backlinks: true,
-    })
+    }),
   );
 
   const data = await useSanityClient().fetch(query, {

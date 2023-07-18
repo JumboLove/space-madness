@@ -7,7 +7,7 @@ interface ClipboardButton extends HTMLButtonElement {
 }
 
 const clipboardButtons: NodeListOf<ClipboardButton> = document.querySelectorAll(
-  "[data-clipboard-copy]"
+  "[data-clipboard-copy]",
 );
 clipboardButtons.forEach((btn) => {
   initButton(btn);
@@ -49,7 +49,7 @@ function copyToClipboard(btn: ClipboardButton) {
     },
     (err) => {
       console.warn("Failed to copy text to clipboard", err.mesage);
-    }
+    },
   );
 }
 

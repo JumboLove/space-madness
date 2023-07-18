@@ -42,7 +42,7 @@ export const calloutSanityDefinition = defineArrayMember({
       }
 
       const block = (body || []).find(
-        (block: PortableTextObject) => block._type === "block"
+        (block: PortableTextObject) => block._type === "block",
       );
       const subtitle = block
         ? block.children
