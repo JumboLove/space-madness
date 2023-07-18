@@ -32,7 +32,7 @@ function buildLinks(mark: InternalLinkAnnotation) {
     links.push({
       url: getUrlForSanityType(
         mark.internalLink.resource._type,
-        mark.internalLink.resource.slug.current
+        mark.internalLink.resource.slug.current,
       ),
       text: mark.internalLink.resource.title,
       internal: true,
@@ -43,7 +43,7 @@ function buildLinks(mark: InternalLinkAnnotation) {
     links.push({
       url: getUrlForSanityType(
         mark.internalLink._type,
-        mark.internalLink.slug.current
+        mark.internalLink.slug.current,
       ),
       text: mark.internalLink.title,
       internal: true,

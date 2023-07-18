@@ -29,7 +29,7 @@ const selecteLanguage = languages.includes(language as shiki.Lang)
   ? language
   : (() => {
       console.log(
-        `shiki does not support ${language}, using "plaintext" instead`
+        `shiki does not support ${language}, using "plaintext" instead`,
       );
       return "plaintext";
     })();
@@ -48,7 +48,7 @@ const htmlString = shiki.renderToHtml(tokens, {
     pre({ className, style, children }) {
       return `<pre class="${cn(
         className,
-        preClasses
+        preClasses,
       )}" style="${style}" data-pagefind-ignore>${children}</pre>`;
     },
     code({ className, style, children }) {

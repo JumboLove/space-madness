@@ -15,7 +15,7 @@ export async function getAllTagsList() {
       title: true,
       slug: true,
       description: true,
-    })
+    }),
   );
 
   const data = await useSanityClient().fetch(query, {});
@@ -45,7 +45,7 @@ export async function getAllTagsFull() {
       slug: true,
       description: true,
       backlinks: true,
-    })
+    }),
   );
 
   const data = await useSanityClient().fetch(query, {});

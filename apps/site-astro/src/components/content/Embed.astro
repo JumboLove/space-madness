@@ -19,7 +19,7 @@ const { url } = Astro.props;
         return <Vimeo id={url} />;
 
       case /^https?:\/\/(?:www\.)?youtu(?:be\.com\/(?:watch\?v=|embed\/)|\.be\/)([\w\-]+)(?:$|\&|\?)/.test(
-        url
+        url,
       ):
         return <YouTube id={url} />;
 
