@@ -10,7 +10,7 @@ interface Props {
 const { id, url } = Astro.props;
 const providerData = url ? parseEmbedUrl(url) : undefined;
 if (!providerData) {
-  throw new Error("No matching provider data found");
+  throw new Error(`No matching provider data found: ${id || url}`);
 }
 
 if (!url && !id) {
