@@ -10,7 +10,7 @@ interface Props {
 const { id, url } = Astro.props;
 const providerData = url ? parseEmbedUrl(url) : undefined;
 if (!providerData) {
-  throw new Error("No matching provider data found");
+  throw new Error(`No matching provider data found: ${id || url}`);
 }
 
 if (!url && !id) {
@@ -19,9 +19,11 @@ if (!url && !id) {
 
 const { provider, id: providerId } = providerData;
 
-const renderProps = provider.getRenderProps(url || id || "");
+const { wrapperClass, ...renderProps } = provider.getRenderProps(
+  url || id || "",
+);
 ---
 
-<div class="not-prose" data-pagefind-ignore>
+<div class:list={["not-prose", wrapperClass]} data-pagefind-ignore>
   <ClientEmbed providerId={providerId} {...renderProps} client:visible />
 </div>
