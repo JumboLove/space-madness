@@ -1,6 +1,7 @@
 import { defineArrayMember } from "sanity";
 import type { PortableTextObject } from "@sanity/types";
 import { PresentationIcon } from "@sanity/icons";
+import { parseEmbedUrl } from "../../../sanity-astro-embeds/src/parseEmbedUrl";
 
 export const embedSanityDefinition = defineArrayMember({
   name: "embed",
@@ -12,8 +13,11 @@ export const embedSanityDefinition = defineArrayMember({
       name: "url",
       type: "string",
       title: "Embed URL",
-      description: "Twitter, YouTube, and Vimeo are supported",
-      validation: (Rule) => Rule.required().error("URL is required"),
+      validation: (Rule) =>
+        Rule.required().custom((url: string) => {
+          const providerData = parseEmbedUrl(url);
+          return providerData ? true : "Embed URL not supported";
+        }),
     },
   ],
 });
