@@ -11,7 +11,7 @@
     "release": "turbo build --filter=docs^... && changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.22.0",
+    "@changesets/cli": "^2.26.2",
     "eslint": "^7.32.0",
     "prettier": "^3.0.0",
     "prettier-plugin-astro": "^0.11.0",
