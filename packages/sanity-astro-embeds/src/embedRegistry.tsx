@@ -1,5 +1,5 @@
 import getYouTubeID from "get-youtube-id";
-import { Spotify, Tweet, Vimeo, YouTube } from "mdx-embed";
+import { Spotify, Tweet, Vimeo, YouTube, CodePen } from "mdx-embed";
 import { type ComponentPropsWithoutRef } from "react";
 
 /**
@@ -82,6 +82,27 @@ export const embedRegistry = {
     },
     render: (props: ComponentPropsWithoutRef<typeof Spotify>) =>
       props.spotifyLink ? <Spotify {...props} /> : null,
+  },
+  codePen: {
+    title: "CodePen",
+    regexp: /^https?:\/\/codepen\.io\/[\w-]+\/(pen|full|details)\/[\w-]+$/,
+    getRenderProps: (urlOrId: string) => {
+      const renderProps = {
+        wrapperClass: "aspect-video",
+      } as ComponentPropsWithoutRef<typeof CodePen> & {
+        wrapperClass: string;
+      };
+      const codePenRegex =
+        /^https?:\/\/codepen\.io\/[\w-]+\/(?:pen|full|details)\/([\w-]+)$/;
+      const match = urlOrId.match(codePenRegex);
+
+      if (match && match.length > 1) {
+        renderProps.codePenId = match[1];
+      }
+      return renderProps;
+    },
+    render: (props: ComponentPropsWithoutRef<typeof CodePen>) =>
+      props.codePenId ? <CodePen {...props} /> : null,
   },
 };
 
