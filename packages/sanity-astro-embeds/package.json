@@ -1,6 +1,6 @@
 {
   "name": "sanity-astro-embeds",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Embed components into your Astro site from Sanity Studio",
   "dependencies": {
     "get-youtube-id": "^1.0.1",
