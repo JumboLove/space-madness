@@ -5,9 +5,10 @@ import { ClientEmbed } from "./ClientEmbed";
 interface Props {
   id?: string;
   url?: string;
+  className?: string;
 }
 
-const { id, url } = Astro.props;
+const { id, url, className, ...embedProps } = Astro.props;
 const providerData = url ? parseEmbedUrl(url) : undefined;
 if (!providerData) {
   throw new Error(`No matching provider data found: ${id || url}`);
@@ -24,6 +25,11 @@ const { wrapperClass, ...renderProps } = provider.getRenderProps(
 );
 ---
 
-<div class:list={["not-prose", wrapperClass]} data-pagefind-ignore>
-  <ClientEmbed providerId={providerId} {...renderProps} client:visible />
+<div class:list={["not-prose", wrapperClass, className]} data-pagefind-ignore>
+  <ClientEmbed
+    providerId={providerId}
+    {...renderProps}
+    {...embedProps}
+    client:visible
+  />
 </div>
