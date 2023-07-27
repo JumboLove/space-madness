@@ -31,14 +31,6 @@ export const resourceSanityDefinition = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "mainImage",
-      title: "Main image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
       name: "url",
       title: "URL",
       type: "url",
@@ -49,6 +41,22 @@ export const resourceSanityDefinition = defineType({
       title: "Affiliate URL",
       description: "Only fill this in if a generated URL cannot be created",
       type: "url",
+    }),
+    defineField({
+      name: "mainImage",
+      title: "Main image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: "parentResource",
+      title: "Parent Resource",
+      description:
+        "Group resources together: Episodes => Podcast, Aricles => Site, Quotes => Book",
+      type: "reference",
+      to: { type: "resource" },
     }),
     defineField({
       name: "importance",
@@ -77,16 +85,17 @@ export const resourceSanityDefinition = defineType({
 });
 
 export const Resource = S.Document.extend({
+  _type: z.literal("resource"),
   title: S.String,
   slug: S.Slug,
   description: S.String,
-  mainImage: S.Image.nullable(),
   url: S.Url,
   affiliateUrl: S.Url.nullable(),
+  mainImage: S.Image.nullable(),
+  parentResource: S.Reference.nullable(),
   importance: S.Number.min(0).max(100),
   isVisible: S.Boolean,
   tags: z.array(Tag).nullable(),
-  language: S.String,
 });
 
 export type Resource = z.infer<typeof Resource>;

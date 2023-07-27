@@ -47,6 +47,14 @@ export const resourceContentSanityDefinition = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "parentResource",
+      title: "Parent Resource",
+      description:
+        "Group resources together: Episodes => Podcast, Aricles => Site, Quotes => Book",
+      type: "reference",
+      to: { type: "resource" },
+    }),
+    defineField({
       name: "url",
       title: "URL",
       type: "url",
