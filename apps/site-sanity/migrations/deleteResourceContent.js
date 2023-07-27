@@ -12,35 +12,9 @@ const client = createClient({
   token,
 })
 
-
-// Tasks to do
-// - retype recourceContent from resourceContent => resource
-
-// Tasks done
-// - export production data as a backup
-// - update resource to include parent resource
-// - update resourcecontent to include parent resource
-// - remap field from resource => parent resource
-
-// Run this script from within your project folder in your terminal with: `sanity exec --with-user-token migrations/renameField.js`
-//
-// This example shows how you may write a migration script that renames a field (name => fullname)
-// on a specific document type (author).
-// This will migrate documents in batches of 100 and continue patching until no more documents are
-// returned from the query.
-//
-// This script can safely be run, even if documents are being concurrently modified by others.
-// If a document gets modified in the time between fetch => submit patch, this script will fail,
-// but can safely be re-run multiple times until it eventually runs out of documents to migrate.
-
-// A few things to note:
-// - This script will exit if any of the mutations fail due to a revision mismatch (which means the
-//   document was edited between fetch => update)
-// - The query must eventually return an empty set, or else this script will continue indefinitely
-
-// Fetching documents that matches the precondition for the migration.
-// NOTE: This query should eventually return an empty set of documents to mark the migration
-// as complete
+// Run this script from within your project folder in your terminal with: `sanity exec --with-user-token migrations/deleteResourceContent.js`
+// This script will currently only run once, if you'd like to iterate over large datasets, you will need to delete
+// resourceContent within the loop, or use a local Map() to track which values you have created so you don't infinitely create.
 const deleteDuplicateResources = async (documents) => {
   // Extract slugs from the documents array
   const resourcesToDelete = documents.map((doc) => doc._id);
