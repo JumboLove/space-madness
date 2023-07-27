@@ -9,9 +9,6 @@ export * from "./post";
 import * as resource from "./resource";
 export * from "./resource";
 
-import * as resourceContent from "./resourceContent";
-export * from "./resourceContent";
-
 import * as tag from "./tag";
 export * from "./tag";
 
@@ -35,7 +32,6 @@ export const sanitySchemaTypes = [
   concept.conceptSanityDefinition,
   post.postSanityDefinition,
   resource.resourceSanityDefinition,
-  resourceContent.resourceContentSanityDefinition,
   tag.tagSanityDefinition,
   blockContent.blockContentSanityDefinition,
   partial.partialSanityDefinition,

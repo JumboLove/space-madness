@@ -14,8 +14,8 @@ body[]{
         slug,
         description,
         url,
-        _type == 'resourceContent' => {
-          "resource": @.resource -> {
+        _type == 'resource' => {
+          "parentResource": @.parentResource -> {
             _type,
             title,
             slug,

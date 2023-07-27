@@ -1,18 +1,20 @@
 import { groq, useSanityClient } from "astro-sanity";
 import { Resource } from "content-models";
 import { z } from "zod";
-import { TagsResult, tagsQuery } from "./partials/tag";
-import { backlinksQuery, BacklinkResult } from "./partials/backlink";
 import {
-  ResoruceContentResult,
-  resourceContentQuery,
-} from "./partials/resourceContent";
+  AllParentResourcesResult,
+  allParentResourcesQuery,
+} from "./partials/allParentResources";
+import { BacklinkResult, backlinksQuery } from "./partials/backlink";
+import { TagsResult, tagsQuery } from "./partials/tag";
 
 // Resources are sorted by importance by default
 // To use creation date as the sorter:
 // swap out `order(importance desc)` with `order(_createdAt desc)`
-export async function getAllResourcesList() {
-  const query = groq`*[_type == "resource" && isVisible == true] | order(importance desc) {
+export async function getAllResourcesList(
+  select = groq`*[_type == "resource" && isVisible == true]`,
+) {
+  const query = groq`${select} | order(importance desc) {
     title,
     slug,
     description,
@@ -43,32 +45,34 @@ export async function getAllResourcesList() {
 
 export async function getAllResourcesFull() {
   const query = groq`*[_type == "resource" && isVisible == true] | order(importance asc) {
+    _type,
     title,
     slug,
     description,
     url,
     affiliateUrl,
-    ${resourceContentQuery},
+    ${allParentResourcesQuery},
     ${tagsQuery},
     ${backlinksQuery},
   }`;
 
   const MergedResource = Resource.extend({
-    resourceContent: ResoruceContentResult,
     tags: TagsResult,
     backlinks: BacklinkResult,
+    parentResource: AllParentResourcesResult,
   });
 
   const ResourcesResult = z.array(
     MergedResource.pick({
+      _type: true,
       title: true,
       slug: true,
       description: true,
       url: true,
       affiliateUrl: true,
-      resourceContent: true,
       tags: true,
       backlinks: true,
+      parentResource: true,
     }),
   );
 
@@ -89,15 +93,15 @@ export async function getResource(slug: string) {
     title,
     slug,
     description,
+    mainImage,
     url,
     affiliateUrl,
-    ${resourceContentQuery},
+    creator,
     ${tagsQuery},
     ${backlinksQuery},
   }`;
 
   const MergedResource = Resource.extend({
-    resourceContent: ResoruceContentResult,
     tags: TagsResult,
     backlinks: BacklinkResult,
   });
@@ -106,9 +110,10 @@ export async function getResource(slug: string) {
     title: true,
     slug: true,
     description: true,
+    mainImage: true,
     url: true,
     affiliateUrl: true,
-    resourceContent: true,
+    creator: true,
     tags: true,
     backlinks: true,
   });

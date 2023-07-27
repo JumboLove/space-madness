@@ -8,6 +8,7 @@ import { splitIntoLines } from "@/lib/stringUtils";
 import { getUrlForSanityType } from "@/lib/url";
 import type { Props as $, Mark } from "astro-portabletext/types";
 import type { InternalLinkAnnotation } from "content-models";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
 export type Props = $<Mark<InternalLinkAnnotation>>;
 
 const {
@@ -17,43 +18,35 @@ const {
 function buildLinks(mark: InternalLinkAnnotation) {
   const links: { url: string; text: string; internal: boolean }[] = [];
 
-  // Resource content will not have its own internal page
-  // It may have an external URL
-  // Provide a link to the parent resource page and the external URL
-  if (mark.internalLink._type === "resourceContent" && mark.internalLink.url) {
+  links.push({
+    url: getUrlForSanityType(
+      mark.internalLink._type,
+      mark.internalLink.slug.current,
+    ),
+    text: mark.internalLink.title,
+    internal: true,
+  });
+
+  // If this is a resource that also has a parent resource,
+  // provide links to both pages
+  if (
+    "parentResource" in mark.internalLink &&
+    mark.internalLink.parentResource !== null
+  ) {
     links.push({
-      url: mark.internalLink.url,
-      text: mark.internalLink.title,
+      url: getUrlForSanityType(
+        mark.internalLink.parentResource._type,
+        mark.internalLink.parentResource.slug.current,
+      ),
+      text: mark.internalLink.parentResource.title,
       internal: false,
-    });
-  }
-
-  if (mark.internalLink._type === "resourceContent") {
-    links.push({
-      url: getUrlForSanityType(
-        mark.internalLink.resource._type,
-        mark.internalLink.resource.slug.current,
-      ),
-      text: mark.internalLink.resource.title,
-      internal: true,
-    });
-  }
-
-  if (mark.internalLink._type !== "resourceContent") {
-    links.push({
-      url: getUrlForSanityType(
-        mark.internalLink._type,
-        mark.internalLink.slug.current,
-      ),
-      text: mark.internalLink.title,
-      internal: true,
     });
   }
 
   return links;
 }
 
-const [mainLink, resourceLink] = buildLinks(markDef);
+const [mainLink, ...otherLinks] = buildLinks(markDef);
 const lines = splitIntoLines(markDef.internalLink.description);
 ---
 
@@ -69,23 +62,8 @@ const lines = splitIntoLines(markDef.internalLink.description);
           {lines.map((line, i) => (
             <p class="text-md" set:html={line} />
           ))}
-          <a
-            href={mainLink.url}
-            class="pt-popover-content-link inline-block link"
-          >
-            {mainLink.text}
-          </a>
-          {resourceLink && (
-            <div>
-              Resource:{" "}
-              <a
-                class="pt-popover-content-link inline-block link"
-                href={resourceLink.url}
-              >
-                {resourceLink.text}
-              </a>
-            </div>
-          )}
+
+          <Breadcrumbs links={[...otherLinks, mainLink]} class="mt-2" />
         </div>
       </PopoverContent>
     </Popover>
