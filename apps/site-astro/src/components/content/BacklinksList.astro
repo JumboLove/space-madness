@@ -18,7 +18,7 @@ interface Props {
 
 const { backlinks, className, grouped = false } = Astro.props;
 
-const defaultClasses = "grid md:grid-cols-2 gap-4";
+const defaultClasses = "grid md:grid-cols-2 gap-4 not-prose";
 
 type SanityTypes = Backlink["_type"];
 
