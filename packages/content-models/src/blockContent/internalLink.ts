@@ -16,12 +16,7 @@ export const internalLinkSanityDefinition = {
       name: "reference",
       type: "reference",
       title: "Reference",
-      to: [
-        { type: "post" },
-        { type: "concept" },
-        { type: "resource" },
-        { type: "resourceContent" },
-      ],
+      to: [{ type: "post" }, { type: "concept" }, { type: "resource" }],
       validation: (Rule: Rule) =>
         Rule.required().error("Reference is required"),
     },
@@ -44,13 +39,13 @@ interface StandardInternalLink {
   description: string;
 }
 
-interface ResourceContentInternalLink {
-  _type: "resourceContent";
+interface InternalLinkWithParent {
+  _type: "resource";
   title: string;
   slug: Slug;
   description: string;
   url?: string;
-  resource: {
+  parentResource: {
     _type: "resource";
     title: string;
     slug: Slug;
@@ -60,5 +55,5 @@ interface ResourceContentInternalLink {
 export type InternalLinkAnnotation = {
   _type: "internalLink";
   showPopover: Boolean;
-  internalLink: StandardInternalLink | ResourceContentInternalLink;
+  internalLink: StandardInternalLink | InternalLinkWithParent;
 };
