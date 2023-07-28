@@ -11,7 +11,11 @@ export interface Props extends HTMLAttributes<"img"> {
 }
 
 const { image, alt, width, height, ...attrs } = Astro.props;
-const imageObj = urlForImage(image.asset._ref).width(width).auto("format");
+const imageObj = urlForImage(image.asset._ref)
+  .width(width)
+  .height(height)
+  .fit("fillmax")
+  .auto("format");
 ---
 
 <img src={imageObj.url()} alt={alt} width={width} height={height} {...attrs} />
