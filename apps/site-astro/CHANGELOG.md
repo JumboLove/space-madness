@@ -1,5 +1,11 @@
 # site-space-madness-astro
 
+## 2.1.0
+
+### Minor Changes
+
+- Updated SanityImage.astro to correctly crop images with width and height attributes
+
 ## 2.0.0
 
 ### Major Changes
