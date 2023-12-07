@@ -1,5 +1,11 @@
 # site-space-madness-astro
 
+## 3.0.0
+
+### Major Changes
+
+- c4400cd: Updated Astro to v4
+
 ## 2.1.0
 
 ### Minor Changes
