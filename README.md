@@ -4,6 +4,8 @@
 
 [![Deploy to Netlify Button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/JumboLove/space-madness&base=apps/site-astro)
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FJumboLove%2Fspace-madness&env=SANITY_STUDIO_PROJECT_ID&envDescription=Sanity%20Project%20ID&envLink=https%3A%2F%2Fwww.sanity.io%2Fdocs%2Fcreating-projects&output-directory=apps%2Fsite-astro%2Fdist)
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b7b70f89-282d-4a89-97c8-fc97b39565f1/deploy-status)](https://app.netlify.com/sites/space-madness-demo/deploys)
 
 [demo.spacemadness.dev](https://demo.spacemadness.dev/)
