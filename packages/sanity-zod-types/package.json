@@ -5,7 +5,7 @@
   "dependencies": {
     "sanity": "^3.11.5",
     "typescript": "latest",
-    "zod": "^3.21.4"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@sanity/types": "^3.11.5"
