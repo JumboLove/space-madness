@@ -30,6 +30,6 @@ const { wrapperClass, ...renderProps } = provider.getRenderProps(
     providerId={providerId}
     {...renderProps}
     {...embedProps}
-    client:visible
+    client:visible={{ rootMargin: "400px" }}
   />
 </div>

@@ -6,7 +6,8 @@ import { SiteSearchDialog } from "@/components/SiteSearchDialog";
 
 <script is:inline>
   window.addEventListener("DOMContentLoaded", async (event) => {
-    window.pagefind = await import("/_pagefind/pagefind.js");
+    window.pagefind = await import("/pagefind/pagefind.js");
+    window.pagefind.init();
   });
 </script>
 
